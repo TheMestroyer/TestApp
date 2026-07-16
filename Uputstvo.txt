@@ -1,0 +1,8 @@
+Aplikacija za testove:
+Aplikacija se pali tako sto se samo upali html fajl, mogu da se dodaju fajlovi sa pitanjima, vec su napravljeni za oop os i rm.
+Strelicama moze da se ide na proslo ili sledece pitanje, enter prikazuje odgovor.
+Moguce je dodavanje vise fajlova koji su prikazani levo u sidebar-u.
+Moguce je oznacivanje pitanja.
+Ako ugasite aplikaciju u sred testa, odgovori se pamte.
+Kada kliknete submit dugme na dnu stranice, opcija Download short0awnser.... skida fajl koji mozete dati nekom AI-u da vam proveri pitanja u kojima se trazi neko objasnjenje ili tako nes
+README.md mozete dati nekom AI modelu zajedno sa materijalima kako bi napravio fajl sa pitanjima

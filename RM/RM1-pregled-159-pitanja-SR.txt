@@ -1,0 +1,891 @@
+TITLE: Racunarske mreze 1 - Pregled celog gradiva (159 pitanja)
+
+QUESTION: Transportni sloj je poznat i kao sloj broj ___ u mrezevom steku.
+TYPE: fill
+ANSWER: 4
+
+QUESTION: U standardnom opisu transportnog sloja, na sta se odnosi njegova "horizontalna" uloga?
+TYPE: single
+*A) Komunikacija s-kraja-na-kraj izmedju dva uredjaja, nezavisno od posrednickih cvorova
+B) Veza izmedju aplikacija i mreznog steka na istom uredjaju
+C) Dodela MAC adresa
+D) Rutiranje paketa izmedju podmreza
+
+QUESTION: Na sta se odnosi "vertikalna" uloga transportnog sloja?
+TYPE: single
+A) Komunikacija s-kraja-na-kraj izmedju dva uredjaja
+*B) Veza izmedju aplikacija i mreznog steka na istom uredjaju
+C) Fizicka signalizacija na liniji
+D) Komutacija okvira izmedju portova
+
+QUESTION: Nacin prenosa na transportnom sloju koji tretira aplikativne podatke kao niz bajtova proizvoljne duzine koji se segmentira zove se ___-___ prenos.
+TYPE: fill
+ANSWER: byte-stream | byte stream
+
+QUESTION: Nacin prenosa na transportnom sloju koji prenosi i enkapsulira cele, odvojene poruke (a ne nepodeljeni niz) zove se ___-___ prenos.
+TYPE: fill
+ANSWER: message-stream | message stream
+
+QUESTION: Polje u zaglavlju transportnog sloja koje identifikuje kojoj aplikaciji (ili njenom delu) na uredjaju pripada segment zove se ___.
+TYPE: fill
+ANSWER: port
+
+QUESTION: Koja organizacija dodeljuje fiksne, poznate (well-known) brojeve portova specificnim aplikacijama?
+TYPE: single
+A) ICANN
+*B) IANA
+C) IETF
+D) W3C
+
+QUESTION: Spoji svaki opseg portova sa onim za sta je rezervisan.
+TYPE: match
+FIELD: 0-1023
+FIELD: 1024-49151
+FIELD: 49152-65535
+CARD: *1 Poznati (well-known) portovi, rezervisani za serverske aplikacije
+CARD: *2 Registrovani portovi, mogu ih koristiti i klijentske i serverske aplikacije
+CARD: *3 Privatni/dinamicki portovi, koriste ih samo klijentske aplikacije
+CARD: Portovi rezervisani iskljucivo za ICMP saobracaj
+
+QUESTION: Spoji svaki poznati broj porta sa njegovim protokolom.
+TYPE: match
+FIELD: 21
+FIELD: 80
+FIELD: 443
+FIELD: 25
+CARD: *1 FTP
+CARD: *2 HTTP
+CARD: *3 HTTPS
+CARD: *4 SMTP
+CARD: 3389 je RDP, nista od ovoga
+CARD: 143 je IMAP, nista od ovoga
+
+QUESTION: DNS uobicajeno koristi broj porta transportnog sloja ___.
+TYPE: fill
+ANSWER: 53
+
+QUESTION: ___ jedinstveno identifikuje krajnju tacku aplikacije na mrezi, a cine ga IP adresa, transportni protokol i broj porta.
+TYPE: fill
+ANSWER: soket | socket
+
+QUESTION: U klijent-server komunikaciji, sta najbolje opisuje soket serverske aplikacije?
+TYPE: single
+A) Nasumicno izabrana IP adresa i dinamicki dodeljen port
+B) Samo dinamicki dodeljen port, bez fiksne IP adrese
+*C) Unapred poznata, fiksna IP adresa upareno sa poznatim TCP ili UDP portom
+D) Serverskoj aplikaciji nije potreban soket
+
+QUESTION: Sta se smatra "dodatnim" funkcijama koje transportni protokol moze da doda povrh osnovnog multipleksiranja i demultipleksiranja?
+TYPE: multiple
+*A) Uspostavljanje i odrzavanje konekcije
+*B) Kontrola toka
+C) Dodela MAC adresa interfejsima
+D) Fizicko kodiranje bitova na liniji
+
+QUESTION: TCP je protokol bez uspostavljanja konekcije, dok je UDP protokol sa uspostavljanjem konekcije.
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Obrnuto je tacno: TCP je protokol sa uspostavljanjem konekcije, UDP je bez uspostavljanja konekcije.
+
+QUESTION: Sta najbolje opisuje UDP?
+TYPE: single
+A) Sa uspostavljanjem konekcije, byte-stream, i pouzdan
+*B) Bez uspostavljanja konekcije, message-stream, jednostavan i brz, ali nepouzdan
+C) Sa uspostavljanjem konekcije, message-stream, i garantuje redosled
+D) Protokol koji se koristi samo za prenos fajlova
+
+QUESTION: UDP je definisan u RFC ___.
+TYPE: fill
+ANSWER: 768
+
+QUESTION: U UDP zaglavlju, polje koje daje ukupnu duzinu UDP zaglavlja plus podataka zove se ___.
+TYPE: fill
+ANSWER: Length | duzina
+
+QUESTION: Ako je maksimalna velicina IP paketa 65535 bajtova, IP zaglavlje 20 bajtova, a UDP zaglavlje 8 bajtova, koliki je maksimalno moguci UDP payload (podaci)?
+TYPE: single
+A) 65535
+B) 65515
+*C) 65507
+D) 65500
+
+QUESTION: UDP checksum se racuna preko UDP zaglavlja, podataka, i ___-___ koji ukljucuje izvorisnu/odredisnu IP adresu i broj protokola.
+TYPE: fill
+ANSWER: pseudo-zaglavlje | pseudo zaglavlje | pseudo-header
+
+QUESTION: Koji su tipicni razlozi zbog kojih bi aplikacija radije koristila UDP umesto TCP?
+TYPE: multiple
+*A) Aplikacija radi u realnom vremenu gde je neprekidna isporuka sa malim kasnjenjem vaznija od malog gubitka podataka
+*B) Aplikaciji je potrebna broadcast ili multicast isporuka
+C) Aplikaciji je potrebna garantovana isporuka svakog bajta u pravilnom redosledu
+D) Aplikaciji je potrebna automatska kontrola zagusenja od strane transportnog sloja
+
+QUESTION: RTP, koji dodaje informacije o redosledu i vremenskim oznakama za medije u realnom vremenu koji se prenose preko UDP-a, znaci ___ ___ Protocol (Real-time Transport Protocol).
+TYPE: fill
+ANSWER: Real-time Transport | Real Time Transport
+
+QUESTION: Sta najbolje opisuje TCP?
+TYPE: single
+*A) Protokol sa uspostavljanjem konekcije, byte-stream, tacka-do-tacke, full-duplex
+B) Protokol bez uspostavljanja konekcije, message-stream, koristi se samo za broadcast
+C) Protokol koji nativno podrzava multicast isporuku
+D) Protokol koji uopste nema koncept konekcije
+
+QUESTION: Podrazumevana (default) Maximum Segment Size (MSS) za TCP, ako se ne dogovori drugacije pri uspostavljanju konekcije, je ___ bajtova.
+TYPE: fill
+ANSWER: 536
+
+QUESTION: Na prijemnoj strani, TCP vrsi ___ da bi ponovo sastavio originalni niz bajtova od primljenih segmenata.
+TYPE: fill
+ANSWER: sastavljanje | reassembling | reassembly
+
+QUESTION: Koje polje TCP zaglavlja odredjuje duzinu zaglavlja, izrazenu u jedinicama od 4 bajta?
+TYPE: single
+A) Window Size
+*B) HLEN
+C) Checksum
+D) Urgent Pointer
+
+QUESTION: Polje TCP zaglavlja koje govori posiljaocu koliko bajtova sme da posalje pre nego sto mora da saceka potvrdu zove se polje ___ ___.
+TYPE: fill
+ANSWER: window size | Window Size | velicina prozora
+
+QUESTION: Pocetni redni broj (Sequence Number) TCP segmenta, koji se bira pri uspostavljanju konekcije, je:
+TYPE: single
+A) Uvek 0
+B) Uvek 1
+*C) Nasumicno izabrana vrednost
+D) Fiksiran od strane administratora servera
+
+QUESTION: Sta predstavlja vrednost TCP Acknowledgement Number polja?
+TYPE: single
+A) Ukupan broj bajtova poslatih do sada
+*B) Redni broj sledeceg bajta koji primalac ocekuje da primi
+C) Ukupnu velicinu prijemnog bafera
+D) Broj porta posiljaoca
+
+QUESTION: Spoji svaku TCP kontrolnu zastavicu (flag) sa njenim znacenjem.
+TYPE: match
+FIELD: SYN
+FIELD: ACK
+FIELD: FIN
+FIELD: RST
+CARD: *1 Inicijalizuje/sinhronizuje redni broj (Sequence Number)
+CARD: *2 Oznacava da je polje Acknowledgement Number validno
+CARD: *3 Oznacava poslednji segment, zavrsetak konekcije u tom smeru
+CARD: *4 Resetuje/prekida konekciju
+CARD: Zahteva trenutnu isporuku aplikaciji, bez baferovanja
+CARD: Oznacava da je polje Urgent Pointer validno
+
+QUESTION: Poredjaj ova tri koraka TCP "rukovanja u tri koraka" (three-way handshake) u ispravan redosled.
+TYPE: match
+FIELD: Korak 1
+FIELD: Korak 2
+FIELD: Korak 3
+CARD: *1 Klijent salje segment sa nasumicnim SEQ i postavljenom SYN zastavicom (aktivno otvaranje)
+CARD: *2 Server odgovara svojim nasumicnim SEQ, postavljenim SYN, i ACK = SEQ klijenta + 1
+CARD: *3 Klijent odgovara sa ACK = SEQ servera + 1, i sada moze da pocne da salje podatke
+CARD: Klijent salje FIN da zatvori konekciju
+CARD: Server prekida konekciju sa RST zastavicom
+
+QUESTION: Zatvaranje TCP konekcije samo u jednom smeru, koriscenjem FIN-a praceno ACK-om, zove se "rukovanje u ___ koraka".
+TYPE: fill
+ANSWER: dva | 2
+
+QUESTION: Jedna TCP konekcija moze da se zatvori sa svega tri segmenta ukupno, ako se ACK druge strane i njen sopstveni FIN kombinuju u jedan segment, umesto punog zavrsetka sa cetiri segmenta.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: TCP meri koliko dugo da ceka na potvrdu pre retransmisije koristeci dinamicku procenu ___ ___ ___ (RTT).
+TYPE: fill
+ANSWER: vremena obrta | round trip time | Round Trip Time
+
+QUESTION: Objasni svojim recima zasto TCP procenjuje RTT kao tezinski prosek stare procene i novoizmerenog RTT-a, umesto da jednostavno koristi poslednju izmerenu vrednost direktno.
+TYPE: short
+EXPLAIN: RTT moze mnogo da varira izmedju pojedinacnih segmenata zbog prolaznih uslova u mrezi; usrednjavanje sa faktorom tezine izgladjuje kratkorocni sum tako da vrednost tajmauta ne reaguje prenaglo na jedan neuobicajeno brz ili spor obrt.
+
+QUESTION: Prijem tri duplirane ACK potvrde za isti segment TCP obicno tumaci kao znak da:
+TYPE: single
+A) Konekciju treba odmah zatvoriti
+*B) Taj konkretan segment je verovatno izgubljen i treba ga odmah retransmitovati, bez cekanja na tajmaut
+C) Prozor primaoca je potpuno pun
+D) Doslo je do greske u checksumu
+
+QUESTION: TCP mehanizam kontrole toka, gde posiljalac sme da ima samo ogranicenu kolicinu nepotvrdjenih podataka "u letu" u jednom trenutku, zove se mehanizam ___ ___.
+TYPE: fill
+ANSWER: klizajuceg prozora | sliding window
+
+QUESTION: U TCP mehanizmu klizajuceg prozora, veci prozor uglavnom omogucava brze, neprekidnije slanje, dok manji prozor prisiljava na cesce pauze zbog cekanja na potvrde.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Koji od ovih su TCP algoritmi/faze kontrole zagusenja?
+TYPE: multiple
+*A) Slow Start
+*B) Congestion Avoidance
+*C) Fast Recovery
+D) Resolucija imena domena (Domain Name Resolution)
+
+QUESTION: U TCP Slow Start fazi, prozor zagusenja (Congestion Window, CW) pocinje od 1 segmenta i raste ___ sa svakom rundom potvrda, dok ne dostigne prag.
+TYPE: fill
+ANSWER: eksponencijalno
+
+QUESTION: Vrednost praga na kojoj TCP prelazi sa eksponencijalnog Slow Start rasta na linearan rast zove se ___ ___ ___ (ssthresh).
+TYPE: fill
+ANSWER: slow start threshold | Slow Start Threshold | prag slow starta
+
+QUESTION: Nakon gubitka segmenta izazvanog tajmautom, sta se obicno desava sa TCP ssthresh vrednoscu i prozorom zagusenja?
+TYPE: single
+*A) ssthresh se postavlja na polovinu prethodnog prozora zagusenja, a TCP ponovo pokrece Slow Start od CW=1
+B) Obe vrednosti ostaju potpuno nepromenjene
+C) Prozor zagusenja se odmah postavlja na maksimalnu moguscu vrednost
+D) TCP trajno prelazi na ponasanje slicno UDP-u
+
+QUESTION: Nakon Fast Retransmit-a (izazvanog dupliranim ACK-ovima, ne tajmautom), TCP obicno u potpunosti preskace Slow Start i direktno ulazi u ___ ___, u fazi poznatoj kao Fast Recovery.
+TYPE: fill
+ANSWER: congestion avoidance | izbegavanje zagusenja
+
+QUESTION: U poredjenju sa TCP zaglavljem od 20 bajtova, UDP zaglavlje je:
+TYPE: single
+A) Iste velicine
+B) 40 bajtova
+*C) 8 bajtova
+D) 12 bajtova
+
+QUESTION: Koja komandno-linijska alatka prikazuje trenutno otvorene TCP konekcije na lokalnom racunaru?
+TYPE: single
+A) dig
+*B) netstat
+C) nslookup
+D) traceroute
+
+QUESTION: QUIC je protokol (koji je originalno razvio Google) koji kombinuje funkcionalnost TCP-a i TLS-a preko ___, obicno koristeci port 443.
+TYPE: fill
+ANSWER: UDP
+
+QUESTION: HTTP se koristi za prenos hipertekst dokumenata; markup jezik koji se koristi za same dokumente zove se ___.
+TYPE: fill
+ANSWER: HTML
+
+QUESTION: World Wide Web je predlozio 1989. godine ___.
+TYPE: fill
+ANSWER: Tim Berners-Lee | Timothy Berners-Lee
+
+QUESTION: HTTP uobicajeno koristi TCP port ___.
+TYPE: fill
+ANSWER: 80
+
+QUESTION: HTTPS (bezbedan HTTP preko SSL/TLS-a) uobicajeno koristi TCP port ___.
+TYPE: fill
+ANSWER: 443
+
+QUESTION: Koja je kljucna razlika izmedju "persistentne" i "nepersistentne" HTTP konekcije?
+TYPE: single
+A) Persistentne konekcije koriste UDP umesto TCP-a
+*B) Persistentna konekcija ostaje otvorena i moze se ponovo koristiti za vise zahteva, dok se nepersistentna zatvara posle svakog pojedinacnog zahteva
+C) Nepersistentne konekcije su uvek enkriptovane, persistentne nikad nisu
+D) Persistentne konekcije ne mogu da koriste HTTPS
+
+QUESTION: "Stateful" (sa stanjem) web server, za razliku od "stateless" (bez stanja), je onaj koji:
+TYPE: single
+A) Nikad ne prihvata vise od jednog klijenta odjednom
+*B) Pamti informacije o aktivnosti klijenta, obicno preko kolacica (cookies)
+C) Sluzi samo staticke fajlove
+D) Uvek zatvara TCP konekciju posle prvog zahteva
+
+QUESTION: ___ server moze da kesira ranije zahtevane veb stranice, tako da se ponovljeni zahtevi, cak i od drugog korisnika, mogu brze posluziti iz kesa umesto sa originalnog sajta.
+TYPE: fill
+ANSWER: proksi | proxy
+
+QUESTION: Koje od ovih se navode kao prednosti koriscenja veb proksija/kesa?
+TYPE: multiple
+*A) Brze vreme odziva i smanjeno koriscenje izlaznog internet linka
+*B) Povecana privatnost, jer proksi moze da sakrije klijente od spoljnih servera
+C) Garantovano uklanjanje svog malicioznog softvera
+D) Automatski prevod celokupnog sadrzaja stranice na drugi jezik
+
+QUESTION: FTP kontrolna konekcija, koja se koristi za komande poput USER, PASS, LIST, RETR i STOR, koristi TCP port ___.
+TYPE: fill
+ANSWER: 21
+
+QUESTION: Odvojena FTP konekcija, koja se koristi za stvarni prenos podataka fajla, koristi TCP port ___.
+TYPE: fill
+ANSWER: 20
+
+QUESTION: Koji lagani protokol za prenos fajlova radi preko UDP porta 69, umesto koriscenja odvojenih TCP kontrolnih/podatkovnih konekcija kao FTP?
+TYPE: single
+A) SFTP
+*B) TFTP
+C) FTPS
+D) SCP
+
+QUESTION: Spoji svaki protokol vezan za email sa njegovim uobicajenim TCP portom.
+TYPE: match
+FIELD: SMTP
+FIELD: POP3
+FIELD: IMAP
+CARD: *1 25
+CARD: *2 110
+CARD: *3 143
+CARD: 443 je HTTPS, nista od ovoga
+
+QUESTION: Za sta se prevashodno koristi SMTP?
+TYPE: single
+A) Preuzimanje email-a iz sanducica na klijent
+*B) Slanje/prosledjivanje email-a od posiljaoca ka mail serveru primaoca
+C) Razresavanje imena domena u IP adrese
+D) Udaljeni pristup komandnoj liniji
+
+QUESTION: Protokol koji obezbedjuje udaljeni pristup obicnoj tekstualnoj komandnoj konzoli, neenkriptovano, na TCP portu 23, zove se ___.
+TYPE: fill
+ANSWER: Telnet
+
+QUESTION: Enkriptovana alternativa za Telnet, koja radi na TCP portu 22, zove se ___.
+TYPE: fill
+ANSWER: SSH
+
+QUESTION: Mikrosoftov protokol za udaljeni pristup graficnoj radnoj povrsini zove se Remote ___ Protocol (RDP).
+TYPE: fill
+ANSWER: Desktop
+
+QUESTION: Osnovna svrha DNS-a je da mapira citljiva imena domena u ___ adrese, i obrnuto.
+TYPE: fill
+ANSWER: IP
+
+QUESTION: Kako su se imena hostova originalno razresavala na ranom Internetu, pre nego sto je DNS postojao?
+TYPE: single
+A) Nisu se ni razresavala; koristile su se samo IP adrese
+*B) Preko jedne deljene datoteke (HOSTS.TXT), koja se centralno odrzavala i periodicno preuzimala od strane korisnika
+C) Preko distribuirane javne knjige (public ledger)
+D) Preko rucnih telefonskih poziva administratorima mreze
+
+QUESTION: Ime domena napisano u potpunosti, od hosta pa sve do (implicitnog) korena, zove se ___ ___ ___ ime domena (Fully Qualified Domain Name).
+TYPE: fill
+ANSWER: puno kvalifikovano | Fully Qualified Domain
+
+QUESTION: U DNS-u, jedna labela (jedan segment imena domena, izmedju tacaka) moze imati najvise 63 karaktera.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: DNS imena domena razlikuju velika i mala slova, pa se "ETF.rs" i "etf.rs" tretiraju kao razliciti domeni.
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: DNS imena ne razlikuju velika i mala slova (case-insensitive).
+
+QUESTION: Domen najviseg nivoa po drzavi (ccTLD), poput ".rs", se dodeljuje na osnovu:
+TYPE: single
+A) Azbucnog redosleda imena drzava
+*B) Dvoslovnog ISO 3166 koda drzave
+C) Velicine populacije drzave
+D) Nasumicne lutrije koju sprovodi IANA
+
+QUESTION: Deo DNS stabla imena koji se upravlja kao administrativna jedinica i definise se u tekstualnoj datoteci na odredjenom name serveru zove se ___.
+TYPE: fill
+ANSWER: zona
+
+QUESTION: Kakav je odnos izmedju primarnog i sekundarnog DNS servera za datu zonu?
+TYPE: single
+A) Oni opsluzuju potpuno nepovezane zone
+*B) Sekundarni periodicno preuzima kopiju podataka zone sa primarnog, i tada oba mogu autoritativno da odgovaraju za nju
+C) Sekundarni odgovara samo na neautoritativne upite
+D) Zona moze imati samo primarni server, nikad sekundarni
+
+QUESTION: Koja je glavna razlika izmedju rekurzivnog i iterativnog DNS upita?
+TYPE: single
+A) Uvek vracaju potpuno isti rezultat
+*B) Rekurzivni upit dobija potpun konacan odgovor (ili gresku) od servera kome je poslat, dok iterativni moze da dobije samo uputstvo (referral) na drugi, specificniji server
+C) Rekurzivni upiti rade samo preko TCP-a, iterativni samo preko UDP-a
+D) Iterativne upite salje samo kes samog resolvera
+
+QUESTION: Spoji svaki tip DNS resursnog zapisa sa onim sto cuva.
+TYPE: match
+FIELD: A
+FIELD: AAAA
+FIELD: CNAME
+FIELD: MX
+FIELD: PTR
+CARD: *1 Mapira ime hosta u IPv4 adresu
+CARD: *2 Mapira ime hosta u IPv6 adresu
+CARD: *3 Definise alias (alternativno ime) za drugo ime
+CARD: *4 Identifikuje mail server za domen
+CARD: *5 Mapira IP adresu nazad u ime hosta (obrnuta pretraga)
+CARD: NS definise autoritativne name servere za zonu, nista od gore navedenog
+
+QUESTION: Tip DNS zapisa koji oznacava informacije o pocetku autoriteta (start-of-authority) za zonu (serijski broj, refresh, retry, expire, minimalni TTL) zove se ___.
+TYPE: fill
+ANSWER: SOA
+
+QUESTION: U SOA zapisu, polje koje se mora inkrementirati svaki put kad se datoteka zone promeni, kako bi sekundarni serveri znali da je dostupna novija verzija, je ___ broj.
+TYPE: fill
+ANSWER: serijski | serial
+
+QUESTION: U obrnutom DNS-u (reverse DNS), IP adrese se predstavljaju, u obrnutom dotted-decimal redosledu, pod kojim posebnim domenom?
+TYPE: single
+A) reverse.arpa
+*B) in-addr.arpa
+C) ptr.dns.rs
+D) rdns.net
+
+QUESTION: Objasni zasto je potreban "glue record" kada name server nekog poddomena ima ime hosta koje se samo nalazi unutar tog poddomena.
+TYPE: short
+EXPLAIN: Da bi se stiglo do name servera, normalno bi prvo trebalo razresiti njegovo ime hosta, ali to ime hosta se nalazi bas unutar poddomena za koji je taj server autoritativan, sto stvara kruznu zavisnost. Glue record direktno daje IP adresu name servera u roditeljskoj zoni, cime se ta kruznost razbija.
+
+QUESTION: Klasicna Windows komandno-linijska alatka za upit DNS zapisa zove se ___.
+TYPE: fill
+ANSWER: nslookup
+
+QUESTION: Na Linuxu, detaljnija komandno-linijska alatka za DNS upite zove se ___.
+TYPE: fill
+ANSWER: dig
+
+QUESTION: CNAME zapis omogucava da se definise alternativno ime (alias) za host koji vec ima A zapis.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Na vecini sistema, koji je standardni port transportnog sloja na kome DNS serveri oslushkuju?
+TYPE: single
+A) 25
+*B) 53
+C) 80
+D) 143
+
+QUESTION: Koje od ovih funkcija obavlja DNS resolver?
+TYPE: multiple
+*A) Proverava svoj lokalni kes pre nego sto posalje upit dalje
+*B) Prosledjuje zahtev konfigurisanom DNS serveru ako odgovor nije lokalno kesiran
+C) Dodeljuje IP adrese novim uredjajima na mrezi
+D) Enkriptuje sav veb saobracaj na mrezi
+
+QUESTION: U klijent-server komunikaciji, serverski soket koristi fiksni, poznati port, dok klijentski soket obicno koristi ___ port, izabran u trenutku konekcije.
+TYPE: fill
+ANSWER: dinamicki | dinamicki dodeljen | dynamic
+
+QUESTION: Koja od ovih tacno spaja servis sa njegovim uobicajenim poznatim portom?
+TYPE: single
+A) SSH - port 80
+*B) POP3 - port 110
+C) HTTP - port 443
+D) DNS - port 25
+
+QUESTION: FTP kontrolna konekcija je stateful (sa stanjem), sto znaci da server pamti informacije o prijavi i sesiji klijenta sve dok konekcija ostaje otvorena.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: SSH znaci Secure ___.
+TYPE: fill
+ANSWER: Shell
+
+QUESTION: IPv6 je definisan u RFC ___ (iz 1995. godine).
+TYPE: fill
+ANSWER: 1883
+
+QUESTION: Koji je bio osnovni problem koji je motivisao stvaranje IPv6?
+TYPE: single
+A) TCP je bio previse spor
+*B) IPv4 adresni prostor se iscrpljivao
+C) UDP-u su nedostajali brojevi portova
+D) HTTP-u je bila potrebna nova verzija
+
+QUESTION: Na Ethernet-u, vrednost L2 EtherType polja koja se koristi da identifikuje IPv6 payload je ___ (heksadecimalno), u poredjenju sa 0x0800 za IPv4.
+TYPE: fill
+ANSWER: 0x86dd | 86dd
+
+QUESTION: Koje od ovih se navode kao prednosti IPv6 u odnosu na IPv4?
+TYPE: multiple
+*A) Mnogo veci adresni prostor
+*B) Jednostavnije, fiksne velicine zaglavlje za efikasniju obradu
+*C) Ugradjena podrska za automatsku konfiguraciju adresa
+D) Potpuna nekompatibilnost sa svim postojecim protokolima rutiranja
+
+QUESTION: IPv6 zaglavlje ima fiksnu velicinu, jer su opciona polja izmestena u odvojena extension zaglavlja.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Koje polje IPv4 zaglavlja je uklonjeno iz IPv6, jer je provera integriteta prepustena sloju veze i protokolima viseg nivoa?
+TYPE: single
+A) Version
+*B) Header Checksum
+C) Source Address
+D) Traffic Class
+
+QUESTION: U IPv6 zaglavlju, polje koje identifikuje koji tip zaglavlja (ili protokol viseg nivoa) sledi zove se ___ ___ (Next Header).
+TYPE: fill
+ANSWER: Next Header | sledece zaglavlje
+
+QUESTION: Polje IPv6 zaglavlja ekvivalentno IPv4 polju Time To Live zove se ___ ___ (Hop Limit).
+TYPE: fill
+ANSWER: Hop Limit | granica skokova
+
+QUESTION: Polje IPv6 zaglavlja koje oznacava sve pakete koji pripadaju istom toku (flow) izmedju izvora i odredista, tako da ruteri mogu da kesiraju odluku o rutiranju, zove se ___ ___ (Flow Label).
+TYPE: fill
+ANSWER: Flow Label | oznaka toka
+
+QUESTION: Gde se odvija fragmentacija IPv6 paketa?
+TYPE: single
+A) Na svakom ruteru duz putanje, kao kod IPv4
+*B) Samo na izvornom (posiljajucem) hostu
+C) Samo na odredisnom hostu
+D) IPv6 nikad ne fragmentise pakete ni pod kojim okolnostima
+
+QUESTION: IPv6 garantuje minimalnu Maximum Transmission Unit (MTU) vrednost od ___ bajtova.
+TYPE: fill
+ANSWER: 1280
+
+QUESTION: Proces kojim host koji salje pakete otkriva najmanju MTU duz cele putanje do odredista zove se ___ ___ ___ (Path MTU Discovery).
+TYPE: fill
+ANSWER: Path MTU Discovery | otkrivanje MTU putanje
+
+QUESTION: Kada IPv6 ruter ne moze da prosledi paket jer prekoracuje MTU izlazne linije, sta radi?
+TYPE: single
+A) Fragmentise paket sam, kao sto bi to uradio IPv4 ruter
+*B) Odbacuje paket i salje nazad ICMPv6 poruku "Packet Too Big"
+C) Tiho prosledjuje skraceni paket
+D) Konvertuje paket u IPv4
+
+QUESTION: IPv6 adresa je duga ___ bita, cetiri puta duza od IPv4 adrese.
+TYPE: fill
+ANSWER: 128
+
+QUESTION: IPv6 adrese se po konvenciji zapisuju u ___ notaciji, sa grupama odvojenim dvotackama.
+TYPE: fill
+ANSWER: heksadecimalnoj | hex | heksadecimalnoj notaciji
+
+QUESTION: Koje od ovih je validno skraceno pravilo za zapisivanje IPv6 adresa?
+TYPE: single
+A) Bilo koji broj "::" moze da se pojavi u jednoj adresi
+*B) Jedan neprekidan niz grupa sa svim nulama moze da se zameni sa "::", ali samo jednom po adresi
+C) Vodece nule uvek moraju da se ispisu u potpunosti
+D) Dozvoljene su samo male heksadecimalne cifre
+
+QUESTION: Spoji svaki tip IPv6 adrese sa njenim opsegom/prefiksom adresa.
+TYPE: match
+FIELD: Globalna Unicast Adresa
+FIELD: Unikatna Lokalna Adresa
+FIELD: Link-Local Adresa
+FIELD: Loopback Adresa
+CARD: *1 2000::/3
+CARD: *2 fc00::/7
+CARD: *3 fe80::/10
+CARD: *4 ::1/128
+CARD: ff00::/8 je multicast opseg, nista od ovoga
+
+QUESTION: Tri glavne kategorije IPv6 adresa su unicast, multicast i ___.
+TYPE: fill
+ANSWER: anycast
+
+QUESTION: Sta se desava kada se paket posalje na IPv6 anycast adresu?
+TYPE: single
+A) Isporucuje se svakom interfejsu koji deli tu adresu
+*B) Isporucuje se samo jednom, "najblizem" interfejsu koji deli tu adresu, kako je odredjeno rutiranjem
+C) Odbacuje se, jer anycast adrese ne mogu da primaju pakete
+D) Uvek se broadcast-uje samo na lokalnom segmentu
+
+QUESTION: U Globalnoj Unicast Adresi, deo koji identifikuje konkretan host/interfejs (ekvivalentan "host delu" IPv4 adrese) zove se ___ ID (Interface ID).
+TYPE: fill
+ANSWER: Interface | interfejsni
+
+QUESTION: U tipicnoj Globalnoj Unicast Adresi, Interface ID zauzima poslednjih ___ bita adrese.
+TYPE: fill
+ANSWER: 64
+
+QUESTION: Sta radi EUI-64 pravilo?
+TYPE: single
+A) Nasumicno generise potpuno novu MAC adresu
+*B) Izvodi 64-bitni Interface ID iz 48-bitne MAC adrese, ubacivanjem FFFE u sredinu i invertovanjem U/L bita
+C) Dodeljuje staticki IPv6 prefiks na osnovu proizvodjaca uredjaja
+D) Konvertuje IPv6 adresu u IPv4 adresu
+
+QUESTION: Unikatne Lokalne Adrese (uporedive sa IPv4 privatnim adresama) koriste prefiks fc00::/___.
+TYPE: fill
+ANSWER: 7
+
+QUESTION: Unikatne Lokalne Adrese (ULA) su namenjene privatnim mrezama i ne smeju se oglasavati na javnom Internetu.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Link-Local Adrese koriste prefiks fe80::/10 i nikad se ne prosledjuju van ___ segmenta na kome su nastale.
+TYPE: fill
+ANSWER: lokalnog | local | L2
+
+QUESTION: IPv6 loopback adresa, ekvivalentna IPv4 adresi 127.0.0.1, zapisuje se kao ___.
+TYPE: fill
+ANSWER: ::1
+
+QUESTION: Sta predstavlja IPv6 "nespecificirana adresa" (::/128, sve nule)?
+TYPE: single
+A) Adresu svakog uredjaja na mrezi odjednom
+*B) Odsustvo poznate adrese, koristi se samo kao placeholder izvorisna adresa
+C) Podrazumevani gateway (default gateway)
+D) Rezervisanu multicast grupu
+
+QUESTION: IPv6 multicast adresa FF02::1 po konvenciji se odnosi na sve IPv6 ___ na lokalnom linku.
+TYPE: fill
+ANSWER: uredjaje | nodove | devices | nodes
+
+QUESTION: IPv6 multicast adresa FF02::2 po konvenciji se odnosi na sve IPv6 ___ na lokalnom linku.
+TYPE: fill
+ANSWER: rutere | routers
+
+QUESTION: Koja je osnovna svrha Solicited-Node Multicast adrese?
+TYPE: single
+A) Efikasno emitovanje video striminga
+*B) Podrska efikasnim, ciljanim operacijama Neighbor Discovery-ja, poput razresavanja adresa i detekcije duplirane adrese, za jednu konkretnu adresu
+C) Potpuna zamena DNS sistema
+D) Identifikacija podrazumevanog gateway-a
+
+QUESTION: Na koje nacine IPv6 host moze da dobije svoju adresu?
+TYPE: multiple
+*A) Staticka (rucna) konfiguracija
+*B) Stateful DHCPv6
+*C) Stateless Address Autoconfiguration (SLAAC)
+D) RARP
+
+QUESTION: Neighbor Discovery Protocol (NDP) u IPv6 zamenjuje nekoliko starijih protokola iz IPv4 ere, najvise ___.
+TYPE: fill
+ANSWER: ARP
+
+QUESTION: Spoji svaki par NDP poruka sa njegovom svrhom.
+TYPE: match
+FIELD: Router Solicitation / Router Advertisement
+FIELD: Neighbor Solicitation / Neighbor Advertisement
+CARD: *1 Otkrivanje rutera i informacija o mreznom prefiksu, koristi se u SLAAC-u
+CARD: *2 Razresavanje poznate IPv6 adrese u MAC adresu, ekvivalent ARP-u
+CARD: Dodela imena domena IP adresi, sto radi DNS, ne NDP
+
+QUESTION: Ukratko objasni sta radi Duplicate Address Detection (DAD) i kada se pokrece.
+TYPE: short
+EXPLAIN: Pre nego sto uredjaj pocne da koristi novu IPv6 adresu (bilo rucno postavljenu, preko SLAAC-a, ili preko DHCPv6), salje Neighbor Solicitation za tu adresu i ceka da vidi da li neko odgovori sa Neighbor Advertisement; odgovor znaci da je adresa vec u upotrebi i ne moze da se dodeli.
+
+QUESTION: U Stateless Address Autoconfiguration (SLAAC), sta ruter obicno dostavlja hostu?
+TYPE: single
+A) Samo broj DHCP lease-a
+*B) Mrezni prefiks (i adresu podrazumevanog gateway-a), ostavljajuci hostu da sam izgradi svoj Interface ID
+C) Potpunu, u potpunosti dodeljenu statiku adresu, ukljucujuci Interface ID, u potpunosti odredjenu od strane rutera
+D) Nista; SLAAC uopste ne ukljucuje rutere
+
+QUESTION: Tip DNS zapisa koji se koristi za cuvanje IPv6 adrese za ime hosta je ___.
+TYPE: fill
+ANSWER: AAAA
+
+QUESTION: Koji od ovih su IPv6-sposobni protokoli rutiranja koji se pominju kao naslednici svojih IPv4 pandana?
+TYPE: multiple
+*A) OSPFv3
+*B) RIPng
+*C) Multiprotocol BGP
+D) BOOTP
+
+QUESTION: Sta znaci "IPv4/IPv6 Dual Stack"?
+TYPE: single
+A) Rad dve odvojene fizicke mreze jedna pored druge
+*B) Uredjaj ili mreza istovremeno pokrece i IPv4 i IPv6 protokolske stekove, koristeci onaj koji odgovara datoj komunikaciji
+C) Enkapsulacija IPv4 paketa unutar IPv6 paketa iskljucivo
+D) Trajno iskljucivanje IPv4 nakon sto se IPv6 omoguci
+
+QUESTION: Enkapsulacija IPv6 paketa unutar IPv4 paketa, tako da odvojena IPv6 "ostrva" mogu da komuniciraju preko mreze koja je iskljucivo IPv4, zove se IPv6 ___.
+TYPE: fill
+ANSWER: tunelovanje | tunneling
+
+QUESTION: Mehanizam koji direktno prevodi IPv6 pakete u IPv4 pakete (i obrnuto) na granicnom uredjaju, tako da nativni IPv6 i IPv4 hostovi mogu da komuniciraju medjusobno, zove se:
+TYPE: single
+A) Dual stack
+B) Tunelovanje
+*C) NAT-PT (Protocol Translation)
+D) SLAAC
+
+QUESTION: Koji su nedostaci cisto staticke (rucne) dodele IP adresa, u poredjenju sa dinamickom dodelom?
+TYPE: multiple
+*A) Vece su sanse za greske u konfiguraciji, poput preklapajucih adresa ili pogresne maske
+*B) Promena maske ili podrazumevanog gateway-a zahteva azuriranje svakog pojedinacnog uredjaja
+C) Automatski podrzava privremene/ad-hoc korisnike poput Wi-Fi gostiju
+D) Ne zahteva nikakvu konfiguraciju
+
+QUESTION: Protokol koji pronalazi IP adresu uredjaja na osnovu njegove MAC adrese, obrnuto od ARP-a, zove se ___.
+TYPE: fill
+ANSWER: RARP
+
+QUESTION: RARP je originalno prevashodno dizajniran da podrzi:
+TYPE: single
+A) Mobilne telefone
+B) Bezicne rutere
+*C) Radne stanice bez diska (diskless workstations) kojima je trebalo da preuzmu OS i IP adresu sa servera
+D) Cloud servere
+
+QUESTION: Osnovno ogranicenje RARP-a je da dodeljuje samo IP adresu, bez maske podmreze ili podrazumevanog gateway-a, i radi samo unutar jednog lokalnog (L2) segmenta.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: BOOTP poboljsava RARP tako sto dodatno moze da dostavi masku podmreze, podrazumevani gateway, i adresu ___ servera.
+TYPE: fill
+ANSWER: DNS
+
+QUESTION: I BOOTP i DHCP koriste UDP port 67 na serveru i UDP port ___ na klijentu.
+TYPE: fill
+ANSWER: 68
+
+QUESTION: Koje je osnovno ogranicenje koje DHCP resava, u poredjenju sa BOOTP-om?
+TYPE: single
+A) BOOTP ne moze da dodeli masku podmreze
+*B) BOOTP zahteva unapred konfigurisano, staticko mapiranje jedan-na-jedan izmedju MAC i IP adresa; ne moze dinamicki da dodeljuje adrese iz bazena (pool)
+C) BOOTP ne koristi UDP
+D) BOOTP ne moze da se koristi na LAN-u
+
+QUESTION: DHCP se najbolje opisuje kao dinamicka, poboljsana verzija ___.
+TYPE: fill
+ANSWER: BOOTP
+
+QUESTION: Poredjaj cetiri koraka DHCP procesa dodele adrese u ispravan redosled.
+TYPE: match
+FIELD: Korak 1
+FIELD: Korak 2
+FIELD: Korak 3
+FIELD: Korak 4
+CARD: *1 DHCPDISCOVER: klijent broadcast-uje zahtev za adresom
+CARD: *2 DHCPOFFER: DHCP server nudi adresu (i druge parametre)
+CARD: *3 DHCPREQUEST: klijent broadcast-uje prihvatanje jedne konkretne ponude
+CARD: *4 DHCPACK: server koji je ponudio potvrdjuje i finalizuje zakup (lease)
+CARD: Klijent se rucno konfigurise sa statickom adresom
+CARD: Server salje DHCPNAK kojim odbija zahtev
+
+QUESTION: Inicijalna DHCPDISCOVER poruka DHCP klijenta salje se kao broadcast, jer klijent jos ne zna adresu nijednog DHCP servera.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Kako DHCP server moze da proveri da li je adresa koju je na putu da ponudi vec u upotrebi na mrezi?
+TYPE: single
+A) Ovo uopste ne moze da proveri
+B) Upitom ka DNS-u
+*C) Slanjem ICMP ping-a na tu adresu
+D) Pozivanjem RARP protokola
+
+QUESTION: Ako vise od jednog DHCP servera odgovori na klijentov broadcast za otkrivanje, klijent obicno prihvata samo prvu ___ koju primi.
+TYPE: fill
+ANSWER: ponudu | offer | DHCPOFFER
+
+QUESTION: Privatni opsezi IP adresa rezervisani za unutrasnje mreze ukljucuju 10.0.0.0/8, 172.16.0.0/12, i ___.
+TYPE: fill
+ANSWER: 192.168.0.0/16
+
+QUESTION: ___ (Network Address Translation) prevodi adrese iz jednog adresnog prostora (obicno privatnog) u drugi (obicno javni), najcesce na granicnom ruteru.
+TYPE: fill
+ANSWER: NAT
+
+QUESTION: Spoji svaki NAT termin sa njegovim znacenjem.
+TYPE: match
+FIELD: Inside Local Address
+FIELD: Inside Global Address
+FIELD: Outside Global Address
+CARD: *1 Adresa originalno dodeljena hostu na unutrasnjoj mrezi, pre translacije
+CARD: *2 Javna/legitimna adresa u koju se prevodi Inside Local adresa
+CARD: *3 Adresa uredjaja na spoljasnjoj mrezi
+CARD: Adresa koju host koristi za sopstveni loopback interfejs
+
+QUESTION: Koja je definisuca osobina Static NAT-a?
+TYPE: single
+A) Bazen (pool) globalnih adresa se dinamicki deli medju mnogo hostova
+*B) Svaka unutrasnja adresa se uvek prevodi u istu, fiksnu globalnu adresu (mapiranje jedan-na-jedan)
+C) Koristi brojeve portova da multipleksira mnogo unutrasnjih hostova na jednu globalnu adresu
+D) Ne zahteva nikakvu konfiguraciju
+
+QUESTION: Koja NAT varijanta olaksava spoljasnjem klijentu da inicira konekciju ka unutrasnjem serveru?
+TYPE: single
+*A) Static NAT
+B) Dynamic NAT
+C) PAT/Overload NAT
+D) Nijedna od ovih ne podrzava dolaznu (inbound) konekciju
+
+QUESTION: Dynamic NAT uzima adrese iz unapred definisanog skupa globalnih adresa koji se obicno zove ___.
+TYPE: fill
+ANSWER: bazen | pool
+
+QUESTION: Kod obicnog Dynamic NAT-a (bez PAT-a), samo jedan unutrasnji host moze da koristi datu globalnu adresu u datom trenutku, pa maksimalan broj istovremenih prevedenih konekcija odgovara velicini bazena adresa.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: NAT varijanta koja omogucava da vise unutrasnjih hostova istovremeno deli jednu (ili nekoliko) globalnih adresa, tako sto prevodi i brojeve portova, zove se ___ (ili Overload NAT).
+TYPE: fill
+ANSWER: PAT | Port Address Translation
+
+QUESTION: Koju dodatnu informaciju PAT koristi, pored IP adrese, da bi konekcije vise unutrasnjih hostova ostale razlucive kada dele jednu globalnu adresu?
+TYPE: single
+A) MAC adresu uredjaja
+*B) TCP/UDP broj porta
+C) Ime hosta uredjaja
+D) DNS TTL vrednost
+
+QUESTION: Staticko mapiranje koje omogucava spoljasnjem hostu da pristupi odredjenom unutrasnjem serveru, prosledjivanjem odredjene kombinacije globalna adresa+port ka fiksnoj unutrasnjoj adresi+portu, zove se ___ ___.
+TYPE: fill
+ANSWER: port forwarding | prosledjivanje porta
+
+QUESTION: Uz osnovni port forwarding, vise razlicitih unutrasnjih veb servera moze istovremeno da se dostigne spolja na istom javnom portu 80.
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Osnovni port forwarding mapira jednu kombinaciju globalna adresa+port na tacno jednu unutrasnju adresu+port, pa samo jedan unutrasnji server moze da bude izlozen na datom spoljasnjem portu u datom trenutku.
+
+QUESTION: Za aplikacije peer-to-peer u realnom vremenu (poput video poziva), gde oba kraja komunikacije sede iza odvojenih NAT uredjaja, kako se obicno uspostavlja direktna komunikacija?
+TYPE: single
+A) Nemoguce je; sav saobracaj mora uvek da ide preko sopstvenog servera aplikacije
+*B) Oba kraja se prvo registruju kod javnog servera, koji medjusobno razmenjuje njihove NAT-ovane adrese/portove, nakon cega krajevi pokusavaju da komuniciraju direktno
+C) NAT se privremeno iskljucuje na oba rutera
+D) Aplikacija mora da predje iskljucivo na IPv6
+
+QUESTION: Koji tip NAT-a se opisuje kao najmanje restriktivan, u smislu da bilo koji spoljasnji host moze da posalje paket na mapiranu spoljasnju adresu/port i da on stigne do unutrasnjeg hosta?
+TYPE: single
+A) Symmetric NAT
+B) Port-Restricted-Cone NAT
+*C) Full-Cone NAT
+D) Restricted-Cone NAT
+
+QUESTION: Koji tip NAT-a je najrestriktivniji, zahtevajuci da je unutrasnji host vec poslao paket na odredjenu spoljasnju adresu/port pre nego sto bilo sta moze da stigne nazad od nje?
+TYPE: single
+*A) Symmetric NAT
+B) Full-Cone NAT
+C) Restricted-Cone NAT
+D) Port-Restricted-Cone NAT
+
+QUESTION: ICMP poruke koje ukljucuju polje Query Identifier (poput echo request/reply koji koristi ping) lakse je prevesti za NAT nego ICMP ___ poruke, kojima to polje nedostaje i umesto toga nose originalni paket kao svoj payload.
+TYPE: fill
+ANSWER: greske | error
+
+QUESTION: NAT uredjaj koji takodje ispituje i prepisuje podatke na nivou aplikacije (ne samo zaglavlja), tako da protokoli koji nose ugradjene informacije o IP adresi i dalje ispravno rade kroz NAT, zove se Application Level ___ (ALG).
+TYPE: fill
+ANSWER: Gateway | mrezni prolaz
+
+QUESTION: Koje od ovih se navode kao prednosti koriscenja NAT-a?
+TYPE: multiple
+*A) Smanjuje potrosnju oskudnih javnih IP adresa
+*B) Unutrasnju mrezu ne treba renumerisati ako organizacija promeni internet provajdera (ISP-a)
+C) Potpuno eliminise potrebu za bilo kakvim firewall-om ili kontrolom pristupa
+D) Uvek cini rutiranje jednostavnijim i brzim nego bez NAT-a
+
+QUESTION: ___ (Access Control Lists) omogucavaju ruteru da dozvoli ili odbije pakete na osnovu uslova proverenih nad poljima zaglavlja 3. i 4. nivoa.
+TYPE: fill
+ANSWER: ACL | Access Control Lists | liste kontrole pristupa
+
+QUESTION: Kada ruter proverava ACL nad dolaznim paketom, sta se desava?
+TYPE: single
+A) Uvek se proveravaju sva pravila na listi, i pobedjuje najspecificnije
+*B) Pravila se proveravaju po redosledu, i primenjuje se akcija (dozvoli ili odbij) prvog pravila koje se poklopi; dalja pravila se ne proveravaju
+C) Pravila se primenjuju u nasumicnom redosledu
+D) Uvek se koristi samo poslednje pravilo na listi
+
+QUESTION: Ako paket dodje do kraja ACL-a bez poklapanja sa nijednim eksplicitnim pravilom, odbacuje se implicitnim pravilom ___ na kraju.
+TYPE: fill
+ANSWER: odbijanja | deny
+
+QUESTION: Na osnovu cega ACL pravilo obicno moze da poklopi paket?
+TYPE: multiple
+*A) Izvorisne i/ili odredisne IP adrese
+*B) Izvorisnog i/ili odredisnog TCP/UDP broja porta
+C) HTML sadrzaja veb stranice
+D) Korisnikove ukucane lozinke
+
+QUESTION: U kom smeru (smerovima) ACL primenjen na interfejs rutera moze da se primeni?
+TYPE: single
+A) Samo dolazno (inbound)
+*B) I dolazno (IN) i odlazno (OUT)
+C) Samo odlazno (outbound)
+D) ACL ne moze da se primeni na interfejse
+
+QUESTION: Objasni zasto NAT moze da otezva pracenje maliciozne aktivnosti (poput pokusaja hakovanja) do konkretnog unutrasnjeg uredjaja, na osnovu prijave primljene sa Interneta.
+TYPE: short
+EXPLAIN: Spolja, svi unutrasnji hostovi izgledaju kao da dele jednu ili nekoliko javnih adresa (a uz PAT i efemerne brojeve portova koji se stalno menjaju), pa prijava spolja o kombinaciji javna IP/port direktno ne otkriva koji je unutrasnji uredjaj zapravo bio odgovoran, bez dodatne provere NAT uredjajevih sopstvenih logova translacije iz tog tacnog trenutka.

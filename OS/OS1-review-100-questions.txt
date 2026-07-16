@@ -1,0 +1,558 @@
+TITLE: Operativni sistemi 1 - Full Course Review (Deo I-V, 100 questions)
+
+QUESTION: An operating system is fundamentally a program that acts as an intermediary between application programs and computer hardware.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: The core, always memory-resident part of an OS that provides its most basic services is called the ___.
+TYPE: fill
+ANSWER: kernel
+
+QUESTION: Which kind of computer could, in principle, run without any operating system at all?
+TYPE: single
+A) A general-purpose desktop
+B) A time-sharing mainframe
+*C) A simple embedded system dedicated to one fixed program
+D) A cloud server
+
+QUESTION: The mechanism by which a running program asks the OS kernel to perform a service (such as an I/O operation) on its behalf is called a ___ ___.
+TYPE: fill
+ANSWER: system call
+
+QUESTION: Explain, in your own words, why a user program cannot simply access a keyboard or screen directly and must go through the operating system instead.
+TYPE: short
+EXPLAIN: Direct hardware access would require every program to know low-level, device-specific details, would let programs interfere with each other and the hardware, and would tie programs to one specific device. The OS instead provides a simple, safe, and portable abstraction (a system call interface) that hides those details.
+
+QUESTION: The set of library routines a program can call to make system calls on a given OS is known as its:
+TYPE: single
+A) ABI
+*B) API
+C) ISA
+D) VFS
+
+QUESTION: The first graphical user interface concepts appeared only after the year 2000.
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: The first GUI was conceived as early as 1973, decades before it became mainstream.
+
+QUESTION: A single execution of a program, potentially running concurrently with other executions of the same or a different program, is called a ___.
+TYPE: fill
+ANSWER: process
+
+QUESTION: A computer that can only ever run one single, fixed, built-in program is best described as:
+TYPE: single
+*A) monoprogrammed
+B) multiprogrammed
+C) time-shared
+D) multiprocessed
+
+QUESTION: A monoprocessor operating system can only have one process actually running at any given instant, though it can switch between many over time.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Which of these are direct consequences of introducing multiprogramming?
+TYPE: multiple
+*A) Better CPU utilization, since another process can run while one waits for I/O
+*B) The OS now needs an algorithm to decide which ready process runs next
+C) The computer no longer needs any operating memory
+D) Every process is guaranteed to finish faster than if it ran alone
+
+QUESTION: Which technological advance was a key enabler of multiprogramming, since it allowed random access to waiting jobs regardless of where they were stored?
+TYPE: single
+A) Punch cards
+B) Line printers
+*C) Magnetic disks
+D) Punch card readers
+
+QUESTION: Switching the CPU from executing one process to executing another, while allowing each to resume later as if uninterrupted, is called a ___ ___.
+TYPE: fill
+ANSWER: context switch
+
+QUESTION: Forcibly taking the CPU away from a process that hasn't voluntarily given it up is called:
+TYPE: single
+A) scheduling
+*B) preemption
+C) multiprogramming
+D) thrashing
+
+QUESTION: In a time-sharing system, a process is normally allowed to run until it voluntarily makes a system call, with no fixed limit on how long it can hold the CPU.
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Time-sharing systems impose a limited time slice so the CPU is preempted and shared fairly and responsively among many processes.
+
+QUESTION: The small, fixed slot of CPU time given to a process before it may be preempted in a time-sharing system is called:
+TYPE: single
+A) a burst
+*B) a time slice (quantum)
+C) a page
+D) a segment
+
+QUESTION: Early command-line interpreters needed to echo typed characters back to the screen quickly (within a fraction of a second) for the user to feel the system is responsive.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Match each shell notation to what it does.
+TYPE: match
+FIELD: Redirect standard output to a file
+FIELD: Redirect standard input from a file
+FIELD: Send one process's output as another's input
+CARD: *1 >
+CARD: *2 <
+CARD: *3 |
+CARD: &&
+
+QUESTION: The universal, abstract concept the OS provides so programs can store and access data uniformly, regardless of the underlying device, is called a ___.
+TYPE: fill
+ANSWER: file
+
+QUESTION: What best distinguishes a distributed system from a multiprocessor system?
+TYPE: single
+A) Distributed systems are always faster
+B) Multiprocessor systems never share memory
+*C) A distributed system's processors don't share memory and communicate only by exchanging messages over a network
+D) Multiprocessor systems always have exactly two CPUs
+
+QUESTION: The CPU register that always holds the address of the next instruction to fetch is called the ___ ___.
+TYPE: fill
+ANSWER: program counter | PC
+
+QUESTION: In a load/store RISC architecture, which instructions are allowed to address operative memory directly?
+TYPE: single
+*A) Only load and store
+B) All arithmetic instructions
+C) Only jump instructions
+D) None, memory is never addressed
+
+QUESTION: A CPU's zero flag is set when the result of the most recent arithmetic or compare operation equals zero.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Assembly language and machine code have a strict one-to-one correspondence: each assembly instruction becomes exactly one machine instruction.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: A stack-based structure supporting push and pop, used for return addresses and local data across nested or recursive subroutine calls, is inherently which kind of structure?
+TYPE: fill
+ANSWER: LIFO
+
+QUESTION: Why can't local variables and parameters simply be given fixed, static addresses in a language that supports recursion?
+TYPE: single
+A) Static allocation is illegal in assembly
+*B) Multiple simultaneous, unfinished activations of the same subroutine each need their own independent copy of the locals
+C) Registers can't hold addresses
+D) The stack pointer doesn't exist in recursive programs
+
+QUESTION: The hardware unit responsible for translating a logical (virtual) address generated by the CPU into a physical address is called the ___.
+TYPE: fill
+ANSWER: MMU | memory management unit
+
+QUESTION: Under simple contiguous allocation with base and limit registers, what happens if a process generates a logical address greater than the value in the limit register?
+TYPE: single
+A) The address silently wraps around to zero
+*B) The CPU raises a memory access violation exception
+C) The OS automatically extends the process's memory
+D) Nothing; the access proceeds normally
+
+QUESTION: Internal fragmentation refers to wasted space inside a block that has been allocated to a process but isn't actually used by it.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Which dynamic memory allocation algorithm picks the smallest free block that is still big enough for the request?
+TYPE: single
+A) First fit
+*B) Best fit
+C) Worst fit
+D) Round robin
+
+QUESTION: In segmentation, the per-process table storing the base address and limit (size) of each segment is called the ___ ___ table.
+TYPE: fill
+ANSWER: segment map | SMT
+
+QUESTION: In pure paging, the per-process table that maps page numbers to physical frame numbers is called the ___ ___ table.
+TYPE: fill
+ANSWER: page map | PMT
+
+QUESTION: Which of these are true advantages of pure paging compared to plain segmentation?
+TYPE: multiple
+*A) No external fragmentation, since all allocation units (pages/frames) are the same size
+*B) Address translation needs only one table lookup plus a concatenation, which is simpler and faster in hardware
+C) It completely eliminates internal fragmentation
+D) It removes the need for any page-table-pointer register
+
+QUESTION: The small, fast on-CPU cache that stores recently used page-table entries, to avoid repeated memory accesses during address translation, is called the ___.
+TYPE: fill
+ANSWER: TLB | translation lookaside buffer
+
+QUESTION: Because the same page number maps to different frames in different processes, a TLB's contents generally must be invalidated on a context switch, unless entries are tagged with a process identifier.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: What CPU feature lets the operating system prevent user processes from directly modifying registers like the page-table pointer?
+TYPE: single
+A) A larger cache
+*B) A privileged (kernel) execution mode
+C) A faster clock speed
+D) Virtual memory itself
+
+QUESTION: The technique where processes sharing the same read-only page get an independent copy only at the moment one of them tries to write to it is called ___ ___ ___.
+TYPE: fill
+ANSWER: copy on write | copy-on-write
+
+QUESTION: Explain why demand paging can let a process start running before all of its memory content has actually been loaded from disk.
+TYPE: short
+EXPLAIN: Only the pages that are actually referenced need to be brought into memory; the rest are loaded lazily, one at a time, only when a page fault is triggered by an access to them, so execution can begin using just the first few pages.
+
+QUESTION: Thrashing occurs when:
+TYPE: single
+A) A process never accesses memory at all
+B) The disk cache is disabled
+*C) So many processes compete for too little memory that page faults become extremely frequent and little useful work gets done
+D) A process is denied a stack segment
+
+QUESTION: Put these steps of translating a virtual address into a physical address, under pure paging, in the correct order.
+TYPE: match
+FIELD: Step 1
+FIELD: Step 2
+FIELD: Step 3
+FIELD: Step 4
+CARD: *1 Split the virtual address into a page number and an offset
+CARD: *2 Use the page number to index the page map table (PMT) and fetch the page descriptor
+CARD: *3 Check whether the descriptor is null (raise a page fault) or gives a valid frame number
+CARD: *4 Concatenate the frame number with the offset to form the physical address
+CARD: Recompute the segment's base address from the SMT
+CARD: Flush the entire TLB before continuing
+
+QUESTION: The Unix-like system call that creates a new child process as an (initially) identical copy of the calling process is called ___.
+TYPE: fill
+ANSWER: fork
+
+QUESTION: Immediately after a successful fork(), what value does the call return inside the newly created child process?
+TYPE: single
+A) The parent's PID
+*B) 0
+C) A negative number
+D) The child's own PID
+
+QUESTION: The exec family of system calls creates a brand new, separate process alongside the calling process.
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: exec replaces the calling process's own memory image and control flow with a new program; it does not create an additional process.
+
+QUESTION: A parent process can suspend itself until one of its children terminates by calling ___ (or waitpid).
+TYPE: fill
+ANSWER: wait
+
+QUESTION: A concurrent flow of control that shares its address space with other such flows in the same process is called a ___.
+TYPE: fill
+ANSWER: thread
+
+QUESTION: Why are threads sometimes called "lightweight processes"?
+TYPE: single
+A) They use less disk space
+*B) Creating and switching between them is cheaper, since they share an address space and many OS resources
+C) They cannot be preempted
+D) They always run on a separate CPU
+
+QUESTION: An interrupt lets the CPU be signaled by a device or timer asynchronously, independent of what instruction is currently executing.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: The traditional name for the OS data structure that stores all the bookkeeping information about a process (PID, registers, memory context, etc.) is the ___ ___ ___.
+TYPE: fill
+ANSWER: process control block | PCB
+
+QUESTION: Which process state describes a process that has satisfied all conditions to run, but is simply waiting for the CPU because some other process currently has it?
+TYPE: single
+A) Blocked
+*B) Ready
+C) Running
+D) Terminating
+
+QUESTION: Which classic CPU scheduling algorithm suffers from the "convoy effect," where a short process gets stuck waiting behind a long one?
+TYPE: single
+*A) FCFS / FIFO
+B) Shortest job first
+C) Round robin
+D) Priority scheduling
+
+QUESTION: A section of code that accesses shared data and must not be executed concurrently by more than one process or thread at a time is called a ___ ___.
+TYPE: fill
+ANSWER: critical section
+
+QUESTION: Explain why busy waiting can sometimes be a reasonable choice, even though it wastes CPU cycles by definition.
+TYPE: short
+EXPLAIN: If the expected wait is very short, the overhead of a full suspend-and-reschedule (context switch) may actually cost more time than briefly spinning in place, so some systems spin for a short bound before falling back to suspension.
+
+QUESTION: Which classic 1981 algorithm solves mutual exclusion for two processes using only shared flag and turn variables, without any special hardware instructions?
+TYPE: single
+A) Banker's algorithm
+*B) Peterson's algorithm
+C) Dekker's tiebreaker
+D) Round robin scheduling
+
+QUESTION: The hardware instruction that atomically reads a memory location's old value and writes 1 into it, commonly used to build a lock, is called ___-___-___.
+TYPE: fill
+ANSWER: test and set | test-and-set
+
+QUESTION: A synchronization object introduced by Dijkstra, with an integer value and wait/signal operations, is called a ___.
+TYPE: fill
+ANSWER: semaphore
+
+QUESTION: With a binary semaphore used purely for mutual exclusion (a mutex), only the process that performed wait() is normally allowed to perform the matching signal().
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: A situation where two processes each hold a resource the other needs, and both wait forever, is called:
+TYPE: single
+A) Starvation
+*B) Deadlock
+C) Busy waiting
+D) Thrashing
+
+QUESTION: Which of these are the two fundamental logical models of interprocess communication described for cooperating processes?
+TYPE: multiple
+*A) Shared variable / shared object
+*B) Message passing
+C) Round-robin scheduling
+D) Demand paging
+
+QUESTION: In the producer-consumer pattern with a bounded buffer, what must a producer do when the buffer is completely full?
+TYPE: single
+A) Overwrite the oldest item immediately
+*B) Wait until the consumer frees up space
+C) Terminate itself
+D) Send SIGKILL to the consumer
+
+QUESTION: Put these steps of what happens when a process makes a blocking system call, in the correct order.
+TYPE: match
+FIELD: Step 1
+FIELD: Step 2
+FIELD: Step 3
+FIELD: Step 4
+CARD: *1 The process executes the system-call instruction and the CPU switches to kernel (privileged) mode
+CARD: *2 The kernel saves the calling process's processor context into its PCB
+CARD: *3 The scheduler selects another ready process to run, and its context is restored
+CARD: *4 When the awaited condition is later met, the original process is moved back to the ready queue
+CARD: The process is permanently terminated and its PCB deleted
+CARD: The CPU clock speed is doubled to compensate
+
+QUESTION: Which of these best describes a character-oriented device, as opposed to a block-oriented one?
+TYPE: single
+*A) It transfers data one small unit (such as a byte) at a time, like a keyboard
+B) It always has more storage capacity
+C) It requires a DMA controller
+D) It can only ever be used by one process
+
+QUESTION: A system call that returns control to the caller immediately, without waiting for the I/O operation to finish, is called ___ (or non-blocking).
+TYPE: fill
+ANSWER: asynchronous
+
+QUESTION: Every process is normally given three standard character streams by default: standard input, standard output, and standard ___.
+TYPE: fill
+ANSWER: error
+
+QUESTION: The kernel module responsible for the low-level, direct communication with a specific class of hardware device is called a device ___.
+TYPE: fill
+ANSWER: driver
+
+QUESTION: Busy-waiting on a device's ready bit, repeatedly reading a status register until it changes, is also known as polling.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: What is the main advantage of using interrupts instead of polling to detect that a device is ready?
+TYPE: single
+A) Interrupts are simpler to implement in software
+B) Interrupts never need a vector table
+*C) The CPU can do other useful work instead of spinning in a wait loop
+D) Interrupts eliminate the need for device drivers
+
+QUESTION: A specialized hardware controller that can transfer an entire block of data between memory and a device without the CPU moving each word itself is called a(n) ___ controller.
+TYPE: fill
+ANSWER: DMA | direct memory access
+
+QUESTION: Match each device controller register type to what it is used for.
+TYPE: match
+FIELD: Control register
+FIELD: Status register
+FIELD: Data register
+CARD: *1 The CPU writes into it to set the device's mode or start an operation
+CARD: *2 The CPU reads from it to check things like the device's ready bit or errors
+CARD: *3 The CPU reads or writes the actual data being transferred through it
+CARD: The CPU uses it to permanently disable the device
+
+QUESTION: Since access time on a magnetic disk depends heavily on how far the read/write head must move, the order in which pending disk requests are serviced matters a great deal for performance.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: What is the key conceptual difference between a cache and a buffer?
+TYPE: single
+A) A cache is always physically bigger than a buffer
+*B) A cache holds a copy of data that also exists elsewhere; a buffer may hold the only copy of data currently in transit
+C) Buffers are only ever used with disks
+D) There is no real difference between them
+
+QUESTION: Using two alternating buffers, where one is being filled while the other is being drained, is called:
+TYPE: single
+A) spooling
+*B) double buffering
+C) caching
+D) journaling
+
+QUESTION: Redirecting output meant for a slow, non-shareable device like a printer into a temporary file, which a separate background process later feeds to the device, is called ___.
+TYPE: fill
+ANSWER: spooling
+
+QUESTION: Spooling lets multiple processes effectively share a printer without their output getting interleaved character by character.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: The hardware device that periodically decrements a value and generates an interrupt when it reaches zero, used to implement time-sharing and timeouts, is called a ___.
+TYPE: fill
+ANSWER: timer
+
+QUESTION: The POSIX system call that lets a process send an arbitrary, device-specific request directly to a device file is called ___.
+TYPE: fill
+ANSWER: ioctl
+
+QUESTION: What does mmap() with the MAP_PRIVATE flag guarantee, compared to using MAP_SHARED?
+TYPE: single
+A) Changes are immediately visible to all other processes mapping the same file
+*B) The process gets its own independent copy of the pages (via copy-on-write); changes aren't written back to the file or seen by others
+C) The mapping can never be removed
+D) The underlying file must be read-only
+
+QUESTION: Which of the following are mentioned as techniques for improving I/O subsystem performance?
+TYPE: multiple
+*A) Reducing the number of context switches
+*B) Transferring larger blocks to reduce the interrupt-to-payload overhead ratio
+C) Deliberately increasing the number of context switches
+D) Always preferring busy waiting over interrupts
+
+QUESTION: A resource used for interprocess communication by message passing, over a network or locally, is called a ___.
+TYPE: fill
+ANSWER: socket
+
+QUESTION: Why do I/O operations tend to hurt overall system performance if not carefully managed?
+TYPE: single
+A) They never use the CPU at all
+*B) They increase context switches, data copying between buffers, bus load from DMA, and interrupt frequency
+C) They disable virtual memory entirely
+D) They always run in user mode
+
+QUESTION: Briefly explain what BIOS routines are and why the OS and drivers rely on them.
+TYPE: short
+EXPLAIN: BIOS is a fixed set of built-in, low-level routines stored in ROM that perform elementary operations with hardware that is always present in a given computer architecture; the OS and device drivers rely on them, especially very early during boot, before more sophisticated software has been loaded.
+
+QUESTION: The universal logical concept the OS provides so programs can store and access data uniformly across all kinds of devices is called a ___.
+TYPE: fill
+ANSWER: file
+
+QUESTION: On Unix-like systems, the on-disk structure holding a file's attributes (owner, size, pointers to its data blocks, etc.) is traditionally called an ___.
+TYPE: fill
+ANSWER: inode
+
+QUESTION: What is the key practical difference between a hard link and a symbolic link to the same file?
+TYPE: single
+A) Hard links can point to files on other computers, symbolic links cannot
+*B) A hard link is another direct directory entry to the very same file object, so it can't "dangle"; a symbolic link stores a path and can become broken
+C) Symbolic links are always faster to open
+D) Hard links can only reference directories
+
+QUESTION: What structural generalization allows the same file to be listed in more than one directory?
+TYPE: single
+A) A binary tree
+B) A doubly linked list
+*C) A directed acyclic graph (DAG)
+D) A hash table
+
+QUESTION: A path that always starts from the root directory is called an ___ (or full) path, as opposed to a relative path.
+TYPE: fill
+ANSWER: absolute
+
+QUESTION: Making a file system on a removable or remote volume part of the OS's single directory tree, so processes can access it transparently, is called mounting.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Under Unix-style permissions, which three classes of users have separately assigned rights to a file?
+TYPE: single
+*A) Owner, group, others
+B) Root, admin, guest
+C) Reader, writer, executor
+D) Local, remote, cloud
+
+QUESTION: Under Unix-style rwx permissions, which permission is required to be able to search or traverse into a directory (list its entries)?
+TYPE: single
+A) read
+*B) execute
+C) write
+D) none is needed
+
+QUESTION: Which allocation method stores a file's blocks at consecutive addresses on disk, so the k-th logical block is simply first_block + k?
+TYPE: single
+*A) Contiguous allocation
+B) Linked allocation
+C) Indexed allocation
+D) FAT-based allocation
+
+QUESTION: The classic file allocation method used by MS-DOS/Windows that keeps one big table of block-chain pointers, separate from the data blocks themselves, is called ___.
+TYPE: fill
+ANSWER: FAT | file allocation table
+
+QUESTION: Linked allocation of file blocks makes direct (random) access to the k-th block very efficient, since its address can be computed directly.
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Linked allocation requires walking the chain from the first block to reach the k-th one, so direct access is slow; that weakness is exactly what FAT and indexed allocation address.
+
+QUESTION: An allocation method where a separate block lists the numbers of all of a file's data blocks, similar in spirit to a page table, is called ___ allocation.
+TYPE: fill
+ANSWER: indexed
+
+QUESTION: A simple, common way to keep track of free disk blocks, where each block is represented by a single 0/1 flag in a big array, is called a ___ ___.
+TYPE: fill
+ANSWER: bit vector | bitmap
+
+QUESTION: Which of these are mentioned as common techniques to improve file system performance?
+TYPE: multiple
+*A) Caching recently used blocks in memory
+*B) Reading ahead when sequential access is detected
+C) Always writing metadata asynchronously with no safeguards
+D) Deliberately scattering a file's blocks randomly across the disk
+
+QUESTION: A transactional technique where changes are first recorded in a separate log before being applied, so the system can recover cleanly after a crash, is called ___.
+TYPE: fill
+ANSWER: journaling
+
+QUESTION: In file-system journaling, what does the presence of a <commit> record in the log (with no crash before all blocks are copied) tell the OS on recovery?
+TYPE: single
+A) The transaction must be discarded
+*B) The transaction completed logically and should be replayed/finished, since redoing it is safe (idempotent)
+C) The disk is physically damaged
+D) A full backup must be restored
+
+QUESTION: What is the main practical difference between an incremental backup and a total (full) backup?
+TYPE: single
+A) Incremental backups never include new files
+*B) Incremental backups copy only files changed since the last backup, so they are normally much faster
+C) Total backups are always stored in the cloud
+D) There is no real difference between them
+
+QUESTION: The abstraction layer that lets the kernel treat local files, network files, and other file types uniformly through a common object interface is called the ___ ___ ___.
+TYPE: fill
+ANSWER: virtual file system | VFS
+
+QUESTION: Explain the difference between a shared lock and an exclusive lock on a file.
+TYPE: short
+EXPLAIN: A shared lock lets multiple readers access the file concurrently, as long as no one holds an exclusive lock. An exclusive lock, needed for writing, requires that no other process hold any lock on the file, shared or exclusive, at the same time.
+
+QUESTION: Put these steps of opening a file identified by a multi-component path, for the first time, in the correct order.
+TYPE: match
+FIELD: Step 1
+FIELD: Step 2
+FIELD: Step 3
+FIELD: Step 4
+CARD: *1 Resolve the given path (absolute, or relative to the current directory) into a full path
+CARD: *2 Walk the path component by component, reading each directory's entries to find where the next component's FCB lives (using the directory-entry cache where possible)
+CARD: *3 Load the target file's FCB (inode) from disk and check the requesting process's access rights
+CARD: *4 Allocate a new open-file-table entry and a file descriptor, then return the descriptor to the process
+CARD: Immediately delete the file's inode from disk
+CARD: Reformat the entire volume before continuing

@@ -1,0 +1,53 @@
+TITLE: Sample Quiz - World Geography & Science
+
+QUESTION: What is the capital of France?
+TYPE: single
+A) London
+B) Berlin
+*C) Paris
+D) Madrid
+
+QUESTION: Which of the following are prime numbers?
+TYPE: multiple
+*A) 2
+B) 4
+*C) 5
+D) 9
+*E) 11
+
+QUESTION: The chemical symbol for gold is ___.
+TYPE: fill
+ANSWER: Au | gold
+
+QUESTION: Water boils at 100 degrees Celsius at sea level.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: The largest planet in the solar system is ___.
+TYPE: fill
+ANSWER: Jupiter
+EXPLAIN: Jupiter is more than twice as massive as all the other planets combined.
+
+QUESTION: Mount Everest is located on the border of Nepal and
+which other country?
+TYPE: single
+A) India
+*B) China
+C) Bhutan
+D) Pakistan
+
+QUESTION: In your own words, briefly explain why the sky appears blue.
+TYPE: short
+
+QUESTION: Put the steps of a PC getting an IP address from a DHCP server in the correct order.
+TYPE: match
+FIELD: Step 1
+FIELD: Step 2
+FIELD: Step 3
+FIELD: Step 4
+CARD: *1 Client broadcasts a DHCPDISCOVER to find any available DHCP servers
+CARD: *2 Server responds with a DHCPOFFER containing an available IP address
+CARD: *3 Client sends a DHCPREQUEST accepting the offered IP from that server
+CARD: *4 Server sends a DHCPACK acknowledging and finalizing the lease
+CARD: Client manually configures itself with a static IP address
+CARD: Server sends a DHCPNAK rejecting the request

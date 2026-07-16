@@ -1,0 +1,558 @@
+TITLE: Operativni sistemi 1 - Pregled celog gradiva (Deo I-V, 100 pitanja)
+
+QUESTION: Operativni sistem je u osnovi program koji predstavlja posrednika izmedju korisnickih (aplikativnih) programa i hardvera racunara.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Deo operativnog sistema koji je uvek ucitan u operativnu memoriju i pruza njegove najosnovnije usluge naziva se ___.
+TYPE: fill
+ANSWER: kernel | jezgro
+
+QUESTION: Koji tip racunara bi u principu mogao da radi potpuno bez operativnog sistema?
+TYPE: single
+A) Opsti desktop racunar
+B) Mejnfrejm sa raspodelom vremena
+*C) Jednostavan ugradjen (embedded) sistem posvecen jednom, fiksnom programu
+D) Server u oblaku (cloud)
+
+QUESTION: Mehanizam kojim program koji se izvrsava trazi od kernela da izvrsi neku uslugu (npr. ulazno-izlaznu operaciju) naziva se ___ ___.
+TYPE: fill
+ANSWER: sistemski poziv
+
+QUESTION: Objasni svojim recima zasto korisnicki program ne moze jednostavno direktno da pristupa tastaturi ili ekranu, vec to mora da radi preko operativnog sistema.
+TYPE: short
+EXPLAIN: Direktan pristup hardveru bi zahtevao da svaki program poznaje detalje niskog nivoa specificne za svaki uredjaj, dozvolio bi programima da ometaju jedni druge i sam hardver, i vezao bi program za tacno odredjen uredjaj. Operativni sistem umesto toga pruza jednostavnu, bezbednu i prenosivu apstrakciju (interfejs sistemskih poziva) koja skriva te detalje.
+
+QUESTION: Skup bibliotekih potprograma koje program moze da pozove da bi izvrsio sistemske pozive na datom OS-u naziva se:
+TYPE: single
+A) ABI
+*B) API
+C) ISA
+D) VFS
+
+QUESTION: Prve koncepte graficnog korisnickog interfejsa (GUI) osmislili su tek posle 2000. godine.
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Prvi GUI je osmisljen jos 1973. godine, decenijama pre nego sto je postao siroko rasprostranjen.
+
+QUESTION: Jedno izvrsavanje programa, koje potencijalno tece uporedo sa drugim izvrsavanjima istog ili drugog programa, naziva se ___.
+TYPE: fill
+ANSWER: proces
+
+QUESTION: Racunar koji moze uvek da izvrsava samo jedan, fiksan, ugradjen program najbolje se opisuje kao:
+TYPE: single
+*A) monoprogramski
+B) multiprogramski
+C) sistem sa raspodelom vremena
+D) multiprocesni
+
+QUESTION: Monoprocesni operativni sistem moze da ima samo jedan proces koji se stvarno izvrsava u datom trenutku, iako moze da smenjuje mnogo procesa tokom vremena.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Koje od ovih su direktne posledice uvodjenja multiprogramiranja?
+TYPE: multiple
+*A) Bolje iskoriscenje procesora, jer drugi proces moze da radi dok jedan ceka na U/I operaciju
+*B) OS sada mora da ima algoritam kojim bira koji spreman proces ce sledeci da dobije procesor
+C) Racunaru vise uopste nije potrebna operativna memorija
+D) Svaki proces je garantovano brzi nego kada bi se izvrsavao sam
+
+QUESTION: Koji tehnoloski napredak je bio kljucan za omogucavanje multiprogramiranja, jer je omogucio proizvoljan (nasumican) pristup poslovima koji cekaju, bez obzira gde su smesteni?
+TYPE: single
+A) Busene kartice
+B) Linijski stampaci
+*C) Magnetni diskovi
+D) Citaci busenih kartica
+
+QUESTION: Prebacivanje procesora sa izvrsavanja jednog procesa na izvrsavanje drugog, tako da svaki kasnije moze da nastavi kao da nije ni bio prekidan, naziva se ___ ___.
+TYPE: fill
+ANSWER: promena konteksta
+
+QUESTION: Nasilno oduzimanje procesora procesu koji ga se nije dobrovoljno odrekao naziva se:
+TYPE: single
+A) rasporedjivanje
+*B) preotimanje
+C) multiprogramiranje
+D) batrganje
+
+QUESTION: U sistemu sa raspodelom vremena, proces sme uobicajeno da se izvrsava dok sam ne izvrsi sistemski poziv, bez ikakvog fiksnog ogranicenja koliko dugo sme da drzi procesor.
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Sistemi sa raspodelom vremena uvode ogranicen vremenski odsecak, tako da se procesor preotima i pravedno i odzivno deli izmedju mnogo procesa.
+
+QUESTION: Mali, fiksni odsecak procesorskog vremena koji se dodeljuje procesu pre nego sto moze biti preotet, u sistemu sa raspodelom vremena, naziva se:
+TYPE: single
+A) nalet (burst)
+*B) vremenski odsecak (kvant)
+C) stranica
+D) segment
+
+QUESTION: Ranim interpreterima komandne linije bilo je potrebno da brzo (u delu sekunde) ispisu (eho) otkucani znak na ekran, kako bi korisnik osecao da sistem odgovara.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Pridruzi svakoj notaciji skoljke (shell) ono sto ona radi.
+TYPE: match
+FIELD: Preusmeravanje standardnog izlaza u fajl
+FIELD: Preusmeravanje standardnog ulaza iz fajla
+FIELD: Prosledjivanje izlaza jednog procesa kao ulaza drugom
+CARD: *1 >
+CARD: *2 <
+CARD: *3 |
+CARD: &&
+
+QUESTION: Univerzalan, apstraktan koncept koji OS pruza da bi programi na jedinstven nacin cuvali i pristupali podacima, nezavisno od uredjaja, naziva se ___.
+TYPE: fill
+ANSWER: fajl
+
+QUESTION: Sta najbolje razlikuje distribuiran sistem od multiprocesorskog sistema?
+TYPE: single
+A) Distribuirani sistemi su uvek brzi
+B) Multiprocesorski sistemi nikad ne dele memoriju
+*C) Procesori distribuiranog sistema ne dele memoriju i komuniciraju iskljucivo razmenom poruka preko mreze
+D) Multiprocesorski sistemi uvek imaju tacno dva procesora
+
+QUESTION: Registar procesora koji uvek sadrzi adresu naredne instrukcije koju treba dohvatiti naziva se ___ ___.
+TYPE: fill
+ANSWER: programski brojac | PC
+
+QUESTION: U load/store RISC arhitekturi, koje instrukcije smeju direktno da adresiraju operativnu memoriju?
+TYPE: single
+*A) Samo load i store
+B) Sve aritmeticke instrukcije
+C) Samo instrukcije skoka
+D) Nijedna, memorija se nikad ne adresira
+
+QUESTION: Indikator (fleg) nule (Z) procesora se postavlja kada je rezultat poslednje aritmeticke ili komparativne operacije jednak nuli.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Asemblerski jezik i masinski kod imaju strogu jedan-na-jedan korespondenciju: svaka asemblerska instrukcija postaje tacno jedna masinska instrukcija.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Struktura zasnovana na steku, sa operacijama push i pop, koja se koristi za povratne adrese i lokalne podatke kroz ugnjezdene ili rekurzivne pozive potprograma, po prirodi je koja vrsta strukture?
+TYPE: fill
+ANSWER: LIFO
+
+QUESTION: Zasto lokalne promenljive i parametri ne mogu jednostavno da imaju fiksne, staticke adrese u jeziku koji podrzava rekurziju?
+TYPE: single
+A) Staticka alokacija je nedozvoljena u asembleru
+*B) Vise istovremenih, nezavrsenih aktivacija istog potprograma - svakoj je potreban sopstveni, nezavisan komplet lokalnih podataka
+C) Registri ne mogu da cuvaju adrese
+D) Pokazivac steka ne postoji u rekurzivnim programima
+
+QUESTION: Hardverska jedinica zaduzena za prevodjenje logicke (virtuelne) adrese koju generise procesor u fizicku adresu naziva se ___.
+TYPE: fill
+ANSWER: MMU
+
+QUESTION: Kod jednostavne kontinualne alokacije sa baznim registrom i registrom granice, sta se desava ako proces generise logicku adresu vecu od vrednosti u registru granice?
+TYPE: single
+A) Adresa se cutke prelama na nulu
+*B) Procesor generise izuzetak zbog prestupa u pristupu memoriji
+C) OS automatski prosiruje memoriju procesa
+D) Nista; pristup se normalno nastavlja
+
+QUESTION: Interna fragmentacija oznacava izgubljen prostor unutar bloka koji je dodeljen procesu, ali ga on stvarno ne koristi.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Koji algoritam dinamicke alokacije memorije bira najmanji slobodan blok koji je i dalje dovoljno veliki za zahtev?
+TYPE: single
+A) First fit
+*B) Best fit
+C) Worst fit
+D) Round robin
+
+QUESTION: U segmentaciji, tabela po procesu koja cuva baznu adresu i granicu (velicinu) svakog segmenta naziva se tabela ___ ___.
+TYPE: fill
+ANSWER: preslikavanja segmenata | SMT
+
+QUESTION: U cistom stranicenju, tabela po procesu koja preslikava brojeve stranica u brojeve fizickih okvira naziva se tabela ___ ___.
+TYPE: fill
+ANSWER: preslikavanja stranica | PMT
+
+QUESTION: Koje od ovih su stvarne prednosti cistog stranicenja u odnosu na obicnu segmentaciju?
+TYPE: multiple
+*A) Nema eksterne fragmentacije, jer su sve jedinice alokacije (stranice/okviri) iste velicine
+*B) Preslikavanje adrese zahteva samo jedan pristup tabeli plus konkatenaciju, sto je jednostavnije i brze u hardveru
+C) Potpuno eliminise internu fragmentaciju
+D) Uklanja potrebu za bilo kakvim registrom pokazivaca na tabelu stranica
+
+QUESTION: Mala, brza kes memorija na samom procesoru koja cuva nedavno koriscene deskriptore stranica, kako bi se izbegli ponovljeni pristupi memoriji pri preslikavanju adresa, naziva se ___.
+TYPE: fill
+ANSWER: TLB
+
+QUESTION: Posto se isti broj stranice preslikava u razlicite okvire kod razlicitih procesa, sadrzaj TLB-a se uglavnom mora invalidirati pri promeni konteksta, osim ako su ulazi oznaceni identifikatorom procesa.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Koja osobina procesora omogucava operativnom sistemu da spreci korisnicke procese da direktno menjaju registre poput pokazivaca na tabelu stranica?
+TYPE: single
+A) Veci kes
+*B) Privilegovani (sistemski) rezim izvrsavanja
+C) Brzi takt
+D) Sama virtuelna memorija
+
+QUESTION: Tehnika kod koje procesi koji dele istu stranicu samo za citanje dobijaju nezavisnu kopiju tek u trenutku kada neko od njih pokusa da upise u nju naziva se ___ ___ ___.
+TYPE: fill
+ANSWER: kopiranje pri upisu | copy on write | copy-on-write
+
+QUESTION: Objasni zasto ucitavanje stranica na zahtev omogucava da proces pocne da se izvrsava pre nego sto je ceo njegov sadrzaj u memoriji stvarno ucitan sa diska.
+TYPE: short
+EXPLAIN: Samo stranice koje se stvarno referenciraju treba da se ucitaju u memoriju; ostale se ucitavaju lenjo, jedna po jedna, tek kada stranicnu gresku izazove pristup njima, pa izvrsavanje moze da pocne koristeci samo prvih nekoliko stranica.
+
+QUESTION: Batrganje (thrashing) nastaje kada:
+TYPE: single
+A) Proces nikad ne pristupa memoriji
+B) Kes diska je iskljucen
+*C) Toliko procesa se takmici za premalo memorije da stranicne greske postaju izuzetno cesce, a malo korisnog posla se obavi
+D) Procesu je uskracen segment za stek
+
+QUESTION: Poredjaj korake preslikavanja virtuelne adrese u fizicku, kod ciste stranicne organizacije, ispravnim redosledom.
+TYPE: match
+FIELD: Korak 1
+FIELD: Korak 2
+FIELD: Korak 3
+FIELD: Korak 4
+CARD: *1 Podeli virtuelnu adresu na broj stranice i pomeraj (ofset)
+CARD: *2 Koristi broj stranice da indeksiras tabelu preslikavanja stranica (PMT) i dohvati deskriptor stranice
+CARD: *3 Proveri da li je deskriptor null (izazovi stranicnu gresku) ili sadrzi validan broj okvira
+CARD: *4 Konkateniraj broj okvira sa pomerajem da dobijes fizicku adresu
+CARD: Ponovo izracunaj baznu adresu segmenta iz SMT
+CARD: Isprazni ceo TLB pre nastavka
+
+QUESTION: Sistemski poziv nalik Unix sistemima koji kreira nov proces dete kao (inicijalno) identicnu kopiju procesa koji ga poziva naziva se ___.
+TYPE: fill
+ANSWER: fork
+
+QUESTION: Odmah posle uspesnog poziva fork(), koju vrednost poziv vraca unutar novokreiranog procesa deteta?
+TYPE: single
+A) PID roditelja
+*B) 0
+C) Negativan broj
+D) Sopstveni PID deteta
+
+QUESTION: Familija sistemskih poziva exec kreira potpuno nov, poseban proces pored procesa koji ga poziva.
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: exec zamenjuje sopstvenu memorijsku sliku i tok kontrole procesa koji ga je pozvao novim programom; ne kreira dodatan proces.
+
+QUESTION: Proces roditelj moze da suspenduje sebe dok se neko od njegove dece ne zavrsi, pozivom ___ (ili waitpid).
+TYPE: fill
+ANSWER: wait
+
+QUESTION: Uporedan tok kontrole koji deli svoj adresni prostor sa drugim takvim tokovima u istom procesu naziva se ___.
+TYPE: fill
+ANSWER: nit
+
+QUESTION: Zasto se niti ponekad nazivaju "lakim procesima"?
+TYPE: single
+A) Zauzimaju manje prostora na disku
+*B) Njihovo kreiranje i smenjivanje je jeftinije, jer dele adresni prostor i mnoge resurse OS-a
+C) Ne mogu da budu preotete
+D) Uvek se izvrsavaju na posebnom procesoru
+
+QUESTION: Prekid omogucava da uredjaj ili tajmer asinhrono signalizira procesoru, nezavisno od toga koja se instrukcija trenutno izvrsava.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Tradicionalan naziv za strukturu podataka OS-a koja cuva sve podatke o procesu (pid, registre, memorijski kontekst itd.) je ___ ___ ___.
+TYPE: fill
+ANSWER: kontrolni blok procesa | PCB
+
+QUESTION: Koje stanje procesa opisuje proces koji je ispunio sve uslove za izvrsavanje, ali jednostavno ceka na procesor jer ga trenutno koristi neki drugi proces?
+TYPE: single
+A) Blokiran (ceka)
+*B) Spreman
+C) Izvrsava se
+D) Terminalno stanje
+
+QUESTION: Koji klasican algoritam rasporedjivanja procesora pati od "konvoj efekta", gde kratak proces ostaje zaglavljen iza dugackog?
+TYPE: single
+*A) FCFS / FIFO
+B) Najkraci posao prvi (SJF)
+C) Round robin
+D) Rasporedjivanje po prioritetu
+
+QUESTION: Deo koda koji pristupa deljenim podacima i ne sme se izvrsavati uporedo od strane vise od jednog procesa ili niti u isto vreme naziva se ___ ___.
+TYPE: fill
+ANSWER: kriticna sekcija
+
+QUESTION: Objasni zasto uposleno cekanje ponekad moze da bude razumnija odluka, iako po definiciji trosi procesorsko vreme uzalud.
+TYPE: short
+EXPLAIN: Ako se ocekuje da cekanje bude vrlo kratko, rezijski trosak potpune suspenzije i ponovnog rasporedjivanja (promena konteksta) moze zapravo da kosta vise vremena nego kratko uposleno cekanje, pa neki sistemi prvo kratko cekaju uposleno, a tek onda prelaze na suspenziju.
+
+QUESTION: Koji klasican algoritam iz 1981. godine resava medjusobno iskljucenje za dva procesa koristeci samo deljene promenljive flag i turn, bez ikakvih posebnih hardverskih instrukcija?
+TYPE: single
+A) Bankarev algoritam
+*B) Petersonov algoritam
+C) Dekerovo resenje
+D) Round robin raspodjeljivanje
+
+QUESTION: Hardverska instrukcija koja atomicno cita staru vrednost memorijske lokacije i upisuje 1 u nju, cesto koriscena za implementaciju brave, naziva se ___-___-___.
+TYPE: fill
+ANSWER: test and set | test-and-set
+
+QUESTION: Sinhronizacioni objekat koji je uveo Dijkstra, sa celobrojnom vrednoscu i operacijama wait/signal, naziva se ___.
+TYPE: fill
+ANSWER: semafor
+
+QUESTION: Kod binarnog semafora koji se koristi iskljucivo za medjusobno iskljucenje (mutex), po pravilu samo proces koji je izvrsio wait() sme da izvrsi odgovarajuci signal().
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Situacija u kojoj dva procesa svaki drzi resurs koji je potreban onom drugom, i oba zauvek cekaju, naziva se:
+TYPE: single
+A) Izgladnjivanje
+*B) Mrtva blokada (deadlock)
+C) Uposleno cekanje
+D) Batrganje
+
+QUESTION: Koja su dva fundamentalna logicka modela medjuprocesne komunikacije opisana za kooperativne procese?
+TYPE: multiple
+*A) Deljena promenljiva / deljeni objekat
+*B) Razmena poruka
+C) Round robin raspodjeljivanje
+D) Ucitavanje stranica na zahtev
+
+QUESTION: U semi proizvodjac-potrosac sa ogranicenim baferom, sta proizvodjac mora da uradi kada je bafer potpuno pun?
+TYPE: single
+A) Odmah prepise najstariji element
+*B) Saceka dok potrosac ne oslobodi mesto
+C) Prekine sopstveno izvrsavanje
+D) Posalje SIGKILL potrosacu
+
+QUESTION: Poredjaj korake onoga sto se desava kada proces izvrsi blokirajuci sistemski poziv, ispravnim redosledom.
+TYPE: match
+FIELD: Korak 1
+FIELD: Korak 2
+FIELD: Korak 3
+FIELD: Korak 4
+CARD: *1 Proces izvrsava instrukciju sistemskog poziva, a procesor prelazi u sistemski (privilegovani) rezim
+CARD: *2 Kernel cuva procesorski kontekst procesa koji poziva u njegov PCB
+CARD: *3 Rasporedjivac bira neki drugi spreman proces za izvrsavanje, i njegov kontekst se restaurira
+CARD: *4 Kada se kasnije ispuni uslov na koji se cekalo, originalni proces se vraca u red spremnih
+CARD: Proces se trajno gasi, a njegov PCB brise
+CARD: Takt procesora se udvostrucuje radi kompenzacije
+
+QUESTION: Sta najbolje opisuje znakovno orijentisan uredjaj, za razliku od blokovski orijentisanog?
+TYPE: single
+*A) Prenosi podatke jednu malu jedinicu (npr. bajt) po bajt, kao tastatura
+B) Uvek ima veci kapacitet skladistenja
+C) Zahteva DMA kontroler
+D) Moze uvek da ga koristi samo jedan proces
+
+QUESTION: Sistemski poziv koji odmah vraca kontrolu pozivaocu, ne cekajuci da se U/I operacija zavrsi, naziva se ___ (ili neblokirajuci).
+TYPE: fill
+ANSWER: asinhron
+
+QUESTION: Svaki proces po pravilu dobija tri standardna znakovna toka: standardni ulaz, standardni izlaz i standardni ___.
+TYPE: fill
+ANSWER: izlaz za greske
+
+QUESTION: Modul kernela zaduzen za nisko-nivojsku, neposrednu komunikaciju sa odredjenom klasom hardverskog uredjaja naziva se ___ uredjaja.
+TYPE: fill
+ANSWER: drajver
+
+QUESTION: Uposleno cekanje na bit spremnosti uredjaja, ponavljano citanje statusnog registra dok se ne promeni, naziva se i prozivanje (polling).
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Koja je glavna prednost koriscenja prekida umesto prozivanja za otkrivanje da je uredjaj spreman?
+TYPE: single
+A) Prekidi su jednostavniji za softversku implementaciju
+B) Prekidima nikad nije potrebna vektor tabela
+*C) Procesor moze da radi neki drugi koristan posao umesto da se vrti u petlji cekanja
+D) Prekidi eliminisu potrebu za drajverima uredjaja
+
+QUESTION: Specijalizovan hardverski kontroler koji moze da prenese ceo blok podataka izmedju memorije i uredjaja bez da procesor pomera svaku rec pojedinacno naziva se ___ kontroler.
+TYPE: fill
+ANSWER: DMA
+
+QUESTION: Pridruzi svaki tip registra kontrolera uredjaja onome cemu sluzi.
+TYPE: match
+FIELD: Upravljacki registar (control register)
+FIELD: Statusni registar (status register)
+FIELD: Registar podataka (data register)
+CARD: *1 Procesor u njega upisuje da postavi rezim uredjaja ili pokrene operaciju
+CARD: *2 Procesor iz njega cita da proveri npr. bit spremnosti ili greske
+CARD: *3 Kroz njega procesor cita ili upisuje same podatke koji se prenose
+CARD: Procesor ga koristi da trajno onemoguci uredjaj
+
+QUESTION: Posto vreme pristupa na magnetnom disku uveliko zavisi od toga koliko daleko glava za citanje/upis mora da se pomeri, redosled kojim se opsluzuju cekajuci zahtevi za disk mnogo utice na performanse.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Koja je kljucna konceptualna razlika izmedju kesa i bafera?
+TYPE: single
+A) Kes je uvek fizicki veci od bafera
+*B) Kes cuva kopiju podataka koji postoje i negde drugde; bafer moze da cuva jedinu kopiju podataka koji su trenutno u prenosu
+C) Baferi se koriste samo sa diskovima
+D) Nema stvarne razlike izmedju njih
+
+QUESTION: Koriscenje dva naizmenicna bafera, gde se jedan puni dok se drugi prazni, naziva se:
+TYPE: single
+A) spuling
+*B) dvostruko baferisanje
+C) kesiranje
+D) zurnaliranje
+
+QUESTION: Preusmeravanje izlaza namenjenog sporom, nedeljivom uredjaju poput stampaca u privremeni fajl, koji posebnom pozadinskom procesu kasnije prosledjuje sadrzaj uredjaju, naziva se ___.
+TYPE: fill
+ANSWER: spuling
+
+QUESTION: Spuling omogucava da vise procesa efektivno deli stampac, bez da im se izlazi izmesaju znak po znak.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Hardverski uredjaj koji periodicno dekrementira vrednost i generise prekid kada ona dostigne nulu, koriscen za implementaciju raspodele vremena i tajmauta, naziva se ___.
+TYPE: fill
+ANSWER: tajmer
+
+QUESTION: POSIX sistemski poziv koji omogucava procesu da posalje proizvoljan, uredjaju-specifican zahtev direktno fajlu-uredjaju naziva se ___.
+TYPE: fill
+ANSWER: ioctl
+
+QUESTION: Sta garantuje mmap() sa flegom MAP_PRIVATE, u poredjenju sa MAP_SHARED?
+TYPE: single
+A) Izmene su odmah vidljive svim drugim procesima koji preslikavaju isti fajl
+*B) Proces dobija sopstvenu, nezavisnu kopiju stranica (preko kopiranja pri upisu); izmene se ne upisuju nazad u fajl niti ih vide drugi
+C) Preslikavanje se nikad ne moze ukloniti
+D) Fajl mora biti samo za citanje
+
+QUESTION: Koje od ovih su navedene kao tehnike za poboljsanje performansi U/I podsistema?
+TYPE: multiple
+*A) Smanjenje broja promena konteksta
+*B) Prenos vecih blokova radi smanjenja odnosa rezije prekida prema korisnom sadrzaju
+C) Namerno povecanje broja promena konteksta
+D) Uvek davanje prednosti uposlenom cekanju u odnosu na prekide
+
+QUESTION: Resurs koriscen za medjuprocesnu komunikaciju razmenom poruka, preko mreze ili lokalno, naziva se ___.
+TYPE: fill
+ANSWER: soket
+
+QUESTION: Zasto ulazno-izlazne operacije obicno stete ukupnim performansama sistema ako se pazljivo ne upravljaju?
+TYPE: single
+A) Nikad ne koriste procesor
+*B) Povecavaju broj promena konteksta, kopiranje podataka izmedju bafera, opterecenje magistrale zbog DMA i ucestanost prekida
+C) Potpuno onemogucavaju virtuelnu memoriju
+D) Uvek se izvrsavaju u korisnickom rezimu
+
+QUESTION: Ukratko objasni sta su BIOS rutine i zasto se OS i drajveri oslanjaju na njih.
+TYPE: short
+EXPLAIN: BIOS je fiksan skup ugradjenih, nisko-nivojskih rutina smestenih u ROM-u koje obavljaju elementarne operacije sa hardverom koji je uvek prisutan u datoj arhitekturi racunara; OS i drajveri uredjaja se oslanjaju na njih, posebno vrlo rano tokom podizanja sistema, pre nego sto se ucita sofisticiraniji softver.
+
+QUESTION: Univerzalan logicki koncept koji OS pruza da bi programi na jedinstven nacin cuvali i pristupali podacima na svim vrstama uredjaja naziva se ___.
+TYPE: fill
+ANSWER: fajl
+
+QUESTION: Na Unix-nalik sistemima, struktura na disku koja cuva atribute fajla (vlasnik, velicina, pokazivaci na blokove sa podacima itd.) tradicionalno se naziva ___.
+TYPE: fill
+ANSWER: inode
+
+QUESTION: Koja je kljucna prakticna razlika izmedju tvrde veze (hard link) i simbolicke veze ka istom fajlu?
+TYPE: single
+A) Tvrde veze mogu da upucuju na fajlove na drugim racunarima, simbolicke ne mogu
+*B) Tvrda veza je jos jedan direktan ulaz u direktorijumu ka istom fajlu-entitetu, pa ne moze da bude "visi u vazduhu"; simbolicka veza cuva putanju i moze da postane pokidana
+C) Simbolicke veze se uvek brze otvaraju
+D) Tvrde veze mogu da referenciraju samo direktorijume
+
+QUESTION: Koje strukturno uopstenje omogucava da se isti fajl navede u vise od jednog direktorijuma?
+TYPE: single
+A) Binarno stablo
+B) Dvostruko ulancana lista
+*C) Usmereni acikliski graf (DAG)
+D) Hes tabela
+
+QUESTION: Putanja koja uvek pocinje od korenog direktorijuma naziva se ___ (ili puna) putanja, za razliku od relativne putanje.
+TYPE: fill
+ANSWER: apsolutna
+
+QUESTION: Ukljucivanje fajl sistema sa prenosivog ili udaljenog volumena u jedinstveno stablo direktorijuma OS-a, tako da mu procesi mogu transparentno da pristupaju, naziva se montiranje.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Kod Unix-stila prava pristupa, koje tri klase korisnika imaju posebno dodeljena prava nad fajlom?
+TYPE: single
+*A) Vlasnik, grupa, ostali
+B) Root, admin, gost
+C) Citalac, pisac, izvrsilac
+D) Lokalni, udaljeni, u oblaku
+
+QUESTION: Kod Unix-stila rwx prava, koje je pravo potrebno da bi se moglo pretrazivati odnosno ulaziti u direktorijum (listati njegove ulaze)?
+TYPE: single
+A) citanje (read)
+*B) izvrsavanje (execute)
+C) upis (write)
+D) nijedno nije potrebno
+
+QUESTION: Koji metod alokacije smesta blokove fajla na uzastopne adrese na disku, tako da je k-ti logicki blok jednostavno first_block + k?
+TYPE: single
+*A) Kontinualna alokacija
+B) Ulancana alokacija
+C) Indeksna alokacija
+D) Alokacija zasnovana na FAT-u
+
+QUESTION: Klasican metod alokacije fajlova, koriscen u MS-DOS/Windows, koji cuva jednu veliku tabelu pokazivaca lanaca blokova, odvojenu od samih blokova sa podacima, naziva se ___.
+TYPE: fill
+ANSWER: FAT
+
+QUESTION: Ulancana alokacija blokova fajla cini direktan (proizvoljan) pristup k-tom bloku vrlo efikasnim, jer se njegova adresa moze direktno izracunati.
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Ulancana alokacija zahteva prolazak kroz lanac pocev od prvog bloka da bi se stiglo do k-tog, pa je direktan pristup spor; upravo tu slabost resavaju FAT i indeksna alokacija.
+
+QUESTION: Metod alokacije kod kog poseban blok sadrzi spisak brojeva svih blokova sa podacima jednog fajla, po duhu slicno tabeli stranica, naziva se ___ alokacija.
+TYPE: fill
+ANSWER: indeksna
+
+QUESTION: Jednostavan, cest nacin vodjenja evidencije o slobodnim blokovima diska, gde je svaki blok predstavljen jednim 0/1 bitom u velikom nizu, naziva se ___ ___.
+TYPE: fill
+ANSWER: bit vektor | bitmapa
+
+QUESTION: Koje od ovih su navedene kao uobicajene tehnike za poboljsanje performansi fajl sistema?
+TYPE: multiple
+*A) Kesiranje nedavno koriscenih blokova u memoriji
+*B) Ucitavanje unapred (read-ahead) kada se detektuje sekvencijalan pristup
+C) Uvek asinhrono upisivanje metapodataka bez ikakvih mera zastite
+D) Namerno rasipanje blokova fajla nasumicno po celom disku
+
+QUESTION: Transakciona tehnika kod koje se izmene prvo zapisuju u poseban dnevnik (log) pre nego sto se stvarno primene, tako da sistem moze cisto da se oporavi posle otkaza, naziva se ___.
+TYPE: fill
+ANSWER: vodjenje dnevnika | zurnaliranje | journaling
+
+QUESTION: U zurnaliranju fajl sistema, sta prisustvo zapisa <commit> u dnevniku (bez otkaza pre nego sto su svi blokovi prepisani) govori OS-u prilikom oporavka?
+TYPE: single
+A) Transakcija mora da se odbaci
+*B) Transakcija je logicki zavrsena i treba je ponoviti/dovrsiti, jer je ponavljanje bezbedno (idempotentno)
+C) Disk je fizicki ostecen
+D) Mora da se restaurira potpuna rezervna kopija
+
+QUESTION: Koja je glavna prakticna razlika izmedju inkrementalne i totalne (pune) rezervne kopije?
+TYPE: single
+A) Inkrementalne kopije nikad ne ukljucuju nove fajlove
+*B) Inkrementalne kopije kopiraju samo fajlove izmenjene od poslednje kopije, pa su obicno mnogo brze
+C) Totalne kopije se uvek cuvaju u oblaku
+D) Nema stvarne razlike izmedju njih
+
+QUESTION: Sloj apstrakcije koji omogucava kernelu da lokalne fajlove, mrezne fajlove i druge tipove fajlova tretira jednoobrazno kroz zajednicki objektni interfejs naziva se ___ ___ ___.
+TYPE: fill
+ANSWER: virtuelni fajl sistem | VFS
+
+QUESTION: Objasni razliku izmedju deljenog i ekskluzivnog kljuca (brave) nad fajlom.
+TYPE: short
+EXPLAIN: Deljeni kljuc dozvoljava vise citalaca da uporedo pristupaju fajlu, sve dok niko ne drzi ekskluzivni kljuc. Ekskluzivni kljuc, potreban za upis, zahteva da nijedan drugi proces u isto vreme ne drzi nikakav kljuc nad fajlom, ni deljeni ni ekskluzivni.
+
+QUESTION: Poredjaj korake otvaranja fajla identifikovanog putanjom sa vise komponenti, po prvi put, ispravnim redosledom.
+TYPE: match
+FIELD: Korak 1
+FIELD: Korak 2
+FIELD: Korak 3
+FIELD: Korak 4
+CARD: *1 Razresi datu putanju (apsolutnu ili relativnu u odnosu na tekuci direktorijum) u punu putanju
+CARD: *2 Prodji kroz putanju komponentu po komponentu, citajuci ulaze svakog direktorijuma da nadjes gde se nalazi FCB naredne komponente (koristeci kes ulaza direktorijuma gde je moguce)
+CARD: *3 Ucitaj FCB (inode) ciljnog fajla sa diska i proveri prava pristupa procesa koji je zatrazio otvaranje
+CARD: *4 Aliciraj nov ulaz u tabeli otvorenih fajlova i deskriptor fajla, pa vrati deskriptor procesu
+CARD: Odmah obrisi inode fajla sa diska
+CARD: Reformatiraj ceo volumen pre nastavka

@@ -1,0 +1,891 @@
+TITLE: Racunarske mreze 1 - Full Course Review (159 questions)
+
+QUESTION: The transport layer is also known as Layer ___ in the network stack.
+TYPE: fill
+ANSWER: 4
+
+QUESTION: In the standard description of the transport layer, what does its "horizontal" role refer to?
+TYPE: single
+*A) End-to-end communication between two devices, independent of intermediate hops
+B) The link between applications and the network stack on the same device
+C) Assigning MAC addresses
+D) Routing packets between subnets
+
+QUESTION: What does the transport layer's "vertical" role refer to?
+TYPE: single
+A) End-to-end communication between two devices
+*B) The link between applications and the network stack on the same device
+C) Physical signaling on the wire
+D) Switching frames between ports
+
+QUESTION: A transport-layer transfer mode that treats application data as an arbitrary-length stream of bytes to be segmented is called ___-___ transfer.
+TYPE: fill
+ANSWER: byte-stream | byte stream
+
+QUESTION: A transport-layer transfer mode that carries and encapsulates whole, discrete messages (rather than an undivided stream) is called ___-___ transfer.
+TYPE: fill
+ANSWER: message-stream | message stream
+
+QUESTION: The field in a transport-layer header that identifies which application (or part of one) on a device a segment belongs to is called the ___.
+TYPE: fill
+ANSWER: port
+
+QUESTION: Which organization assigns fixed, well-known port numbers to specific applications?
+TYPE: single
+A) ICANN
+*B) IANA
+C) IETF
+D) W3C
+
+QUESTION: Match each port range to what it's reserved for.
+TYPE: match
+FIELD: 0-1023
+FIELD: 1024-49151
+FIELD: 49152-65535
+CARD: *1 Well-known ports, reserved for server applications
+CARD: *2 Registered ports, usable by both client and server applications
+CARD: *3 Private/dynamic ports, used only by client applications
+CARD: Ports reserved exclusively for ICMP traffic
+
+QUESTION: Match each well-known port number to its protocol.
+TYPE: match
+FIELD: 21
+FIELD: 80
+FIELD: 443
+FIELD: 25
+CARD: *1 FTP
+CARD: *2 HTTP
+CARD: *3 HTTPS
+CARD: *4 SMTP
+CARD: 3389 is RDP, not any of these
+CARD: 143 is IMAP, not any of these
+
+QUESTION: DNS normally uses transport-layer port number ___.
+TYPE: fill
+ANSWER: 53
+
+QUESTION: A ___ uniquely identifies an application's endpoint on the network, and is made up of an IP address, a transport protocol, and a port number.
+TYPE: fill
+ANSWER: socket
+
+QUESTION: In client-server communication, which best describes a server application's socket?
+TYPE: single
+A) A randomly chosen IP address and a dynamically assigned port
+B) A dynamically assigned port only, with no fixed IP address
+*C) A well-known, fixed IP address paired with a known TCP or UDP port
+D) No socket is needed for a server application
+
+QUESTION: Which of these are considered "extra" functions that a transport protocol can add on top of basic multiplexing and demultiplexing?
+TYPE: multiple
+*A) Connection establishment and maintenance
+*B) Flow control
+C) Assigning MAC addresses to interfaces
+D) Physical bit encoding on the wire
+
+QUESTION: TCP is a connectionless protocol, while UDP is connection-oriented.
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: It's the other way around: TCP is connection-oriented, UDP is connectionless.
+
+QUESTION: Which of these best describes UDP?
+TYPE: single
+A) Connection-oriented, byte-stream, and reliable
+*B) Connectionless, message-stream, simple and fast, but unreliable
+C) Connection-oriented, message-stream, and guarantees ordering
+D) A protocol used only for file transfer
+
+QUESTION: UDP is defined in RFC ___.
+TYPE: fill
+ANSWER: 768
+
+QUESTION: In the UDP header, the field that gives the total length of the UDP header plus data is called ___.
+TYPE: fill
+ANSWER: Length
+
+QUESTION: Given a maximum IP packet size of 65535 bytes, a 20-byte IP header, and an 8-byte UDP header, what is the maximum possible UDP payload (data) size?
+TYPE: single
+A) 65535
+B) 65515
+*C) 65507
+D) 65500
+
+QUESTION: The UDP checksum is computed over the UDP header, the data, and a ___-___ that includes the source/destination IP addresses and the protocol number.
+TYPE: fill
+ANSWER: pseudo-header | pseudo header
+
+QUESTION: Which of these are typical reasons an application would prefer UDP over TCP?
+TYPE: multiple
+*A) It's a real-time application where continuous, low-latency delivery matters more than a little data loss
+*B) The application needs broadcast or multicast delivery
+C) The application requires guaranteed, in-order delivery of every byte
+D) The application needs automatic congestion control from the transport layer
+
+QUESTION: RTP, used to add sequencing and timestamp information for real-time media carried over UDP, stands for ___ ___ Protocol.
+TYPE: fill
+ANSWER: Real-time Transport | Real Time Transport
+
+QUESTION: Which of these best describes TCP?
+TYPE: single
+*A) A connection-oriented, byte-stream, point-to-point, full-duplex protocol
+B) A connectionless, message-stream protocol used only for broadcasting
+C) A protocol that natively supports multicast delivery
+D) A protocol with no concept of a connection at all
+
+QUESTION: The default Maximum Segment Size (MSS) for TCP, unless renegotiated when the connection is set up, is ___ bytes.
+TYPE: fill
+ANSWER: 536
+
+QUESTION: On the receiving side, TCP performs ___ to rebuild the original byte stream from the segments it has received.
+TYPE: fill
+ANSWER: reassembling | reassembly
+
+QUESTION: Which TCP header field specifies the header's length, measured in units of 4 bytes?
+TYPE: single
+A) Window Size
+*B) HLEN
+C) Checksum
+D) Urgent Pointer
+
+QUESTION: The TCP header field that tells the sender how many bytes it may send before it must wait for an acknowledgment is the ___ ___ field.
+TYPE: fill
+ANSWER: window size | Window Size
+
+QUESTION: A TCP segment's initial Sequence Number, chosen when the connection is set up, is:
+TYPE: single
+A) Always 0
+B) Always 1
+*C) A randomly chosen value
+D) Fixed by the server administrator
+
+QUESTION: What does a TCP Acknowledgement Number value represent?
+TYPE: single
+A) The total number of bytes sent so far
+*B) The sequence number of the next byte the receiver expects to receive
+C) The total size of the receive buffer
+D) The port number of the sender
+
+QUESTION: Match each TCP control flag to its meaning.
+TYPE: match
+FIELD: SYN
+FIELD: ACK
+FIELD: FIN
+FIELD: RST
+CARD: *1 Initializes/synchronizes the sequence number
+CARD: *2 Marks the Acknowledgement Number field as valid
+CARD: *3 Marks the last segment, ending the connection in that direction
+CARD: *4 Resets/aborts the connection
+CARD: Requests immediate delivery to the application, without buffering
+CARD: Marks the Urgent Pointer field as valid
+
+QUESTION: Put these three steps of the TCP three-way handshake in the correct order.
+TYPE: match
+FIELD: Step 1
+FIELD: Step 2
+FIELD: Step 3
+CARD: *1 Client sends a segment with a random SEQ and the SYN flag set (active open)
+CARD: *2 Server replies with its own random SEQ, SYN set, and ACK = client's SEQ + 1
+CARD: *3 Client replies with ACK = server's SEQ + 1, and may now start sending data
+CARD: Client sends a FIN to close the connection
+CARD: Server drops the connection with an RST flag
+
+QUESTION: Closing a TCP connection in just one direction, using a FIN followed by an ACK, is called a ___-way handshake.
+TYPE: fill
+ANSWER: two | 2
+
+QUESTION: A single TCP connection can be closed in as few as three total segments, if the second side's ACK and its own FIN are combined into one segment, instead of the full four-segment teardown.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: TCP measures how long to wait for an acknowledgment before retransmitting using a dynamic estimate of the ___ ___ ___ (RTT).
+TYPE: fill
+ANSWER: round trip time | Round Trip Time
+
+QUESTION: Explain, in your own words, why TCP estimates RTT as a weighted average of the old estimate and the newly measured RTT, rather than just using the latest measured value directly.
+TYPE: short
+EXPLAIN: RTT can vary a lot between individual segments due to transient network conditions; averaging with a weighting factor smooths out short-term noise so the timeout value doesn't overreact to a single unusually fast or slow round trip.
+
+QUESTION: Receiving three duplicate ACKs for the same segment is normally interpreted by TCP as a sign that:
+TYPE: single
+A) The connection should be closed immediately
+*B) That specific segment was probably lost and should be retransmitted right away, without waiting for the timeout
+C) The receiver's window is completely full
+D) A checksum error occurred
+
+QUESTION: TCP's flow control mechanism, where the sender may only have a limited amount of unacknowledged data in flight at a time, is called the ___ ___ mechanism.
+TYPE: fill
+ANSWER: sliding window
+
+QUESTION: In TCP's sliding window mechanism, a larger window size generally allows faster, more continuous sending, while a smaller window forces more frequent pauses to wait for acknowledgments.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Which of these are TCP congestion control algorithms/phases?
+TYPE: multiple
+*A) Slow Start
+*B) Congestion Avoidance
+*C) Fast Recovery
+D) Domain Name Resolution
+
+QUESTION: In TCP's Slow Start phase, the Congestion Window (CW) starts at 1 segment and grows ___ with each round of acknowledgments, until it reaches a threshold.
+TYPE: fill
+ANSWER: exponentially
+
+QUESTION: The threshold value at which TCP switches from exponential Slow Start growth to linear growth is called the ___ ___ ___ (ssthresh).
+TYPE: fill
+ANSWER: slow start threshold | Slow Start Threshold
+
+QUESTION: After a timeout-triggered segment loss, what typically happens to TCP's ssthresh and Congestion Window?
+TYPE: single
+*A) ssthresh is set to half the previous Congestion Window, and TCP restarts Slow Start from CW=1
+B) Both values are left completely unchanged
+C) The Congestion Window is immediately set to its maximum possible value
+D) TCP permanently switches to UDP-like behavior
+
+QUESTION: After a Fast Retransmit (triggered by duplicate ACKs, not a timeout), TCP typically skips Slow Start entirely and enters ___ ___ directly, in a phase known as Fast Recovery.
+TYPE: fill
+ANSWER: congestion avoidance
+
+QUESTION: Compared to TCP's 20-byte header, UDP's header is:
+TYPE: single
+A) The same size
+B) 40 bytes
+*C) 8 bytes
+D) 12 bytes
+
+QUESTION: Which command-line tool displays currently open TCP connections on a local machine?
+TYPE: single
+A) dig
+*B) netstat
+C) nslookup
+D) traceroute
+
+QUESTION: QUIC is a protocol (originally developed by Google) that combines the functionality of TCP and TLS on top of ___, typically using port 443.
+TYPE: fill
+ANSWER: UDP
+
+QUESTION: HTTP is used to transfer hypertext documents; the markup language used for the documents themselves is called ___.
+TYPE: fill
+ANSWER: HTML
+
+QUESTION: The World Wide Web was proposed in 1989 by ___.
+TYPE: fill
+ANSWER: Tim Berners-Lee | Timothy Berners-Lee
+
+QUESTION: HTTP normally uses TCP port ___.
+TYPE: fill
+ANSWER: 80
+
+QUESTION: HTTPS (secure HTTP over SSL/TLS) normally uses TCP port ___.
+TYPE: fill
+ANSWER: 443
+
+QUESTION: What is the key difference between a "persistent" and a "non-persistent" HTTP connection?
+TYPE: single
+A) Persistent connections use UDP instead of TCP
+*B) A persistent connection stays open, and can be reused for multiple requests, while a non-persistent one is closed after every single request
+C) Non-persistent connections are always encrypted, persistent ones never are
+D) Persistent connections cannot use HTTPS
+
+QUESTION: A "stateful" web server, as opposed to a "stateless" one, is one that:
+TYPE: single
+A) Never accepts more than one client at a time
+*B) Remembers information about a client's activity, typically via cookies
+C) Only ever serves static files
+D) Always closes the TCP connection after the first request
+
+QUESTION: A ___ server can cache previously requested web pages so that repeated requests, even from a different user, can be served faster from the cache instead of the original site.
+TYPE: fill
+ANSWER: proxy
+
+QUESTION: Which of these are cited as benefits of using a web proxy/cache?
+TYPE: multiple
+*A) Faster response times and reduced use of the outbound Internet link
+*B) Increased privacy, since the proxy can hide clients from external servers
+C) Guaranteed elimination of all malware
+D) Automatic translation of all page content into another language
+
+QUESTION: FTP's control connection, used for commands like USER, PASS, LIST, RETR, and STOR, uses TCP port ___.
+TYPE: fill
+ANSWER: 21
+
+QUESTION: FTP's separate connection, used to actually transfer file data, uses TCP port ___.
+TYPE: fill
+ANSWER: 20
+
+QUESTION: Which lightweight file transfer protocol runs over UDP port 69, instead of using separate TCP control/data connections like FTP?
+TYPE: single
+A) SFTP
+*B) TFTP
+C) FTPS
+D) SCP
+
+QUESTION: Match each email-related protocol to its usual TCP port.
+TYPE: match
+FIELD: SMTP
+FIELD: POP3
+FIELD: IMAP
+CARD: *1 25
+CARD: *2 110
+CARD: *3 143
+CARD: 443 is HTTPS, not any of these
+
+QUESTION: What is SMTP primarily used for?
+TYPE: single
+A) Downloading email from a mailbox to a client
+*B) Sending/relaying email from a sender toward the recipient's mail server
+C) Resolving domain names into IP addresses
+D) Remote command-line access
+
+QUESTION: The protocol that provides remote access to a plain-text command-line console, unencrypted, on TCP port 23, is called ___.
+TYPE: fill
+ANSWER: Telnet
+
+QUESTION: The encrypted alternative to Telnet, running on TCP port 22, is called ___.
+TYPE: fill
+ANSWER: SSH
+
+QUESTION: Microsoft's protocol for remote access to a graphical desktop is called the Remote ___ Protocol (RDP).
+TYPE: fill
+ANSWER: Desktop
+
+QUESTION: The core purpose of DNS is to map human-readable domain names to ___ addresses, and vice versa.
+TYPE: fill
+ANSWER: IP
+
+QUESTION: Before DNS existed, how were host names originally resolved on the early Internet?
+TYPE: single
+A) They weren't; only IP addresses were used
+*B) Via a single shared file (HOSTS.TXT), maintained centrally and periodically downloaded by users
+C) Via a distributed public ledger
+D) Via manual phone calls to network administrators
+
+QUESTION: A domain name written out completely, from a host all the way up to the (implicit) root, is called a ___ ___ ___ Name.
+TYPE: fill
+ANSWER: Fully Qualified Domain
+
+QUESTION: In DNS, a single label (one segment of a domain name, between dots) can be at most 63 characters long.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: DNS domain names are case-sensitive, so "ETF.rs" and "etf.rs" are treated as different domains.
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: DNS names are case-insensitive.
+
+QUESTION: A country-code top-level domain (ccTLD) like ".rs" is assigned based on:
+TYPE: single
+A) The alphabetical order of country names
+*B) The two-letter ISO 3166 country code
+C) The size of the country's population
+D) A random lottery run by IANA
+
+QUESTION: A portion of the DNS name tree that is managed as an administrative unit and defined in a text file on a particular name server is called a ___.
+TYPE: fill
+ANSWER: zone
+
+QUESTION: What is the relationship between a primary and a secondary DNS server for a given zone?
+TYPE: single
+A) They serve completely unrelated zones
+*B) The secondary periodically transfers a copy of the zone data from the primary, and both can then answer authoritatively for it
+C) The secondary only ever answers non-authoritative queries
+D) A zone may only ever have a primary server, never a secondary
+
+QUESTION: What is the main difference between a recursive and an iterative DNS query?
+TYPE: single
+A) They always return the exact same result
+*B) A recursive query gets a complete final answer (or an error) from the server it was sent to, while an iterative one may get only a referral to another, more specific server
+C) Recursive queries only work over TCP, iterative ones only over UDP
+D) Iterative queries are only ever sent by a resolver's own cache
+
+QUESTION: Match each DNS resource record type to what it stores.
+TYPE: match
+FIELD: A
+FIELD: AAAA
+FIELD: CNAME
+FIELD: MX
+FIELD: PTR
+CARD: *1 Maps a hostname to an IPv4 address
+CARD: *2 Maps a hostname to an IPv6 address
+CARD: *3 Defines an alias (alternate name) for another name
+CARD: *4 Identifies a mail server for the domain
+CARD: *5 Maps an IP address back to a hostname (reverse lookup)
+CARD: NS defines the authoritative name servers for a zone, not any field above
+
+QUESTION: The DNS record type that marks the start-of-authority information for a zone (serial number, refresh, retry, expire, minimum TTL) is called ___.
+TYPE: fill
+ANSWER: SOA
+
+QUESTION: In an SOA record, the field that must be incremented every time the zone file changes, so secondary servers know a newer version is available, is the ___ number.
+TYPE: fill
+ANSWER: serial
+
+QUESTION: In reverse DNS, IP addresses are represented, in reversed dotted-decimal order, under which special domain?
+TYPE: single
+A) reverse.arpa
+*B) in-addr.arpa
+C) ptr.dns.rs
+D) rdns.net
+
+QUESTION: Explain why a "glue record" is needed when a subdomain's own name server has a hostname that itself falls inside that subdomain.
+TYPE: short
+EXPLAIN: To reach the name server you would normally need to resolve its hostname first, but that hostname lives inside the very subdomain the server is authoritative for, creating a circular dependency. The glue record supplies the name server's IP address directly in the parent zone, breaking the circularity.
+
+QUESTION: The classic Windows command-line tool for querying DNS records is called ___.
+TYPE: fill
+ANSWER: nslookup
+
+QUESTION: On Linux, the more detailed DNS-query command-line tool is called ___.
+TYPE: fill
+ANSWER: dig
+
+QUESTION: A CNAME record lets you define an alternate name (alias) for a host that already has an A record.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: On most systems, what is the standard transport-layer port that DNS servers listen on?
+TYPE: single
+A) 25
+*B) 53
+C) 80
+D) 143
+
+QUESTION: Which of these are functions performed by a DNS resolver?
+TYPE: multiple
+*A) Checking its local cache before sending a query out
+*B) Forwarding the request to a configured DNS server if the answer isn't cached locally
+C) Assigning IP addresses to new devices on the network
+D) Encrypting all web traffic on the network
+
+QUESTION: In client-server communication, a server socket uses a fixed, well-known port, while a client socket typically uses a ___ port, chosen at connection time.
+TYPE: fill
+ANSWER: dynamic | dynamically assigned
+
+QUESTION: Which of these correctly pairs a service with its usual well-known port?
+TYPE: single
+A) SSH - port 80
+*B) POP3 - port 110
+C) HTTP - port 443
+D) DNS - port 25
+
+QUESTION: FTP's control connection is stateful, meaning the server remembers information about the client's login and session for as long as the connection stays open.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: SSH stands for Secure ___.
+TYPE: fill
+ANSWER: Shell
+
+QUESTION: IPv6 is defined in RFC ___ (from 1995).
+TYPE: fill
+ANSWER: 1883
+
+QUESTION: What was the primary problem that motivated the creation of IPv6?
+TYPE: single
+A) TCP was too slow
+*B) IPv4's address space was running out
+C) UDP lacked port numbers
+D) HTTP needed a new version
+
+QUESTION: On Ethernet, the L2 EtherType value used to identify an IPv6 payload is ___ (hex), compared to 0x0800 for IPv4.
+TYPE: fill
+ANSWER: 0x86dd | 86dd
+
+QUESTION: Which of these are cited advantages of IPv6 over IPv4?
+TYPE: multiple
+*A) A much larger address space
+*B) A simpler, fixed-size header for more efficient processing
+*C) Built-in support for automatic address configuration
+D) Being backward-incompatible with all existing routing protocols
+
+QUESTION: The IPv6 header has a fixed size, since optional fields have been moved out into separate extension headers.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Which IPv4 header field was removed from IPv6, since integrity checking is instead left to the link layer and to upper-layer protocols?
+TYPE: single
+A) Version
+*B) Header Checksum
+C) Source Address
+D) Traffic Class
+
+QUESTION: In the IPv6 header, the field that identifies what kind of header (or upper-layer protocol) comes next is called ___ ___.
+TYPE: fill
+ANSWER: Next Header
+
+QUESTION: The IPv6 header field equivalent to IPv4's Time To Live is called ___ ___.
+TYPE: fill
+ANSWER: Hop Limit
+
+QUESTION: The IPv6 header field used to mark all packets belonging to the same flow between a source and destination, so routers can cache the routing decision, is called the ___ ___.
+TYPE: fill
+ANSWER: Flow Label
+
+QUESTION: Where does fragmentation of an IPv6 packet take place?
+TYPE: single
+A) At every router along the path, as in IPv4
+*B) Only at the source (sending) host
+C) Only at the destination host
+D) IPv6 never fragments packets under any circumstances
+
+QUESTION: IPv6 guarantees a minimum Maximum Transmission Unit (MTU) of ___ bytes.
+TYPE: fill
+ANSWER: 1280
+
+QUESTION: The process by which a sending host discovers the smallest MTU along the entire path to a destination is called ___ ___ ___.
+TYPE: fill
+ANSWER: Path MTU Discovery
+
+QUESTION: When an IPv6 router cannot forward a packet because it exceeds the outgoing link's MTU, what does it do?
+TYPE: single
+A) It fragments the packet itself, like an IPv4 router would
+*B) It discards the packet and sends back an ICMPv6 "Packet Too Big" message
+C) It silently forwards a truncated packet
+D) It converts the packet to IPv4
+
+QUESTION: An IPv6 address is ___ bits long, four times the length of an IPv4 address.
+TYPE: fill
+ANSWER: 128
+
+QUESTION: IPv6 addresses are conventionally written in ___ notation, with groups separated by colons.
+TYPE: fill
+ANSWER: hexadecimal | hex
+
+QUESTION: Which of these is a valid shorthand rule for writing IPv6 addresses?
+TYPE: single
+A) Any number of "::" can appear in a single address
+*B) A single contiguous run of all-zero groups can be replaced with "::", but only once per address
+C) Leading zeros must always be written out in full
+D) Only lowercase hex digits are permitted
+
+QUESTION: Match each IPv6 address type to its address range/prefix.
+TYPE: match
+FIELD: Global Unicast Address
+FIELD: Unique Local Address
+FIELD: Link-Local Address
+FIELD: Loopback Address
+CARD: *1 2000::/3
+CARD: *2 fc00::/7
+CARD: *3 fe80::/10
+CARD: *4 ::1/128
+CARD: ff00::/8 is the multicast range, not any of these
+
+QUESTION: The three main categories of IPv6 addresses are unicast, multicast, and ___.
+TYPE: fill
+ANSWER: anycast
+
+QUESTION: What happens when a packet is sent to an IPv6 anycast address?
+TYPE: single
+A) It is delivered to every interface sharing that address
+*B) It is delivered to only the single "nearest" interface sharing that address, as determined by routing
+C) It is dropped, since anycast addresses cannot receive packets
+D) It is always broadcast on the local segment only
+
+QUESTION: In a Global Unicast Address, the part that identifies the specific host/interface (equivalent to the "host part" of an IPv4 address) is called the ___ ID.
+TYPE: fill
+ANSWER: Interface
+
+QUESTION: In a typical Global Unicast Address, the Interface ID occupies the last ___ bits of the address.
+TYPE: fill
+ANSWER: 64
+
+QUESTION: What does the EUI-64 rule do?
+TYPE: single
+A) Randomly generates a completely new MAC address
+*B) Derives a 64-bit Interface ID from a 48-bit MAC address, by inserting FFFE in the middle and flipping the U/L bit
+C) Assigns a static IPv6 prefix based on the device manufacturer
+D) Converts an IPv6 address into an IPv4 address
+
+QUESTION: Unique Local Addresses (comparable to IPv4 private addresses) use the prefix fc00::/___.
+TYPE: fill
+ANSWER: 7
+
+QUESTION: Unique Local Addresses (ULA) are intended for private networks and must not be advertised on the public Internet.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Link-Local Addresses use the prefix fe80::/10 and are never forwarded beyond the ___ segment they were created on.
+TYPE: fill
+ANSWER: local | L2 | link
+
+QUESTION: The IPv6 loopback address, equivalent to IPv4's 127.0.0.1, is written ___.
+TYPE: fill
+ANSWER: ::1
+
+QUESTION: What does the IPv6 "unspecified address" (::/128, all zeros) represent?
+TYPE: single
+A) The address of every device on the network at once
+*B) The absence of a known address, used only as a placeholder source address
+C) The default gateway
+D) A reserved multicast group
+
+QUESTION: The IPv6 multicast address FF02::1 conventionally refers to all IPv6 ___ on the local link.
+TYPE: fill
+ANSWER: devices | nodes
+
+QUESTION: The IPv6 multicast address FF02::2 conventionally refers to all IPv6 ___ on the local link.
+TYPE: fill
+ANSWER: routers
+
+QUESTION: What is the primary purpose of a Solicited-Node Multicast address?
+TYPE: single
+A) To broadcast video streams efficiently
+*B) To support efficient, targeted Neighbor Discovery operations, like address resolution and duplicate address detection, for one specific address
+C) To replace the DNS system entirely
+D) To identify the default gateway
+
+QUESTION: Which of these are ways an IPv6 host can obtain its address?
+TYPE: multiple
+*A) Static (manual) configuration
+*B) Stateful DHCPv6
+*C) Stateless Address Autoconfiguration (SLAAC)
+D) RARP
+
+QUESTION: The Neighbor Discovery Protocol (NDP) in IPv6 replaces several older IPv4-era protocols, most notably ___.
+TYPE: fill
+ANSWER: ARP
+
+QUESTION: Match each pair of NDP messages to its purpose.
+TYPE: match
+FIELD: Router Solicitation / Router Advertisement
+FIELD: Neighbor Solicitation / Neighbor Advertisement
+CARD: *1 Discovering routers and network prefix information, used in SLAAC
+CARD: *2 Resolving a known IPv6 address to a MAC address, equivalent to ARP
+CARD: Assigning a domain name to an IP address, which is what DNS does, not NDP
+
+QUESTION: Briefly explain what Duplicate Address Detection (DAD) does and when it runs.
+TYPE: short
+EXPLAIN: Before a device starts using a new IPv6 address (whether set manually, via SLAAC, or via DHCPv6), it sends a Neighbor Solicitation for that address and waits to see if anyone responds with a Neighbor Advertisement; a response means the address is already in use and cannot be assigned.
+
+QUESTION: Under Stateless Address Autoconfiguration (SLAAC), what does a router typically supply to a host?
+TYPE: single
+A) A DHCP lease number only
+*B) The network prefix (and default gateway address), leaving the host to build its own Interface ID
+C) A complete, fully assigned static address, including the Interface ID, decided entirely by the router
+D) Nothing; SLAAC doesn't involve routers at all
+
+QUESTION: The DNS record type used to store an IPv6 address for a hostname is ___.
+TYPE: fill
+ANSWER: AAAA
+
+QUESTION: Which of these are IPv6-capable routing protocols mentioned as successors to their IPv4 counterparts?
+TYPE: multiple
+*A) OSPFv3
+*B) RIPng
+*C) Multiprotocol BGP
+D) BOOTP
+
+QUESTION: What does "IPv4/IPv6 Dual Stack" mean?
+TYPE: single
+A) Running two separate physical networks side by side
+*B) A device or network runs both IPv4 and IPv6 protocol stacks simultaneously, using whichever fits a given communication
+C) Encapsulating IPv4 packets inside IPv6 packets exclusively
+D) Disabling IPv4 permanently once IPv6 is enabled
+
+QUESTION: Encapsulating IPv6 packets inside IPv4 packets, so that separate IPv6 "islands" can communicate across an IPv4-only network, is called IPv6 ___.
+TYPE: fill
+ANSWER: tunneling
+
+QUESTION: A mechanism that directly translates IPv6 packets into IPv4 packets (and vice versa) at a border device, so that native IPv6 and IPv4 hosts can talk to each other, is called:
+TYPE: single
+A) Dual stack
+B) Tunneling
+*C) NAT-PT (Protocol Translation)
+D) SLAAC
+
+QUESTION: Which of these are drawbacks of purely static (manual) IP address assignment, compared to dynamic assignment?
+TYPE: multiple
+*A) Configuration errors, like overlapping addresses or a wrong mask, are more likely
+*B) Changing the mask or default gateway requires updating every single device
+C) It automatically supports temporary/ad-hoc users like Wi-Fi guests
+D) It requires no configuration at all
+
+QUESTION: The protocol that finds a device's IP address given its MAC address, the reverse of ARP, is called ___.
+TYPE: fill
+ANSWER: RARP
+
+QUESTION: RARP was originally designed mainly to support:
+TYPE: single
+A) Mobile phones
+B) Wireless routers
+*C) Diskless workstations that needed to fetch an OS and IP address from a server
+D) Cloud servers
+
+QUESTION: A basic limitation of RARP is that it only assigns an IP address, without a subnet mask or default gateway, and it only works within a single local (L2) segment.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: BOOTP improves on RARP by additionally being able to supply a subnet mask, default gateway, and ___ server address.
+TYPE: fill
+ANSWER: DNS
+
+QUESTION: Both BOOTP and DHCP use UDP port 67 on the server and UDP port ___ on the client.
+TYPE: fill
+ANSWER: 68
+
+QUESTION: What is the core limitation that DHCP fixes, compared to BOOTP?
+TYPE: single
+A) BOOTP can't assign a subnet mask
+*B) BOOTP requires a pre-configured, static one-to-one mapping between MAC and IP addresses; it can't dynamically allocate addresses from a pool
+C) BOOTP doesn't use UDP
+D) BOOTP can't be used on a LAN
+
+QUESTION: DHCP is best described as a dynamic, improved version of ___.
+TYPE: fill
+ANSWER: BOOTP
+
+QUESTION: Put the four steps of the DHCP address-assignment process in the correct order.
+TYPE: match
+FIELD: Step 1
+FIELD: Step 2
+FIELD: Step 3
+FIELD: Step 4
+CARD: *1 DHCPDISCOVER: the client broadcasts a request for an address
+CARD: *2 DHCPOFFER: a DHCP server offers an address (and other parameters)
+CARD: *3 DHCPREQUEST: the client broadcasts acceptance of one particular offer
+CARD: *4 DHCPACK: the offering server confirms and finalizes the lease
+CARD: The client manually configures itself with a static address
+CARD: The server sends a DHCPNAK rejecting the request
+
+QUESTION: A DHCP client's initial DHCPDISCOVER message is sent as a broadcast, since the client doesn't yet know the address of any DHCP server.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: How can a DHCP server check whether an address it's about to offer is already in use on the network?
+TYPE: single
+A) It cannot check this at all
+B) By querying DNS
+*C) By sending an ICMP ping to that address
+D) By calling the RARP protocol
+
+QUESTION: If more than one DHCP server responds to a client's discovery broadcast, the client normally accepts only the first ___ it receives.
+TYPE: fill
+ANSWER: offer | DHCPOFFER
+
+QUESTION: Private IP address ranges reserved for internal networks include 10.0.0.0/8, 172.16.0.0/12, and ___.
+TYPE: fill
+ANSWER: 192.168.0.0/16
+
+QUESTION: ___ (Network Address Translation) converts addresses from one address space (typically private) into another (typically public), most often at the border router.
+TYPE: fill
+ANSWER: NAT
+
+QUESTION: Match each NAT terminology term to its meaning.
+TYPE: match
+FIELD: Inside Local Address
+FIELD: Inside Global Address
+FIELD: Outside Global Address
+CARD: *1 The address originally assigned to a host on the internal network, before translation
+CARD: *2 The public/legitimate address that the Inside Local address is translated into
+CARD: *3 The address of a device out on the external network
+CARD: The address a host uses for its own loopback interface
+
+QUESTION: What is the defining feature of Static NAT?
+TYPE: single
+A) A pool of global addresses is shared dynamically among many hosts
+*B) Each internal address is always translated to the very same, fixed global address (a one-to-one mapping)
+C) It uses port numbers to multiplex many internal hosts onto one global address
+D) It requires no configuration at all
+
+QUESTION: Which NAT variant makes it straightforward for an external client to initiate a connection to an internal server?
+TYPE: single
+*A) Static NAT
+B) Dynamic NAT
+C) PAT/Overload NAT
+D) None of these support inbound connections
+
+QUESTION: Dynamic NAT draws addresses from a predefined set of global addresses usually called a ___.
+TYPE: fill
+ANSWER: pool
+
+QUESTION: With plain Dynamic NAT (without PAT), only one internal host can use a given global address at any one moment, so the maximum number of simultaneous translated connections equals the size of the address pool.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: The NAT variant that lets many internal hosts share one (or a few) global addresses simultaneously, by also translating port numbers, is called ___ (or Overload NAT).
+TYPE: fill
+ANSWER: PAT | Port Address Translation
+
+QUESTION: What extra piece of information does PAT use, beyond the IP address, to keep multiple internal hosts' connections distinguishable when they share a single global address?
+TYPE: single
+A) The device's MAC address
+*B) The TCP/UDP port number
+C) The device's hostname
+D) The DNS TTL value
+
+QUESTION: A static mapping that lets an external host reach a specific internal server, by forwarding a particular global address+port combination to a fixed internal address+port, is called ___ ___.
+TYPE: fill
+ANSWER: port forwarding
+
+QUESTION: With basic port forwarding, multiple different internal web servers can all be reached from outside on the same public port 80 at the same time.
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Basic port forwarding maps one global address+port combination to exactly one internal address+port, so only a single internal server can be exposed on a given external port at a time.
+
+QUESTION: For real-time peer-to-peer applications (like a video call) where both endpoints sit behind separate NAT devices, how is direct communication typically established?
+TYPE: single
+A) It's impossible; all traffic must always go through the application's own server
+*B) Both endpoints first register with a public server, which shares their NAT-translated addresses/ports with each other, after which the endpoints try to communicate directly
+C) NAT is temporarily disabled on both routers
+D) The application must switch to IPv6 only
+
+QUESTION: Which type of NAT is described as the least restrictive, in that any external host can send a packet to the mapped external address/port and have it reach the internal host?
+TYPE: single
+A) Symmetric NAT
+B) Port-Restricted-Cone NAT
+*C) Full-Cone NAT
+D) Restricted-Cone NAT
+
+QUESTION: Which type of NAT is the most restrictive, requiring the internal host to have already sent a packet to a specific external address/port before anything can come back from it?
+TYPE: single
+*A) Symmetric NAT
+B) Full-Cone NAT
+C) Restricted-Cone NAT
+D) Port-Restricted-Cone NAT
+
+QUESTION: ICMP messages that include a Query Identifier field (like the echo request/reply used by ping) are easier for NAT to translate than ICMP ___ messages, which lack such a field and instead carry the original packet as their payload.
+TYPE: fill
+ANSWER: error
+
+QUESTION: A NAT device that also inspects and rewrites application-layer data (not just headers), so that protocols carrying embedded IP address information still work correctly through NAT, is called an Application Level ___ (ALG).
+TYPE: fill
+ANSWER: Gateway
+
+QUESTION: Which of these are cited as advantages of using NAT?
+TYPE: multiple
+*A) It reduces consumption of scarce public IP addresses
+*B) The internal network doesn't need to be renumbered if the organization changes ISPs
+C) It completely eliminates the need for any firewall or access control
+D) It always makes routing simpler and faster than without NAT
+
+QUESTION: ___ (Access Control Lists) let a router permit or deny packets based on conditions checked against Layer 3 and Layer 4 header fields.
+TYPE: fill
+ANSWER: ACL | Access Control Lists
+
+QUESTION: When a router evaluates an ACL against an incoming packet, what happens?
+TYPE: single
+A) All rules in the list are always checked, and the most specific one wins
+*B) The rules are checked in order, and the first matching rule's action (permit or deny) is applied; no further rules are checked
+C) Rules are applied in a random order
+D) Only the last rule in the list is ever used
+
+QUESTION: If a packet reaches the end of an ACL without matching any explicit rule, it is dropped by an implicit ___ rule at the end.
+TYPE: fill
+ANSWER: deny
+
+QUESTION: An ACL rule can typically match a packet based on which of these?
+TYPE: multiple
+*A) Source and/or destination IP address
+*B) Source and/or destination TCP/UDP port number
+C) The web page's HTML content
+D) The user's typed password
+
+QUESTION: An ACL applied to a router interface can be applied in which direction(s)?
+TYPE: single
+A) Only inbound
+*B) Both inbound (IN) and outbound (OUT)
+C) Only outbound
+D) ACLs cannot be applied to interfaces
+
+QUESTION: Explain why NAT can make it harder to trace malicious activity (like a hacking attempt) back to a specific internal device, based on a complaint received from the Internet.
+TYPE: short
+EXPLAIN: From outside, all internal hosts appear to share one or a few public addresses (and, with PAT, ephemeral port numbers that constantly change), so an external complaint about a public IP/port combination doesn't directly reveal which internal device was actually responsible without also checking the NAT device's own translation logs from that exact moment.

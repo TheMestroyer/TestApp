@@ -1,0 +1,724 @@
+TITLE: OOP2 (Java) - 50 pitanja o radu jezika i predvidjanju izlaza
+
+QUESTION: Sta ce se ispisati?
+CODE:
+String a = "mreza";
+String b = "mreza";
+System.out.println(a == b);
+ENDCODE
+TYPE: fill
+ANSWER: true
+EXPLAIN: Niski-literali se smestaju u zajednicki bazen niski (string pool), pa oba imena upucuju na isti objekat.
+
+QUESTION: Sta ce se ispisati?
+CODE:
+String a = new String("mreza");
+String b = "mreza";
+System.out.println(a == b);
+ENDCODE
+TYPE: fill
+ANSWER: false
+EXPLAIN: new String(...) uvek stvara nov objekat na hipu, razlicit od objekta u bazenu literala, pa == poredi razlicite reference.
+
+QUESTION: Sta ce se ispisati?
+CODE:
+String a = new String("mreza");
+String b = "mreza";
+System.out.println(a.equals(b));
+ENDCODE
+TYPE: fill
+ANSWER: true
+EXPLAIN: equals() na klasi String poredi sadrzaj niske, a ne reference, pa je rezultat true iako a i b nisu isti objekat.
+
+QUESTION: Sta ce se ispisati?
+CODE:
+Integer a = 100;
+Integer b = 100;
+System.out.println(a == b);
+ENDCODE
+TYPE: fill
+ANSWER: true
+EXPLAIN: Pri automatskom pakovanju (autoboxing), male vrednosti tipa int (od -128 do 127) se keširaju, pa oba imena upucuju na isti keširani objekat Integer.
+
+QUESTION: Sta ce se ispisati?
+CODE:
+Integer a = 200;
+Integer b = 200;
+System.out.println(a == b);
+ENDCODE
+TYPE: fill
+ANSWER: false
+EXPLAIN: Vrednost 200 je van opsega kesiranih vrednosti (-128 do 127), pa se pri autoboxing-u prave dva razlicita objekta.
+
+QUESTION: Data je metoda i deo main metoda. Sta ce se ispisati?
+CODE:
+static void udvostruci(int x) {
+    x = x * 2;
+}
+
+public static void main(String[] a) {
+    int broj = 5;
+    udvostruci(broj);
+    System.out.println(broj);
+}
+ENDCODE
+TYPE: fill
+ANSWER: 5
+EXPLAIN: Argumenti primitivnih tipova se prenose iskljucivo po vrednosti; menjanje kopije x unutar metode ne utice na promenljivu broj u main metodi.
+
+QUESTION: Data je klasa Kutija sa jednim javnim poljem broj. Sta ce se ispisati?
+CODE:
+class Kutija {
+    int broj;
+}
+
+static void izmeni(Kutija k) {
+    k.broj = 99;
+}
+
+public static void main(String[] a) {
+    Kutija k = new Kutija();
+    k.broj = 1;
+    izmeni(k);
+    System.out.println(k.broj);
+}
+ENDCODE
+TYPE: fill
+ANSWER: 99
+EXPLAIN: Referenca se prenosi po vrednosti, ali obe kopije reference upucuju na isti objekat na hipu, pa izmena polja kroz parametar utice i na originalni objekat.
+
+QUESTION: Ista klasa Kutija kao malopre. Sta ce se ispisati?
+CODE:
+class Kutija {
+    int broj;
+}
+
+static void izmeni(Kutija k) {
+    k = new Kutija();
+    k.broj = 99;
+}
+
+public static void main(String[] a) {
+    Kutija k = new Kutija();
+    k.broj = 1;
+    izmeni(k);
+    System.out.println(k.broj);
+}
+ENDCODE
+TYPE: fill
+ANSWER: 1
+EXPLAIN: Unutar metode izmeni, parametar k se preusmerava na sasvim nov objekat; to ne menja na sta upucuje referenca k u main metodi, koja i dalje pokazuje na originalni objekat sa broj=1.
+
+QUESTION: Klasa Brojac ima staticko polje n. Sta ce se ispisati?
+CODE:
+class Brojac {
+    static int n = 0;
+    Brojac() {
+        n++;
+    }
+}
+
+public static void main(String[] a) {
+    new Brojac();
+    new Brojac();
+    new Brojac();
+    System.out.println(Brojac.n);
+}
+ENDCODE
+TYPE: fill
+ANSWER: 3
+EXPLAIN: Statickop polje postoji tacno jednom po klasi i deli se izmedju svih objekata, pa svaki poziv konstruktora uvecava istu, zajednicku promenljivu.
+
+QUESTION: Sta ce se ispisati?
+CODE:
+class Zivotinja {
+    String glas() {
+        return "...";
+    }
+}
+
+class Pas extends Zivotinja {
+    String glas() {
+        return "Vau";
+    }
+}
+
+public static void main(String[] a) {
+    Zivotinja z = new Pas();
+    System.out.println(z.glas());
+}
+ENDCODE
+TYPE: fill
+ANSWER: Vau
+EXPLAIN: Nadjacani (nestaticki) metodi se pozivaju polimorfno, na osnovu stvarnog tipa objekta na koji referenca upucuje, a ne na osnovu deklarisanog tipa reference.
+
+QUESTION: Sta ce se ispisati?
+CODE:
+class A {
+    String ime = "A";
+}
+
+class B extends A {
+    String ime = "B";
+}
+
+public static void main(String[] arg) {
+    A a = new B();
+    System.out.println(a.ime);
+}
+ENDCODE
+TYPE: fill
+ANSWER: A
+EXPLAIN: Polja u Javi nisu polimorfna (ne mogu da se nadjacaju, samo sakriju); kom polju se pristupa odredjuje deklarisani tip reference, a ne stvarni tip objekta.
+
+QUESTION: Sta ce se ispisati?
+CODE:
+static void p(Object o) {
+    System.out.println("Object");
+}
+
+static void p(String s) {
+    System.out.println("String");
+}
+
+public static void main(String[] arg) {
+    Object o = "tekst";
+    p(o);
+}
+ENDCODE
+TYPE: fill
+ANSWER: Object
+EXPLAIN: Preklapanje imena (overloading) se razresava u vreme prevodjenja na osnovu deklarisanog (statickog) tipa promenljive, a ne na osnovu stvarnog tipa objekta.
+
+QUESTION: Sta ce se ispisati?
+CODE:
+class A {
+    String m() {
+        return "A";
+    }
+}
+
+class B extends A {
+    String m() {
+        return "B";
+    }
+    String test() {
+        return super.m();
+    }
+}
+
+public static void main(String[] arg) {
+    System.out.println(new B().test());
+}
+ENDCODE
+TYPE: fill
+ANSWER: A
+EXPLAIN: Poziv preko reference super nije polimorfan; uvek se koristi implementacija metoda iz natklase, bez obzira na to koja klasa nadjacava metod.
+
+QUESTION: Sta ce se ispisati?
+CODE:
+class Tacka {
+    int x, y;
+    Tacka() {
+        this(1, 1);
+    }
+    Tacka(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+public static void main(String[] arg) {
+    Tacka t = new Tacka();
+    System.out.println(t.x + "," + t.y);
+}
+ENDCODE
+TYPE: fill
+ANSWER: 1,1
+EXPLAIN: Poziv this(1,1) u konstruktoru bez argumenata prosledjuje inicijalizaciju konstruktoru sa dva argumenta.
+
+QUESTION: Sta ce se ispisati?
+CODE:
+class A {
+    A() {
+        System.out.print("A");
+    }
+}
+
+class B extends A {
+    B() {
+        System.out.print("B");
+    }
+}
+
+public static void main(String[] arg) {
+    new B();
+}
+ENDCODE
+TYPE: fill
+ANSWER: AB
+EXPLAIN: Ako konstruktor izvedene klase eksplicitno ne pozove super(...), implicitno se prvo poziva bezargumentni konstruktor osnovne klase, pre tela sopstvenog konstruktora.
+
+QUESTION: Sta ce se ispisati?
+CODE:
+class X {
+    int a;
+    {
+        a = 10;
+        System.out.print("blok ");
+    }
+    X() {
+        System.out.print("konstruktor ");
+        a += 5;
+    }
+}
+
+public static void main(String[] arg) {
+    X x = new X();
+    System.out.println(x.a);
+}
+ENDCODE
+TYPE: fill
+ANSWER: blok konstruktor 15
+EXPLAIN: Inicijalizacioni blokovi i inicijalizatori polja se izvrsavaju pre tela konstruktora, tim redom kojim su navedeni u kodu klase.
+
+QUESTION: Da li se finally blok izvrsava cak i kada se u try bloku naidje na naredbu return?
+TYPE: truefalse
+ANSWER: TRUE
+EXPLAIN: finally blok se uvek izvrsava pre nego sto kontrola stvarno napusti metod, bez obzira na to da li je try blok zavrsen normalno, preko return-a ili bacanjem izuzetka.
+
+QUESTION: Sta metod test() vraca?
+CODE:
+static int test() {
+    int x = 1;
+    try {
+        return x;
+    } finally {
+        x = 2;
+    }
+}
+ENDCODE
+TYPE: fill
+ANSWER: 1
+EXPLAIN: Vrednost koja se vraca se odredjuje (kopira) u trenutku izvrsavanja return naredbe u try bloku; kasnija izmena promenljive x u finally bloku vise ne utice na vec pripremljenu povratnu vrednost.
+
+QUESTION: Sta metod test() vraca?
+CODE:
+static int test() {
+    try {
+        return 1;
+    } finally {
+        return 2;
+    }
+}
+ENDCODE
+TYPE: fill
+ANSWER: 2
+EXPLAIN: Ako finally blok sadrzi svoju naredbu return, ona ima prednost i "pregazi" povratnu vrednost iz try (ili catch) bloka.
+
+QUESTION: Neka je PodIzuzetak potklasa klase NadIzuzetak. Ako iza try bloka postoje dve catch grane, jedna za NadIzuzetak i jedna za PodIzuzetak, catch grana za PodIzuzetak mora biti napisana PRE catch grane za NadIzuzetak, inace nastaje greska pri prevodjenju.
+TYPE: truefalse
+ANSWER: TRUE
+EXPLAIN: Ako bi opstiji (natklasin) rukovalac bio naveden prvi, on bi uvek uhvatio i izuzetke podtipa, pa bi rukovalac za podtip bio nedostizan kod - to prevodilac prijavljuje kao gresku.
+
+QUESTION: Data je sopstvena provereni izuzetak klasa. Sta ce se ispisati?
+CODE:
+class MojIzuzetak extends Exception {
+    MojIzuzetak(String s) {
+        super(s);
+    }
+}
+
+static void proveri(int x) throws MojIzuzetak {
+    if (x < 0) throw new MojIzuzetak("Negativno: " + x);
+}
+
+public static void main(String[] arg) {
+    try {
+        proveri(-5);
+    } catch (MojIzuzetak e) {
+        System.out.println(e.getMessage());
+    }
+}
+ENDCODE
+TYPE: fill
+ANSWER: Negativno: -5
+EXPLAIN: Konstruktor MojIzuzetak prosledjuje nisku konstruktoru klase Exception (super(s)), a getMessage() tu istu nisku vraca pozivaocu.
+
+QUESTION: Moguce je napraviti (new) objekat apstraktne klase, ako ta klasa slucajno nema nijedan apstraktan metod.
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Klasa oznacena kao abstract se nikada ne moze instancirati operatorom new, bez obzira na to da li zaista sadrzi apstraktne metode.
+
+QUESTION: Metod oznacen modifikatorom final moze da bude nadjacan (overridden) u izvedenoj klasi.
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: final modifikator na metodu upravo sprecava izvedene klase da ga nadjacaju.
+
+QUESTION: Sta ce se ispisati?
+CODE:
+class Prazna {
+}
+
+public static void main(String[] arg) {
+    Prazna p = new Prazna();
+    System.out.println(p.toString().startsWith("Prazna@"));
+}
+ENDCODE
+TYPE: fill
+ANSWER: true
+EXPLAIN: Podrazumevani (nasledjeni) metod toString() iz klase Object vraca nisku oblika <ImeKlase>@<heksadecimalni hes kod>.
+
+QUESTION: Sta ce se ispisati?
+CODE:
+class Tacka {
+    int x;
+}
+
+public static void main(String[] arg) {
+    Tacka a = new Tacka();
+    Tacka b = new Tacka();
+    System.out.println(a.equals(b));
+}
+ENDCODE
+TYPE: fill
+ANSWER: false
+EXPLAIN: Podrazumevani metod equals() nasledjen iz klase Object samo proverava da li su dve reference identicne (isto sto i ==); a i b su dva razlicita objekta.
+
+QUESTION: Sta se dogadja kada se izvrsi sledeci kod?
+CODE:
+Object o = "tekst";
+Integer i = (Integer) o;
+ENDCODE
+TYPE: single
+A) Ispisuje se null
+*B) Baca se ClassCastException u vreme izvrsavanja
+C) Greska pri prevodjenju (compile-time error)
+D) Promenljiva i dobija vrednost 0
+
+QUESTION: Dat je interfejs sa podrazumevanim (default) metodom. Sta ce se ispisati?
+CODE:
+interface Pozdrav {
+    default String reci() {
+        return "Zdravo";
+    }
+}
+
+class Osoba implements Pozdrav {
+}
+
+public static void main(String[] arg) {
+    System.out.println(new Osoba().reci());
+}
+ENDCODE
+TYPE: fill
+ANSWER: Zdravo
+EXPLAIN: Klasa koja implementira interfejs, a ne nadjacava podrazumevani metod, nasledjuje njegovu implementaciju iz interfejsa.
+
+QUESTION: Ista situacija, ali klasa Osoba nadjacava metod reci(). Sta ce se ispisati?
+CODE:
+interface Pozdrav {
+    default String reci() {
+        return "Zdravo";
+    }
+}
+
+class Osoba implements Pozdrav {
+    public String reci() {
+        return "Cao";
+    }
+}
+
+public static void main(String[] arg) {
+    System.out.println(new Osoba().reci());
+}
+ENDCODE
+TYPE: fill
+ANSWER: Cao
+EXPLAIN: Kada klasa eksplicitno definise metod istog potpisa kao podrazumevani metod interfejsa, koristi se implementacija iz klase.
+
+QUESTION: Dat je interfejs sa statickim metodom. Kako se ispravno poziva taj metod iz druge klase?
+CODE:
+interface Alat {
+    static int dupliraj(int x) {
+        return x * 2;
+    }
+}
+ENDCODE
+TYPE: single
+A) new Alat().dupliraj(5)
+*B) Alat.dupliraj(5)
+C) dupliraj(5)
+D) Alat.this.dupliraj(5)
+EXPLAIN: Staticki metodi interfejsa se moraju pozivati kvalifikovano, preko imena interfejsa, cak i u klasi koja taj interfejs implementira.
+
+QUESTION: Koje od sledecih tvrdnji o interfejsima (od verzije Jave 8) su tacne?
+TYPE: multiple
+*A) Interfejs moze da sadrzi podrazumevane (default) metode sa telom
+*B) Interfejs moze da sadrzi staticke metode sa telom
+C) Interfejs moze da ima nestaticka polja cija se vrednost kasnije menja
+D) Interfejs moze da ima konstruktor
+
+QUESTION: Sta ce se ispisati?
+CODE:
+enum Dan {
+    PON(1), UTO(2), SRE(3);
+    int broj;
+    Dan(int b) {
+        broj = b;
+    }
+}
+
+public static void main(String[] arg) {
+    System.out.println(Dan.UTO.broj);
+}
+ENDCODE
+TYPE: fill
+ANSWER: 2
+EXPLAIN: Konstruktor tipa nabrajanja (enum) se izvrsava za svaku konstantu prilikom ucitavanja klase, sa argumentima navedenim uz tu konstantu.
+
+QUESTION: Sta ce se ispisati?
+CODE:
+enum Boja {
+    CRVENA, ZELENA, PLAVA
+}
+
+public static void main(String[] arg) {
+    System.out.println(Boja.ZELENA);
+}
+ENDCODE
+TYPE: fill
+ANSWER: ZELENA
+EXPLAIN: Podrazumevani toString() tipa nabrajanja vraca upravo ime konstante, onako kako je napisano u definiciji.
+
+QUESTION: Dat je metod sa promenljivim brojem argumenata. Sta ce se ispisati?
+CODE:
+static int zbir(int... brojevi) {
+    int s = 0;
+    for (int b : brojevi) s += b;
+    return s;
+}
+
+public static void main(String[] arg) {
+    System.out.println(zbir(1, 2, 3, 4));
+}
+ENDCODE
+TYPE: fill
+ANSWER: 10
+
+QUESTION: Isti metod sa promenljivim brojem argumenata, pozvan bez ijednog argumenta. Sta ce se ispisati?
+CODE:
+static int broj(int... x) {
+    return x.length;
+}
+
+public static void main(String[] arg) {
+    System.out.println(broj());
+}
+ENDCODE
+TYPE: fill
+ANSWER: 0
+EXPLAIN: Parametar za promenljiv broj argumenata se u telu metoda ponasa kao obican niz; poziv bez argumenata daje niz duzine 0.
+
+QUESTION: Data je unutrasnja (nestaticka ugnjezdena) klasa. Sta ce se ispisati?
+CODE:
+class Spoljna {
+    int broj = 10;
+    class Unutrasnja {
+        void prikazi() {
+            System.out.println(broj);
+        }
+    }
+}
+
+public static void main(String[] arg) {
+    Spoljna s = new Spoljna();
+    Spoljna.Unutrasnja u = s.new Unutrasnja();
+    u.prikazi();
+}
+ENDCODE
+TYPE: fill
+ANSWER: 10
+EXPLAIN: Objekat unutrasnje klase je uvek vezan za jedan objekat spoljasnje klase i ima direktan pristup njenim nestatickim clanovima.
+
+QUESTION: Data je lokalna klasa definisana unutar metode. Sta ce se ispisati?
+CODE:
+static Runnable napraviZadatak(int broj) {
+    class Zadatak implements Runnable {
+        public void run() {
+            System.out.println("Broj: " + broj);
+        }
+    }
+    return new Zadatak();
+}
+
+public static void main(String[] arg) {
+    napraviZadatak(7).run();
+}
+ENDCODE
+TYPE: fill
+ANSWER: Broj: 7
+EXPLAIN: Lokalna klasa moze da pristupa efektivno konacnim (ne menjanim) parametrima i lokalnim promenljivama okruzujuce metode, cak i posto se ta metoda vec zavrsila.
+
+QUESTION: Match: za svaki tip ugnjezdene klase odaberi da li ima direktan (bez kvalifikacije) pristup nestatickim clanovima obuhvatajuce klase.
+TYPE: match
+FIELD: Staticka ugnjezdena klasa (static nested class)
+FIELD: Unutrasnja klasa (inner class, bez modifikatora static)
+CARD: *1 NEMA direktan pristup - moze samo preko reference na neki objekat
+CARD: *2 IMA direktan pristup nestatickim clanovima obuhvatajuce klase
+CARD: Ima pristup jedino statickim clanovima neke sasvim druge, nepovezane klase
+
+QUESTION: Lambda izraz moze da menja (dodeljuje novu vrednost) lokalnoj promenljivoj okruzujuce metode koju koristi.
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Lambda izraz sme samo da cita efektivno konacne lokalne promenljive okruzujuce metode; ne sme da im dodeljuje novu vrednost.
+
+QUESTION: Dat je funkcijski interfejs sa jednim apstraktnim metodom. Sta ce se ispisati?
+CODE:
+interface Operacija {
+    int primeni(int x);
+}
+
+public static void main(String[] arg) {
+    Operacija kvadrat = x -> x * x;
+    System.out.println(kvadrat.primeni(5));
+}
+ENDCODE
+TYPE: fill
+ANSWER: 25
+EXPLAIN: Lambda izraz x -> x * x definise telo jedinog apstraktnog metoda interfejsa Operacija; poziv primeni(5) vraca 5*5.
+
+QUESTION: Sta ce se ispisati (za genericku klasu poput ArrayList)?
+CODE:
+ArrayList<Integer> a = new ArrayList<>();
+ArrayList<String> b = new ArrayList<>();
+System.out.println(a.getClass() == b.getClass());
+ENDCODE
+TYPE: fill
+ANSWER: true
+EXPLAIN: Generici se implementiraju mehanizmom type erasure - u vreme izvrsavanja parametri tipa ne postoje, pa su ArrayList<Integer> i ArrayList<String> potpuno ista klasa.
+
+QUESTION: Data je promenljiva sirovog (raw) tipa. Sta se dogadja kada se izvrsi sledeci kod?
+CODE:
+List sirova = new ArrayList();
+sirova.add("tekst");
+sirova.add(123);
+ENDCODE
+TYPE: single
+A) Kod se ne prevodi (compile-time greska)
+*B) Kod se prevodi (moguce uz upozorenje) i izvrsava se bez greske u ovom trenutku
+C) Odmah se baca ClassCastException pri dodavanju broja 123
+D) Vrednost 123 se automatski konvertuje u String
+
+QUESTION: Sta ce se ispisati?
+CODE:
+char c = 'A';
+int i = c + 1;
+System.out.println(i);
+ENDCODE
+TYPE: fill
+ANSWER: 66
+EXPLAIN: U aritmetickom izrazu se char automatski siri (promovise) u int koristeci njegovu Unicode vrednost; 'A' ima kod 65, pa je rezultat 65+1=66.
+
+QUESTION: Sta ce se ispisati?
+CODE:
+System.out.println(7 / 2);
+ENDCODE
+TYPE: fill
+ANSWER: 3
+EXPLAIN: Kada su oba operanda celobrojnog tipa, operator / vrsi celobrojno deljenje i odbacuje ostatak.
+
+QUESTION: Sta ce se ispisati?
+CODE:
+int i = 5;
+int j = i++ + ++i;
+System.out.println(j);
+ENDCODE
+TYPE: fill
+ANSWER: 12
+EXPLAIN: i++ vraca staru vrednost 5 (i posle toga postaje 6); ++i prvo uvecava i na 7 i vraca tu novu vrednost; zbir je 5+7=12.
+
+QUESTION: Sta ce se ispisati (metoda proveri() se ne poziva zbog logickog operatora)?
+CODE:
+static boolean proveri() {
+    System.out.print("Pozvano ");
+    return true;
+}
+
+public static void main(String[] arg) {
+    boolean rezultat = false && proveri();
+    System.out.println(rezultat);
+}
+ENDCODE
+TYPE: fill
+ANSWER: false
+EXPLAIN: Operator && je uslovno (kratko-spojno) I; kada je levi operand false, desni operand (poziv metode proveri()) se uopste ne izracunava.
+
+QUESTION: Sta ce se ispisati?
+CODE:
+String dan = "SRE";
+switch (dan) {
+    case "PON":
+        System.out.println("Ponedeljak");
+        break;
+    case "SRE":
+        System.out.println("Sreda");
+        break;
+    default:
+        System.out.println("Nepoznato");
+}
+ENDCODE
+TYPE: fill
+ANSWER: Sreda
+EXPLAIN: Od Jave 7, selektorska promenljiva naredbe switch moze da bude tipa String, a poredjenje se vrsi po sadrzaju niske.
+
+QUESTION: Sta ce se ispisati?
+CODE:
+outer:
+for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+        if (j == 1) continue outer;
+        System.out.print(i + "" + j + " ");
+    }
+}
+ENDCODE
+TYPE: fill
+ANSWER: 00 10 20
+EXPLAIN: Labelovana naredba continue outer prekida tekucu iteraciju unutrasnje petlje i odmah prelazi na sledecu iteraciju spoljasnje petlje (oznacene labelom outer), pa se za svako i ispisuje samo par sa j=0.
+
+QUESTION: Koje od sledecih tvrdnji o statickim clanovima klase su tacne?
+TYPE: multiple
+*A) Staticko polje postoji tacno jednom po klasi, bez obzira na broj stvorenih objekata
+*B) Staticki metod ne moze direktno (bez reference na objekat) da pristupi nestatickim poljima klase
+C) Svaki objekat klase ima svoju sopstvenu kopiju statickog polja
+D) Staticki metodi mogu da se nadjacavaju (overriding) na isti nacin kao nestaticki metodi
+
+QUESTION: Match: pridruzi svaki modifikator prava pristupa opsegu u kome je clan klase dostupan.
+TYPE: match
+FIELD: private
+FIELD: (bez modifikatora - paketsko pravo)
+FIELD: protected
+FIELD: public
+CARD: *1 Dostupan samo unutar klase u kojoj je definisan
+CARD: *2 Dostupan u celom kodu istog paketa
+CARD: *3 Dostupan u paketu i u izvedenim klasama van paketa
+CARD: *4 Dostupan sa proizvoljnog mesta u programu
+CARD: Dostupan samo unutar istog fajla sa izvornim kodom, bez obzira na paket
+
+QUESTION: Napisi, redom, sta ce tacno da se ispise (svaki red posebno) za sledeci kod.
+CODE:
+static int test() {
+    System.out.println("try");
+    try {
+        return 1;
+    } finally {
+        System.out.println("finally");
+    }
+}
+
+public static void main(String[] arg) {
+    System.out.println("Rezultat: " + test());
+}
+ENDCODE
+TYPE: short
+EXPLAIN: Ispisuje se, redom: "try", zatim "finally" (finally blok se izvrsava pre povratka iz metode, iako je povratna vrednost 1 vec odredjena), i na kraju "Rezultat: 1".
