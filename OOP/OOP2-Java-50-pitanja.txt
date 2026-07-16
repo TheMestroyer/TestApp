@@ -1,4 +1,4 @@
-TITLE: OOP2 (Java) - 50 pitanja o radu jezika i predvidjanju izlaza
+TITLE: OOP2 (Java) - 150 pitanja o radu jezika, JVM/JDK, nitima, GUI, generici i IO
 
 QUESTION: Sta ce se ispisati?
 CODE:
@@ -722,3 +722,608 @@ public static void main(String[] arg) {
 ENDCODE
 TYPE: short
 EXPLAIN: Ispisuje se, redom: "try", zatim "finally" (finally blok se izvrsava pre povratka iz metode, iako je povratna vrednost 1 vec odredjena), i na kraju "Rezultat: 1".
+
+QUESTION: Sta je tacno u vezi odnosa JDK i JRE?
+TYPE: single
+A) JRE sadrzi JDK
+*B) JDK sadrzi JRE
+C) JDK i JRE su potpuno nezavisni i ne preklapaju se
+D) JRE se koristi samo za razvoj, a JDK samo za izvrsavanje programa
+EXPLAIN: JDK (Java Development Kit) obuhvata JRE (Java Runtime Environment) kao svoj deo, uz dodatne alate za razvoj (prevodilac javac i slicno).
+
+QUESTION: Sta je bajtkod (bytecode)?
+TYPE: fill
+ANSWER: masinski jezik JVM
+EXPLAIN: Prevodjenjem Java izvornog koda ne dobija se masinski kod konkretnog procesora, vec interpretativni "bajtkod" koji predstavlja "masinski jezik" za Javinu virtuelnu masinu (JVM).
+
+QUESTION: Da li je specifikacija JVM zvanicno ISO standard?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: JVM je standardizovana specifikacijom kompanije Sun/Oracle, ali ta specifikacija nije zvanicni ISO standard.
+
+QUESTION: Cemu sluze JIT (Just In Time) kompajleri u JVM?
+TYPE: short
+EXPLAIN: JIT kompajleri prevode delove bajtkoda u masinski kod tokom njegovog interpretiranja (u hodu), sto znatno ubrzava izvrsavanje u odnosu na cisto interpretiranje bajtkoda, priblizavajuci performanse izvrsavanju nativnog masinskog koda.
+
+QUESTION: Koji fajl nastaje kada se komandom javac prevede izvorni fajl p.java koji sadrzi jednu klasu imena Pozdrav?
+TYPE: fill
+ANSWER: Pozdrav.class
+EXPLAIN: Ime fajla sa bajtkodom odredjeno je imenom klase, a ne imenom izvornog fajla, pa prevodjenje p.java daje fajl Pozdrav.class.
+
+QUESTION: Sta je bio prvobitni (izvorni) povod za razvoj jezika Java, pre nego sto je prepoznat potencijal za Internet programiranje?
+TYPE: single
+A) Razvoj internet pretrazivaca
+*B) Programiranje kucnih (potrosackih) elektronskih uredjaja
+C) Razvoj operativnih sistema
+D) Zamena jezika C++ u sistemskom programiranju
+EXPLAIN: Prvobitni povod za razvoj jezika bilo je programiranje kucnih uredjaja (potrosacke elektronike); prodor Interneta i njegovih servisa prepoznat je kao dodatni motiv tek kasnije.
+
+QUESTION: Da li su C i C++ programi u potpunosti prenosivi na nivou izvrsnog (kompajliranog) koda izmedju razlicitih platformi?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Standardi C i C++ obezbedjuju znacajnu prenosivost, ali samo na nivou izvornog koda; izvrsni (kompajlirani) kod nije prenosiv izmedju platformi, za razliku od Java bajtkoda koji se interpretira na svakoj JVM na isti nacin.
+
+QUESTION: Koje od navedenih su, prema predavanjima, osnovne (kljucne) osobine jezika Java?
+TYPE: multiple
+*A) Prenosivost (portability)
+*B) Robusnost (stroga provera tipova, provereni izuzeci, sakupljanje djubreta)
+*C) Sigurnost (zastita od virusa kroz JVM)
+D) Podrska za visestruko nasledjivanje implementacije klasa
+
+QUESTION: Sta ce se ispisati?
+CODE:
+public class Niske {
+    public static void main(String args[]) {
+        String s1="Petar";
+        String s2="Petar";
+        String s3=new String("Petar");
+        String s4="Petar Petrovic";
+        String s5="Petar"+" Petrovic";
+        String s6=s1+" Petrovic";
+        String s7=s3+" Petrovic";
+        boolean b1=s1==s2, b2=s1==s3, b3=s4==s5, b4=s4==s6, b5=s4==s7;
+        System.out.println(b1+","+b2+","+b3+","+b4+","+b5);
+    }
+}
+ENDCODE
+TYPE: fill
+ANSWER: true,false,true,false,false
+EXPLAIN: s1==s2 su oba literala pa je true; s3 je napravljen sa new pa je s1==s3 false; s5 je konkatenacija dva literala sto prevodilac izracunava u vreme prevodjenja (konstantni izraz) i rezultat se takodje smesta u bazen niski, pa je s4==s5 true; s6 i s7 se prave konkatenacijom u vreme izvrsavanja (preko promenljivih s1 i s3), pa nastaju novi objekti na hipu i oba poredjenja su false.
+
+QUESTION: Koja klasa za rad sa niskama karaktera JE bezbedna za koriscenje iz vise niti istovremeno (thread-safe)?
+TYPE: single
+A) String
+B) StringBuilder
+*C) StringBuffer
+D) CharSequence
+EXPLAIN: StringBuffer je sinhronizovana (bezbedna za rad sa nitima), dok StringBuilder nije sinhronizovan i brzi je, ali nije bezbedan za konkurentan pristup iz vise niti.
+
+QUESTION: Da li je sledeci kod ispravan (da li se prevodi bez greske)?
+CODE:
+Object o = new Object();
+o = "Petar Petrovic";
+ENDCODE
+TYPE: truefalse
+ANSWER: TRUE
+EXPLAIN: Promenljiva tipa Object moze da referencira objekat bilo koje klase, ukljucujuci i String, jer je Object koren hijerarhije klasa i najopstiji tip reference.
+
+QUESTION: Sta ce se ispisati (navedi sadrzaj sve tri odstampane linije)?
+CODE:
+public class Matrica2D {
+    public static void main(String[] args) {
+        int[][] m = { {1, 2, 3}, {4, 5}, {7, 8, 9} };
+        for (int[] n: m) {
+            for (int e: n) System.out.print(e + " ");
+            System.out.println();
+        }
+    }
+}
+ENDCODE
+TYPE: short
+EXPLAIN: Ispisuju se tri linije: "1 2 3 ", "4 5 " i "7 8 9 " (razmak posle svakog broja). Visedimenzioni nizovi u Javi su u sustini nizovi nizova i ne moraju biti "pravougaoni" - redovi mogu imati razlicitu duzinu (tzv. jagged/nazubljeni nizovi), sto ovaj primer i pokazuje jer drugi red ima samo dva elementa.
+
+QUESTION: Kolika je podrazumevana (default) vrednost svakog elementa niza objekata neposredno posle kreiranja operatorom new, pre bilo kakve eksplicitne inicijalizacije?
+TYPE: fill
+ANSWER: null
+EXPLAIN: Elementi niza referentnog (objektnog) tipa se pri kreiranju niza automatski inicijalizuju na null, sve dok se eksplicitno ne dodele konkretni objekti.
+
+QUESTION: Koji izuzetak se baca prilikom pristupa elementu niza sa indeksom van dozvoljenog opsega [0, duzina-1]?
+TYPE: fill
+ANSWER: IndexOutOfBoundsException
+EXPLAIN: Pristup nizu van njegovih granica u Javi ne dovodi do nedefinisanog ponasanja kao u C/C++, vec baca izuzetak tipa IndexOutOfBoundsException u vreme izvrsavanja.
+
+QUESTION: Da li je dozvoljeno deklarisati staticku lokalnu promenljivu unutar tela metode u Javi (kao sto je to moguce u C/C++)?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Za razliku od C/C++, Java ne dozvoljava staticke lokalne promenljive unutar metoda; ekvivalentno ponasanje se postize statickim poljem klase.
+
+QUESTION: Od koje verzije Jave postoji tzv. foreach petlja (for-each) za iteriranje kroz kolekcije i nizove bez koriscenja indeksa ili iteratora?
+TYPE: fill
+ANSWER: 5.0 (Java 5)
+EXPLAIN: Foreach petlja je uvedena u Javi 5.0, kao pojednostavljena sintaksa iteracije kroz nizove i objekte koji implementiraju Iterable.
+
+QUESTION: Da li u Javi postoji izvrsna naredba goto?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Rec goto je rezervisana rec (kljucna rec) jezika Java, ali ne postoji kao stvarna izvrsna naredba - jedina upotreba labela je uz break i continue za izlazak iz ili nastavak petlje.
+
+QUESTION: Koliko bitova zauzima primitivni tip long, i koji je to tip podataka?
+TYPE: fill
+ANSWER: 64 bita, celobrojni (sa znakom)
+EXPLAIN: long je 64-bitni celobrojni tip sa znakom, za razliku od int (32 bita), short (16 bita) i byte (8 bita).
+
+QUESTION: U kom skupu karaktera i kodiranju su zapisane Java char vrednosti i izvorni tekst programa (nakon transliteracije)?
+TYPE: fill
+ANSWER: Unicode, UTF-16
+EXPLAIN: Za razliku od tradicionalnih jezika koji koriste ASCII skup, Java koristi medjunarodni standard Unicode, kodiran u UTF-16 (16 ili 32 bita po karakteru).
+
+QUESTION: Sta ce se ispisati?
+CODE:
+static int test(int x) {
+    return x > 0 ? 1 : x < 0 ? -1 : 0;
+}
+public static void main(String[] arg) {
+    System.out.println(test(-5));
+}
+ENDCODE
+TYPE: fill
+ANSWER: -1
+EXPLAIN: Ternarni (uslovni) operator ?: je desno-asocijativan pri ugnjezdavanju; za x=-5 prvi uslov x>0 je false, pa se ispituje drugi ugnjezdeni uslov x<0 koji je true, pa je rezultat -1.
+
+QUESTION: Da li deklaracija paketa (package X;) mora biti prva linija koda u izvornom fajlu, ako ta deklaracija postoji?
+TYPE: truefalse
+ANSWER: TRUE
+EXPLAIN: Ako fajl sadrzi deklaraciju paketa, ona mora biti prva linija u fajlu, pre bilo kakvih drugih deklaracija ili import naredbi.
+
+QUESTION: Koliko deklaracija paketa moze postojati u jednom izvornom fajlu?
+TYPE: fill
+ANSWER: najvise jedna
+EXPLAIN: Jedan tip (klasa/interfejs) pripada tacno jednom paketu, pa fajl ne moze sadrzati vise od jedne deklaracije package.
+
+QUESTION: Koji paket se implicitno uvozi (import) u svaki Java izvorni fajl, bez potrebe za eksplicitnom import naredbom?
+TYPE: fill
+ANSWER: java.lang
+EXPLAIN: Paket java.lang sadrzi osnovna prosirenja jezika (npr. klasu Object) i implicitno je uvezen u svaki fajl.
+
+QUESTION: Ako je tip X deklarisan kao public, gde mora biti definisan?
+TYPE: single
+A) U bilo kom fajlu unutar paketa
+*B) U fajlu koji se zove X.java
+C) Samo u fajlu koji se zove Main.java
+D) Ne postoji takvo ogranicenje
+EXPLAIN: Javni (public) tip mora biti definisan u fajlu ciji naziv odgovara imenu tipa (X.java); posledica toga je da u jednom fajlu ne mogu postojati dva javna tipa.
+
+QUESTION: Koje je podrazumevano pravo pristupa clanovima INTERFEJSA kada nije naveden nijedan modifikator?
+TYPE: fill
+ANSWER: public
+EXPLAIN: Za razliku od clanova klase (gde je podrazumevano pravo paketsko), clanovi interfejsa su podrazumevano public.
+
+QUESTION: Da li ugnjezdjivanje paketa (npr. paket event unutar paketa awt kod java.awt.event) automatski daje paketu event pristup paketski-privatnim clanovima paketa awt, ili obrnuto?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Ugnjezdjivanje paketa je iskljucivo stvar imenovanja (hijerarhija imena) i ne uvodi nikakva posebna prava pristupa izmedju paketa i njegovih pod-paketa.
+
+QUESTION: Sta ce se ispisati (navedi obe odstampane linije)?
+CODE:
+package x;
+public class A {
+    public static int sp = 100;
+    public static void sm() { System.out.println("sm()"); }
+}
+
+import static x.A.*;
+class B {
+    public static void main(String[] arg) {
+        sm();
+        System.out.println("sp=" + sp);
+    }
+}
+ENDCODE
+TYPE: short
+EXPLAIN: Ispisuju se dve linije: "sm()" i "sp=100". Naredba import static x.A.*; uvozi imena statickih clanova klase A (polje sp i metod sm()), pa se oni mogu koristiti nekvalifikovano (bez prefiksa A.) u klasi B.
+
+QUESTION: Klasa Y je u istom paketu P kao i klasa X koju nasledjuje (X ima paketsko-privatno polje xpack, bez modifikatora). Klasa Z je u DRUGOM paketu i takodje nasledjuje X. Da li Z moze direktno da pristupi nasledjenom polju xpack unutar sopstvene metode?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Paketsko-privatni (bez modifikatora) clanovi su dostupni samo unutar istog paketa; nasledjivanje iz klase paketa P ne prosiruje tu vidljivost na podklasu Z koja se nalazi u drugom paketu.
+
+QUESTION: Sta se desava ako se run() metoda pozove direktno (kao obican poziv metode), umesto da se pozove start()?
+TYPE: single
+A) Baca se IllegalThreadStateException
+*B) run() se izvrsava u okviru tekuce (pozivajuce) niti, bez pokretanja nove niti
+C) Program se ne prevodi
+D) Nista se ne desava - poziv se ignorise
+EXPLAIN: start() je metoda koja aktivira novu nit izvrsavanja i tek tada JVM poziva run() u toj novoj niti; direktan poziv run() je obican poziv metode koji se izvrsava sekvencijalno u pozivajucoj niti, bez ikakve konkurentnosti.
+
+QUESTION: Koji se izuzetak baca ako se wait(), notify() ili notifyAll() pozovu van sinhronizovanog koda (bez drzanja brave objekta)?
+TYPE: fill
+ANSWER: IllegalMonitorStateException
+EXPLAIN: wait/notify/notifyAll smeju da se pozivaju samo iz sinhronizovanog koda (metoda ili bloka) nad tim objektom; u suprotnom se u vreme izvrsavanja baca IllegalMonitorStateException.
+
+QUESTION: Koja metoda budi SVE niti koje cekaju na monitoru (bravi) objekta, za razliku od metode koja budi samo jednu (neodredjenu) nit?
+TYPE: fill
+ANSWER: notifyAll()
+EXPLAIN: notify() budi tacno jednu (neodredjenu) cekajucu nit, dok notifyAll() budi sve niti koje cekaju na tom objektu; u principu se preporucuje koriscenje notifyAll().
+
+QUESTION: Sta konkretno radi metoda wait() pozvana unutar sinhronizovane metode, u pogledu brave objekta?
+TYPE: single
+A) Blokira nit, ali zadrzava bravu objekta zakljucanom
+*B) U jednoj atomskoj operaciji blokira nit i oslobadja bravu objekta
+C) Odmah baca izuzetak i ne blokira nit
+D) Trajno oslobadja bravu, cak i posle povratka iz wait()
+EXPLAIN: wait() u jednoj nedeljivoj (atomskoj) operaciji suspenduje nit i oslobadja bravu objekta; kasnije, da bi nastavila izvrsavanje posle notify(), nit prvo mora ponovo da zauzme (zakljuca) tu istu bravu.
+
+QUESTION: Zasto proveru uslova cekanja treba pisati kao "while (!uslov) wait();", a ne kao "if (!uslov) wait();"?
+TYPE: short
+EXPLAIN: notify() budi tacno jednu nit, ali nije garantovano da je to bas ta koja najduze ceka niti da je uslov zaista ispunjen kada se nit probudi (moguce je da neka druga nit u medjuvremenu ponovo narusi uslov); zato se provera mora ponoviti u petlji (while), a ne samo jednom pomocu if.
+
+QUESTION: Da li signal poslat metodom notify() ili notifyAll() PRE nego sto je bilo koja nit usla u wait() ostaje "zapamcen" i isporucuje se niti koja kasnije udje u wait()?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Signali poslati pre nego sto neka nit udje u wait() se jednostavno gube (ignorisu); nit koja kasnije udje u wait() ceka iskljucivo na buduce signale.
+
+QUESTION: Koja od sledecih predstavljaju nacine za definisanje aktivnog objekta (niti) u Javi?
+TYPE: multiple
+*A) Nasledjivanje klase Thread
+*B) Implementiranje interfejsa Runnable
+C) Nasledjivanje interfejsa Thread
+D) Implementiranje apstraktne klase Runnable
+EXPLAIN: Thread je klasa (moze se naslediti), a Runnable je interfejs sa jednim apstraktnim metodom run() (moze se implementirati) - preostale dve opcije mesaju pojmove klase i interfejsa.
+
+QUESTION: Zasto se u predavanjima implementiranje interfejsa Runnable navodi kao resenje problema koji nastaje nasledjivanjem klase Thread?
+TYPE: short
+EXPLAIN: Klasa u Javi moze da nasledi (extends) samo jednu drugu klasu; ako klasa vec nasledjuje Thread, ne moze vise nasledjivati nijednu drugu klasu. Implementiranjem interfejsa Runnable klasa ne trosi svoje jedino mesto za nasledjivanje klase, pa moze slobodno da nasledi neku drugu klasu ako je to potrebno.
+
+QUESTION: Da li je objekat klase koja implementira Runnable sam po sebi aktivan (predstavlja nit izvrsavanja)?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Objekat klase koja implementira Runnable je pasivan - on samo definise sta treba da se izvrsi (run()); da bi zaista postao aktivan (nit), mora se proslediti konstruktoru objekta klase Thread, cije start() metoda pokrece izvrsavanje.
+
+QUESTION: Koju bravu (lock) zakljucava poziv sinhronizovanog STATICKOG metoda klase?
+TYPE: single
+A) Bravu objekta nad kojim je metod pozvan
+*B) Bravu same klase (Class objekta)
+C) Nista se ne zakljucava za staticke metode
+D) Bravu svih vec kreiranih objekata te klase istovremeno
+EXPLAIN: Kako staticki metodi pripadaju klasi a ne konkretnom objektu, sinhronizovan staticki metod zakljucava bravu koja je vezana za samu klasu, a ne bravu nekog objekta te klase.
+
+QUESTION: Dok jedna nit izvrsava sinhronizovani STATICKI metod klase K, da li druga nit moze istovremeno da izvrsi sinhronizovani NESTATICKI metod nad nekim objektom klase K?
+TYPE: truefalse
+ANSWER: TRUE
+EXPLAIN: Sinhronizovani staticki metodi zakljucavaju bravu klase, dok sinhronizovani nestaticki metodi zakljucavaju bravu konkretnog objekta - to su dve razlicite brave, pa nema medjusobnog blokiranja izmedju njih.
+
+QUESTION: Ako izvedena klasa nadjaca (override) metod koji je u nadklasi bio synchronized, da li novi (nadjacani) metod automatski ostaje synchronized?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Modifikator synchronized se ne nasledjuje pri nadjacavanju; izvedena klasa moze slobodno da odluci da li ce njena verzija metoda biti sinhronizovana ili ne, nezavisno od nadklase.
+
+QUESTION: Klasa A ima synchronized metod m(). Klasa B nasledjuje A i nadjacava m() BEZ modifikatora synchronized, ali unutar tela odmah poziva super.m(). Da li ce objekat i dalje biti zakljucan (lock-ovan) tokom izvrsavanja tog super.m() poziva?
+TYPE: truefalse
+ANSWER: TRUE
+EXPLAIN: Iako nadjacani metod u B nije synchronized, poziv super.m() unutar njega izvrsava sinhronizovanu implementaciju iz nadklase A, koja ce zakljucati objekat za vreme svog izvrsavanja - synchronized deluje na nivou konkretne implementacije koja se izvrsava, ne na nivou samog poziva.
+
+QUESTION: Koja staticka metoda testira da li je TRENUTNA (pozivajuca) nit bila prekinuta, i pritom RESETUJE status prekida na false?
+TYPE: fill
+ANSWER: Thread.interrupted()
+EXPLAIN: interrupted() je staticka metoda koja proverava status prekida trenutne niti i pritom ga resetuje; za razliku od nje, nestaticka metoda isInterrupted() proverava status ciljne niti bez resetovanja.
+
+QUESTION: Da li Java virtuelna masina automatski detektuje i sprecava zastoj (deadlock) izmedju niti?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Java ne detektuje niti sprecava deadlock automatski - odgovornost za izbegavanje zastoja (npr. konzistentnim redosledom zakljucavanja brava) je na programeru.
+
+QUESTION: Dva objekta, x i y, imaju sinhronizovane metode koje unakrsno pozivaju sinhronizovane metode jedan drugog (x.m1() poziva y.m1(), a y.m2() poziva x.m2()). Nit A pozove x.m1(), a u isto vreme nit B pozove y.m2(). Sta ce se najverovatnije desiti?
+TYPE: single
+A) Program ce sigurno zavrsiti izvrsavanje bez problema
+*B) Moze doci do zastoja (deadlock) - svaka nit ceka na bravu koju drzi ona druga
+C) Baca se kompajlerska greska
+D) Jedna od niti se automatski prekida od strane JVM
+EXPLAIN: Nit A drzi bravu objekta x i ceka na bravu objekta y (unutar y.m1()), dok nit B drzi bravu objekta y i ceka na bravu objekta x (unutar x.m2()) - klasican primer zastoja (deadlock) usled unakrsnog redosleda zakljucavanja.
+
+QUESTION: Kako se ispravno oznacava nit kao demonska (daemon), i koji izuzetak se dobija ako se to pokusa NAKON sto je nit vec pokrenuta (posle poziva start())?
+TYPE: short
+EXPLAIN: Nit se oznacava kao demonska pozivom nit.setDaemon(true), i to mora biti ucinjeno PRE poziva start(). Pokusaj promene statusa demonske niti nakon sto je vec pokrenuta baca IllegalStateException.
+
+QUESTION: Da li aplikacija ceka da se zavrse demonske niti pre nego sto se ugasi, ako su sve preostale (korisnicke) niti vec zavrsile izvrsavanje?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Aplikacija se izvrsava sve dok postoji bar jedna korisnicka (ne-demonska) nit; kada sve korisnicke niti zavrse, aplikacija se gasi automatski, cak i ako demonske niti jos uvek rade.
+
+QUESTION: Koji modifikator polja garantuje da ce svaka nit uvek videti najnoviju vrednost tog polja, sprecavajuci kompajlator/JVM da koristi kesiranu (zastarelu) kopiju vrednosti umesto ponovnog citanja iz memorije?
+TYPE: fill
+ANSWER: volatile
+EXPLAIN: Kada vise niti moze da menja i cita isto polje, ono treba da bude oznaceno kao volatile, cime se sprecava da optimizacije (npr. kesiranje vrednosti u registru) sakriju promene koje su napravile druge niti.
+
+QUESTION: Nakon sto poziv metode join() nad nekom niti t vrati kontrolu pozivaocu (bez izuzetka), sta je garantovano?
+TYPE: fill
+ANSWER: da je run() metoda niti t zavrsila izvrsavanje
+EXPLAIN: join() blokira pozivajucu nit sve dok se ciljna nit ne zavrsi (ili dok ne istekne navedeni tajmaut, ako je zadat); povratak bez izuzetka kod bezargumentne verzije garantuje da je ciljna nit zavrsila svoj run().
+
+QUESTION: Koja metoda dozvoljava trenutnoj niti da dobrovoljno prepusti procesor, ali BEZ GARANCIJE da ce druga nit zaista dobiti priliku (moze se desiti da odmah ponovo bude izabrana ista nit)?
+TYPE: fill
+ANSWER: yield()
+EXPLAIN: static void yield() je samo predlog planeru (scheduleru) da omoguci drugim nitima da se izvrse; ne postoji garancija - cak i pozivajuca nit moze odmah ponovo biti izabrana, npr. ako ima najveci prioritet medju spremnima za izvrsavanje.
+
+QUESTION: Ako se metoda sleep() pozove iz tela sinhronizovane metode, da li ona oslobadja bravu objekta za vreme trajanja spavanja?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: sleep() ne oslobadja nikakvu bravu koju nit trenutno drzi; nit ostaje da drzi bravu objekta tokom celog perioda spavanja, sto moze blokirati druge niti koje cekaju istu bravu.
+
+QUESTION: Sta oznacava skracenica AWT?
+TYPE: fill
+ANSWER: Abstract Windowing Toolkit
+EXPLAIN: AWT (Abstract Windowing Toolkit) je paket java.awt koji sadrzi apstraktne (platformski nezavisne) alate za rad sa prozorima i graficki korisnicki interfejs.
+
+QUESTION: Koji je podrazumevani (default) upravljac rasporeda (layout manager) za objekat klase Panel?
+TYPE: fill
+ANSWER: FlowLayout
+EXPLAIN: Za panele (Panel) podrazumevani layout manager je FlowLayout, dok je za prozore (Frame/Window) podrazumevani layout manager BorderLayout.
+
+QUESTION: Koji je podrazumevani (default) upravljac rasporeda za prozor (klasu Frame)?
+TYPE: fill
+ANSWER: BorderLayout
+EXPLAIN: Podrazumevani layout manager prozora (Frame) je BorderLayout, koji rasporedjuje komponente po ivicama (NORTH, SOUTH, EAST, WEST) i u sredini (CENTER) kontejnera.
+
+QUESTION: Match: pridruzi svaki layout manager njegovom nacinu rasporedjivanja komponenti.
+TYPE: match
+FIELD: FlowLayout
+FIELD: BorderLayout
+FIELD: GridLayout
+FIELD: CardLayout
+CARD: *1 Rasporedjuje komponente sleva-udesno u niz redova, koliko je potrebno
+CARD: *2 Rasporedjuje komponente po ivicama i u sredini kontejnera
+CARD: *3 Rasporedjuje komponente u pravilnoj resetki (redovi i kolone)
+CARD: *4 Rasporedjuje komponente kao karte u spilu, jednu iza druge
+CARD: Rasporedjuje komponente prema apsolutnim koordinatama koje programer eksplicitno zadaje
+
+QUESTION: Koja je bazna (koren) klasa za sve AWT GUI komponente (dugme, oznaka, tekstualno polje, itd.)?
+TYPE: fill
+ANSWER: Component
+EXPLAIN: Klasa Component je zajednicka bazna klasa za sve graficke komponente - predstavlja nesto sto ima poziciju i velicinu, moze da se iscrta na ekranu i prima dogadjaje od korisnika.
+
+QUESTION: Koja klasa neposredno predstavlja glavni prozor aplikacije (ima naslovnu traku, ivicu i moze sadrzati traku menija)?
+TYPE: single
+A) Window
+*B) Frame
+C) Dialog
+D) Panel
+EXPLAIN: Frame (nasledjuje Window) predstavlja glavni prozor aplikacije, sa naslovnom trakom, dugmadima za upravljanje i mogucnoscu da sadrzi traku menija (MenuBar).
+
+QUESTION: Da li objekat klase Dialog moze da sadrzi traku menija (MenuBar)?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Za razliku od Frame, Dialog ne sadrzi traku menija; Dialog takodje uvek ima roditeljski prozor i nestaje sa ekrana kada se roditeljski prozor minimizuje.
+
+QUESTION: Koje od sledecih listener interfejsa NEMAJU odgovarajucu adapter klasu (jer imaju samo jedan apstraktan metod)?
+TYPE: multiple
+*A) ActionListener
+*B) ItemListener
+*C) MouseWheelListener
+D) WindowListener
+EXPLAIN: ActionListener, AdjustmentListener, ItemListener, MouseWheelListener i TextListener su jednometodni (funkcionalni) interfejsi i za njih ne postoje adapter klase; visemetodni interfejsi kao WindowListener, MouseListener, KeyListener, FocusListener, ComponentListener i ContainerListener imaju odgovarajuce adapter klase.
+
+QUESTION: Koji se metod poziva kada je dugme misa pritisnuto i otpusteno na ISTOJ poziciji (tj. dogodio se "klik")?
+TYPE: fill
+ANSWER: mouseClicked
+EXPLAIN: Ako se dugme misa otpusti na drugoj poziciji od one na kojoj je pritisnuto, poziva se samo mouseReleased; ako se otpusti na istoj poziciji, posle mouseReleased se poziva i mouseClicked.
+
+QUESTION: Koji tip dogadjaja (Event) nastaje pritiskom na AWT dugme (Button)?
+TYPE: fill
+ANSWER: ActionEvent
+EXPLAIN: Pritisak na dugme generise ActionEvent, koji se obradjuje implementacijom metoda actionPerformed(ActionEvent e) iz interfejsa ActionListener.
+
+QUESTION: Koji se metod poziva kada korisnik promeni stanje Checkbox komponente (npr. da li je cekirana)?
+TYPE: fill
+ANSWER: itemStateChanged
+EXPLAIN: Promena stanja checkboxa generise ItemEvent koji se obradjuje metodom itemStateChanged(ItemEvent e) iz interfejsa ItemListener.
+
+QUESTION: Da li AWT klasa Button podrzava prikazivanje slike (ikonice) na sebi, umesto (ili pored) tekstualne oznake?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: AWT komponenta Button podrzava iskljucivo tekstualnu oznaku - prikaz slike na dugmetu nije podrzan.
+
+QUESTION: Koja se klasa koristi da bi se vise Checkbox objekata ponasalo kao medjusobno iskljucivi radio-dugmici (samo jedan moze biti izabran)?
+TYPE: fill
+ANSWER: CheckboxGroup
+EXPLAIN: Grupisanjem Checkbox objekata preko zajednickog CheckboxGroup objekta, oni se ponasaju kao radio-dugmici; checkbox koji nije clan nijedne grupe ponasa se kao obicna (nezavisna) kucica za potvrdu.
+
+QUESTION: Sta je osnovni nedostatak koriscenja adapter klasa (npr. nasledjivanja WindowAdapter umesto direktnog implementiranja WindowListener)?
+TYPE: short
+EXPLAIN: Kako Java dozvoljava nasledjivanje samo jedne klase, klasa koja vec nasledjuje neku drugu klasu ne moze istovremeno nasledjivati i adapter klasu; adapter pristup se moze koristiti samo kada nasledna klasa nema vec neku drugu nadklasu (ili preko anonimne unutrasnje klase).
+
+QUESTION: U klasicnom (Java 1.0) modelu obrade dogadjaja preko metode handleEvent(), sta se desava sa dogadjajem ako handleEvent() vrati false?
+TYPE: fill
+ANSWER: prosledjuje se roditeljskoj komponenti
+EXPLAIN: Ako handleEvent() ne obradi dogadjaj (vrati false), dogadjaj se automatski prosledjuje ka roditeljskoj (obuhvatajucoj) komponenti nagore kroz hijerarhiju; ako ga obradi, vraca true i dogadjaj se dalje ne prosledjuje.
+
+QUESTION: Objasni osnovnu razliku izmedju centralizovanog (Java 1.0, preko handleEvent()) i delegiranog modela obrade dogadjaja u AWT-u.
+TYPE: short
+EXPLAIN: U centralizovanom modelu, sve vrste dogadjaja obradjuje jedna metoda (handleEvent) kroz granjajucu kontrolnu strukturu, sto nije u objektnom duhu. U delegiranom modelu, izvori dogadjaja (komponente) registruju jednog ili vise "osluskivaca" (listener) - objekata klasa koje implementiraju odgovarajuci listener interfejs - i obrada svake vrste dogadjaja se delegira metodi propisanoj tim interfejsom (npr. actionPerformed za ActionListener).
+
+QUESTION: Da li je Box<Integer> podtip od Box<Number>, s obzirom da je Integer podtip od Number?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Generici u Javi su invarijantni: Box<Integer> i Box<Number> nisu u odnosu podtip-nadtip iako je Integer podtip Number-a; kada bi to bilo dozvoljeno, moglo bi se u Box<Integer> ubaciti Double preko reference tipa Box<Number>, sto bi narusilo bezbednost tipova.
+
+QUESTION: Sta se dogadja sa informacijama o generickom tipu (npr. T u klasi Box<T>) u vreme IZVRSAVANJA programa?
+TYPE: fill
+ANSWER: brisu se (type erasure)
+EXPLAIN: Java implementira generike mehanizmom "brisanja tipova" (type erasure): u vreme izvrsavanja parametri tipa vise ne postoje - zamenjuju se svojom gornjom granicom (ili sa Object ako granica nije zadata), sto omogucava kompatibilnost sa kodom napisanim pre uvodjenja generika.
+
+QUESTION: Da li je moguce unutar generisane klase napisati "E elem = new E();" gde je E njen tip parametar?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Zbog brisanja tipova (type erasure), u vreme izvrsavanja se ne zna koji je konkretan tip E, pa new E() nije dozvoljeno; ekvivalentna funkcionalnost se moze postici refleksijom (prosledjivanjem Class<E> objekta i pozivom njegove newInstance metode).
+
+QUESTION: Da li je moguce kreirati niz parametrizovanog generickog tipa, npr. "List<Integer>[] niz = new List<Integer>[2];"?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Kreiranje niza parametrizovanog tipa je zabranjeno (greska pri prevodjenju) jer bi zbog brisanja tipova runtime provera ArrayStoreException, koja inace stiti nizove objekata od pogresnog tipa, postala nemoguca.
+
+QUESTION: Koji wildcard oblik ("? extends X" ili "? super X") treba koristiti kada generisani tip parametar sluzi samo za CITANJE (produkovanje) podataka iz kolekcije?
+TYPE: fill
+ANSWER: ? extends X
+EXPLAIN: Prema principu PECS (Producer Extends, Consumer Super), kada se iz generickog tipa samo cita (on "proizvodi" podatke), koristi se gornje ogranicen wildcard ? extends X.
+
+QUESTION: Koji wildcard oblik treba koristiti kada generisani tip parametar sluzi samo za DODAVANJE (konzumiranje) podataka u kolekciju?
+TYPE: fill
+ANSWER: ? super X
+EXPLAIN: Prema principu PECS (Producer Extends, Consumer Super), kada se u generisani tip samo dodaje (on "konzumira" podatke), koristi se donje ogranicen wildcard ? super X.
+
+QUESTION: Sta oznacava skracenica PECS koja se koristi kao pravilo pri izboru izmedju "extends" i "super" wildcard-a?
+TYPE: fill
+ANSWER: Producer Extends, Consumer Super
+EXPLAIN: PECS je mnemonik: ako tip "proizvodi" (produces) podatke koje citate, koristite extends; ako tip "konzumira" (consumes) podatke koje mu dodajete, koristite super.
+
+QUESTION: Data je referenca list tipa List<?> (neogranicen wildcard), koja trenutno referencira konkretnu listu ArrayList<Integer>. Sta se od navedenog moze dodati u nju pozivom list.add(...)?
+TYPE: single
+A) Bilo koji objekat tipa Object
+B) Samo objekte tipa Integer
+*C) Iskljucivo vrednost null
+D) Nista se ne moze dodati, add() nije dostupan za List<?>
+EXPLAIN: Zbog nepoznatog (capture-ovanog) tipa, kompajler ne moze da garantuje bezbednost dodavanja bilo koje konkretne vrednosti u List<?> (osim null, koji je kompatibilan sa svakim referentnim tipom), pa je jedino list.add(null) dozvoljeno.
+
+QUESTION: Da li su List<Object> i List<?> isti (ekvivalentan) tip?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: To su razliciti tipovi: u List<Object> se moze dodati podatak bilo kog tipa, dok se u List<?> moze dodati jedino null, jer stvarni (nepoznati) tip elemenata liste kompajler ne moze da odredi.
+
+QUESTION: Koju bajtkod instrukciju kompajler automatski ubacuje prilikom pristupa vrednosti generickog tipa (npr. box.get()), da bi se ocuvala bezbednost tipova i posle brisanja generickih tipova?
+TYPE: fill
+ANSWER: checkcast
+EXPLAIN: Iako metoda box.get() na bajtkod nivou zapravo vraca Object (posle erasure), kompajler ubacuje eksplicitnu checkcast instrukciju koja na tom mestu proverava i po potrebi baca ClassCastException ako stvarni tip ne odgovara.
+
+QUESTION: Da li genericka klasa moze direktno ili indirektno da nasledi klasu Throwable (npr. "class MojIzuzetak<T> extends Exception")?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Genericke klase ne smeju nasledjivati Throwable ni direktno ni indirektno, jer se vrsta izuzetka mora znati u vreme izvrsavanja (za razresavanje catch blokova), a to je nespojivo sa brisanjem generickih tipova.
+
+QUESTION: Da li se tip parametar T sme koristiti kao tip u catch klauzuli, npr. "catch (T e) { ... }"?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Zbog brisanja tipova, tip izuzetka mora biti poznat u vreme izvrsavanja da bi JVM mogao da ga uporedi sa stvarno bacenim izuzetkom, pa je catch (T e) greska pri prevodjenju.
+
+QUESTION: Da li se tip parametar T sme koristiti u throws klauzuli metode, npr. "void parsiraj() throws T"?
+TYPE: truefalse
+ANSWER: TRUE
+EXPLAIN: Za razliku od catch klauzule, throws klauzula sa tipom parametrom je dozvoljena (npr. uz ogranicenje T extends Exception), jer se provera checked izuzetaka vrsi u vreme prevodjenja, a ne izvrsavanja.
+
+QUESTION: Kako se zove operator (uveden u Javi 7) koji dozvoljava izostavljanje eksplicitnih argumenata tipa prilikom poziva konstruktora generickog tipa, npr. "Box<Integer> b = new Box<>();"?
+TYPE: fill
+ANSWER: dijamant (diamond operator, <>)
+EXPLAIN: Diamond operator <> omogucava kompajleru da zakljuci (infer) argument tipa iz konteksta (npr. iz tipa promenljive kojoj se rezultat dodeljuje), pa ga programer ne mora ponovo eksplicitno navoditi.
+
+QUESTION: Da li je moguce koristiti primitivni tip direktno kao argument tipa generickog tipa, npr. "Pair<int, char> p = new Pair<>(8, 'a');"?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Argumenti tipa moraju biti referentni (ne-primitivni) tipovi; potrebno je koristiti odgovarajuce omotacke klase (Pair<Integer, Character>), pri cemu se vrednosti 8 i 'a' automatski pakuju (autoboxing) u Integer i Character.
+
+QUESTION: Da li je dozvoljeno da genericka klasa Sample<T> ima staticko polje tipa T, npr. "private static T vrednost;"?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Zbog brisanja tipova, posle kompajliranja postoji samo jedna (deljena) klasa Sample bez obzira na broj razlicitih parametrizacija (Sample<String>, Sample<Integer>, ...), pa deljeno staticko polje tipa T ne bi bilo tipski bezbedno.
+
+QUESTION: Da li je dozvoljeno da staticka metoda unutar genericke klase Sample<T> definise SOPSTVENI tip parametar, razlicit od tipa parametra klase?
+TYPE: truefalse
+ANSWER: TRUE
+EXPLAIN: Iako staticka metoda ne sme koristiti tip parametar klase (T), ona moze deklarisati sopstveni, nezavisan generisani tip parametar, npr. "public static <S> void stampaj(S vrednost) { }".
+
+QUESTION: Da li se operator instanceof moze koristiti sa punim parametrizovanim generickim tipom, npr. "if (lista instanceof ArrayList<Integer>)"?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Zbog brisanja tipova, u vreme izvrsavanja ne postoji informacija o konkretnom argumentu tipa, pa je provera instanceof sa parametrizovanim tipom greska pri prevodjenju; dozvoljena je jedino provera sa neogranicenim wildcard-om, npr. "lista instanceof ArrayList<?>".
+
+QUESTION: Kako se zovu sinteticke (kompajlerski generisane) metode koje kompajler dodaje u izvedenu klasu da bi ocuvao ispravan polimorfizam nakon brisanja generickih tipova, kada se signatura nadjacanog metoda posle erasure razlikuje od signature u nadklasi?
+TYPE: fill
+ANSWER: mostovne metode (bridge methods)
+EXPLAIN: Kada npr. Node<T> ima metod setData(T), a MyNode extends Node<Integer> nadjaca ga sa setData(Integer), posle erasure to vise nije formalno nadjacavanje (Node.setData(Object) vs MyNode.setData(Integer)); kompajler zato u MyNode automatski generise skrivenu mostovnu metodu setData(Object) koja interno kastuje i poziva setData(Integer), cuvajuci ispravno polimorfno ponasanje.
+
+QUESTION: Zasto se dve preklopljene (overloaded) metode "void foo(Set<String> s)" i "void foo(Set<Integer> s)" ne mogu definisati u istoj klasi?
+TYPE: short
+EXPLAIN: Zbog brisanja tipova, obe signature se posle prevodjenja svode na istu signaturu "void foo(Set s)", pa kompajler prijavljuje gresku duplikata metoda - preklapanje nije moguce ako se signature razlikuju samo po argumentu generickog tipa.
+
+QUESTION: Data je genericka metoda "static <T extends Comparable<T>> T max(T a, T b)". Zasto ogranicenje "extends Comparable<T>" mora postojati da bi telo metode moglo da koristi a.compareTo(b)?
+TYPE: short
+EXPLAIN: Bez ogranicenja, tip parametar T bi bio zamenjen samo sa Object nakon brisanja tipova, a Object ne poseduje metod compareTo(); dodavanjem ogranicenja T extends Comparable<T>, kompajler zna da svaki konkretan tip koji se koristi mora implementirati Comparable<T> i moze bezbedno da pozove compareTo() unutar tela metode.
+
+QUESTION: Sta ce se dogoditi pri izvrsavanju sledeceg koda?
+CODE:
+Box<String> stringBox = new Box<>();
+stringBox.set("Zdravo");
+Box rawBox = stringBox;      // unchecked warning pri konverziji
+rawBox.set(123);             // unchecked poziv generickog metoda
+String s = stringBox.get();  // ovde se dogadja problem
+System.out.println(s);
+ENDCODE
+TYPE: single
+A) Ispisuje se "123"
+B) Ispisuje se "Zdravo"
+*C) Baca se ClassCastException
+D) Baca se ClassNotFoundException
+EXPLAIN: Preko sirovog (raw) tipa rawBox je moguce, uz upozorenje, ubaciti Integer vrednost 123 u ono sto je zapravo Box<String>; kada se kasnije kroz parametrizovanu referencu stringBox pozove get(), kompajlerski ubacena checkcast provera na String otkriva pogresan sadrzaj i baca ClassCastException u vreme izvrsavanja.
+
+QUESTION: Koji interfejs mora da implementira klasa da bi se njeni objekti mogli serijalizovati (pretvoriti u niz bajtova)?
+TYPE: fill
+ANSWER: Serializable
+EXPLAIN: Serializable je markerski (marker) interfejs - nema nijedan metod, samo oznacava da je objekte klase dozvoljeno serijalizovati.
+
+QUESTION: Da li se polje oznaceno modifikatorom transient serijalizuje zajedno sa ostatkom objekta?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Polja oznacena kao transient se eksplicitno preskacu prilikom serijalizacije - njihova vrednost se ne cuva niti obnavlja pri deserijalizaciji (dobijaju podrazumevanu vrednost svog tipa).
+
+QUESTION: Koja se metoda ObjectOutputStream klase koristi za pisanje (serijalizaciju) celog objekta u tok?
+TYPE: fill
+ANSWER: writeObject(Object o)
+EXPLAIN: writeObject(Object o) serijalizuje prosledjeni objekat (i sve objekte na koje on referencira) i upisuje ga u izlazni tok bajtova.
+
+QUESTION: Da li su "!Files.exists(path)" i "Files.notExists(path)" uvek logicki ekvivalentni (uvek daju isti rezultat)?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Ako pristup fajlu nije moguc (npr. zbog dozvola), oba poziva - i exists(path) i notExists(path) - mogu istovremeno vratiti false, pa se postojanje fajla u tom slucaju ne moze pouzdano utvrditi ni jednim ni drugim pozivom.
+
+QUESTION: Koja se metoda koristi za brisanje fajla, a koja NE baca izuzetak ako fajl uopste ne postoji (za razliku od obicnog delete())?
+TYPE: fill
+ANSWER: Files.deleteIfExists(path)
+EXPLAIN: Files.delete(path) baca NoSuchFileException ako fajl ne postoji, dok Files.deleteIfExists(path) u tom slucaju samo tiho ne radi nista (vraca false), bez bacanja izuzetka.
+
+QUESTION: Prilikom kopiranja DIREKTORIJUMA metodom Files.copy(izvor, odrediste), da li se kopira i njegov sadrzaj (fajlovi i poddirektorijumi unutar njega)?
+TYPE: truefalse
+ANSWER: FALSE
+EXPLAIN: Kopiranje direktorijuma pomocu Files.copy() kreira samo prazan direktorijum na odredistu - sadrzaj se NE kopira automatski; ovo je suprotno od kopiranja obicnog fajla, gde se sadrzaj fajla kopira u potpunosti.
+
+QUESTION: Prilikom premestanja DIREKTORIJUMA metodom Files.move(izvor, odrediste), da li se premesta i njegov sadrzaj?
+TYPE: truefalse
+ANSWER: TRUE
+EXPLAIN: Za razliku od Files.copy(), Files.move() nad direktorijumom premesta ceo direktorijum zajedno sa svim njegovim sadrzajem (original nestaje sa izvorne lokacije).
+
+QUESTION: Koja klasa iz paketa java.nio.file predstavlja lokaciju (putanju do) fajla ili direktorijuma, ali ne mora da odgovara fajlu koji stvarno postoji?
+TYPE: fill
+ANSWER: Path
+EXPLAIN: Objekat tipa Path predstavlja samo apstrakciju putanje/lokacije u fajl sistemu, nezavisno od toga da li na toj putanji zaista postoji fajl ili direktorijum; stvarne operacije nad sadrzajem se izvode preko klase Files.
+
+QUESTION: U glob obrascima koji se koriste npr. u Files.newDirectoryStream(dir, obrazac), koji karakter odgovara TACNO JEDNOM proizvoljnom karakteru u imenu fajla (za razliku od * koji odgovara proizvoljnom broju karaktera)?
+TYPE: fill
+ANSWER: ?
+EXPLAIN: U glob sintaksi, * odgovara proizvoljnom (i nula) broju karaktera, dok ? odgovara tacno jednom karakteru - npr. obrazac "?.txt" pogadja "a.txt" i "b.txt", ali ne pogadja "dokument.txt".
+
+QUESTION: Prilikom citanja VISE serijalizovanih objekata uzastopno pozivajuci readObject() u petlji (bez unapred poznatog broja objekata), koji izuzetak se hvata da bi se prepoznao kraj toka i prekinula petlja?
+TYPE: fill
+ANSWER: EOFException
+EXPLAIN: ObjectInputStream ne nudi metodu tipa "ima li jos objekata"; standardni obrazac je pozivati readObject() unutar beskonacne petlje i hvatati EOFException kada tok bajtova bude iscrpljen, sto signalizira kraj citanja.
+
+QUESTION: Koje od sledecih predstavljaju dve osnovne kategorije "starih" (java.io) tokova, u zavisnosti od toga da li rade sa bajtovima ili sa karakterima teksta?
+TYPE: multiple
+*A) Bajtovski tokovi (npr. InputStream/OutputStream hijerarhija)
+*B) Karakterski tokovi (npr. Reader/Writer hijerarhija)
+C) Mrezni tokovi (Socket streams)
+D) Serijalizacioni tokovi (Serialization streams)
+EXPLAIN: java.io paket razlikuje bajt-orijentisane tokove (za binarne podatke, hijerarhija InputStream/OutputStream) od karakter-orijentisanih tokova (za tekstualne podatke, hijerarhija Reader/Writer); ObjectInputStream/ObjectOutputStream su primer specijalizovanih bajtovskih tokova koji se koriste za serijalizaciju, a ne posebna treca kategorija.
+
+QUESTION: Sta se moze zakljuciti o metodi Files.createDirectory(dir) ako roditeljski direktorijum putanje dir jos ne postoji?
+TYPE: single
+A) Automatski kreira i sve nepostojece roditeljske direktorijume
+*B) Baca NoSuchFileException, jer roditeljski direktorijum mora vec postojati
+C) Tiho ne radi nista
+D) Kreira direktorijum bez roditelja, van fajl sistema
+EXPLAIN: Files.createDirectory() zahteva da roditeljski direktorijum vec postoji, u suprotnom baca NoSuchFileException; za kreiranje celog lanca nepostojecih poddirektorijuma potrebno je koristiti Files.createDirectories().
