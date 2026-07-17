@@ -1,43 +1,52 @@
 # Study Test App
 
-A tiny, offline, self-grading quiz app. No install, no server, no dependencies.
+A self-grading quiz app for studying from plain-text test files. Register an account, drop in a test file, answer the questions, and your progress — answers, marks, score, everything — is saved to your account so you can pick it back up from any device.
 
-## How to run it
+This is the full-stack rewrite of the original single-file prototype (still available in [`legacy/`](legacy/) for reference). It's now:
 
-1. Open `index.html` by double-clicking it (or right-click → Open with → your browser).
-2. Drag a test file onto the drop zone (or click it to browse for one).
-3. Answer the questions — one is shown per page.
-4. Click **Submit Answers** (in the side panel) to see your score and which ones you got right/wrong.
-5. Click **Download Answer File** to save a graded results `.txt` file next to your test.
+- **Frontend:** React + Vite (`frontend/`)
+- **Backend:** Node.js + Express + SQLite (`backend/`)
+- Accounts with registration/login, each user's tests and progress stored server-side
+- Deployable as Docker images behind your own nginx — see [`DEPLOY.md`](DEPLOY.md)
 
-Everything runs locally in the browser tab. Nothing is uploaded anywhere.
+## Running it locally
 
-`example-test.txt` in this folder is a ready-to-use sample — drag it in to see how it works.
+You need two terminals — one for the backend, one for the frontend.
 
-## Test history (the sidebar)
+**Backend** (Express API on port 4000):
+```
+cd backend
+npm install
+cp .env.example .env   # then edit JWT_SECRET
+npm run dev
+```
 
-The panel on the left keeps a history of every test file you've loaded in this browser, saved automatically as you work — no need to click anything to save.
+**Frontend** (Vite dev server on port 5173, proxies `/api` to the backend):
+```
+cd frontend
+npm install
+npm run dev
+```
 
-- Loading a file (drag-and-drop or click-to-browse) adds it to the sidebar, or **resumes** it if you'd already loaded that exact file before, instead of creating a duplicate entry.
-- Click any entry to jump back into that test, exactly where you left off: your answers, which questions you'd marked, which you'd revealed with Show Answer, which question you were on, and whether you'd already submitted (in which case it reopens already graded, with your score).
-- Click a test's name to **rename** it in place (e.g. give it something more memorable than the file name) — press Enter or click away to save the new name, Escape to cancel.
-- Each entry shows quick progress at a glance: "`x / y answered`" while you're still working through it, or "`Submitted — score`" once you've submitted.
-- The small **×** removes a test from history permanently (it asks you to confirm first) — this only clears it from the sidebar, it doesn't touch the original file on disk.
-- This all lives in your browser's local storage, tied to this folder/file on your machine — nothing leaves your computer, and clearing your browser data will clear this history too.
+Open the URL Vite prints, register an account, and drop in `example-test.txt` (also available at the repo root) to try the format.
 
-## Navigating a test
+For building Docker images and deploying to a server, see [`DEPLOY.md`](DEPLOY.md).
 
-Only one question is shown at a time. The panel on the side (it moves above the question on narrow screens) gives you:
+## How it works
+
+Register or log in, then drag a test file onto the drop zone (or click it to browse). Each file you load becomes an entry in the **Test history** sidebar, tied to your account — click any entry to jump back into that test exactly where you left off (answers, marks, revealed answers, current question, and whether you'd already submitted).
 
 - **Go to question** — type a question number and hit Go/Enter to jump straight to it.
-- **A number grid** — every question number, click any one to jump to it. It only shows numbers, not the questions themselves, so it won't spoil anything. Any question you've entered at least some answer for gets a subtle highlighted border, so you can see your progress at a glance before submitting.
-- **Previous / Next** — step through one at a time.
-- **Mark for Review** — flags the current question; marked questions get a small dot on their number in the grid so you can spot them at a glance and come back later. After you submit, the grid also colors each number green/red for correct/incorrect (the marked dot still shows on top of that).
-- **Show Answer** — grades your *current* answer for this one question on the spot: whether it's correct, what the correct answer is, and any `EXPLAIN:` note — the same feedback you'd get from Submit, just for one question early. Click again (**Hide Answer**) to hide it, and click **Show Answer** again any time to re-check after changing your answer. It doesn't disable the question or touch your score — you can keep editing your answer afterwards, and it disappears once you submit, since the results already show every answer at that point. Short-answer questions have no auto-graded answer, so this just shows your current text and the `EXPLAIN:` note if there is one.
+- **Question grid** — every question number; click any one to jump to it. Any question with at least one answer gets a highlighted border. Arrow keys (Left/Right) also move between questions, and Enter reveals the answer for the current one — as long as focus isn't in a text field.
+- **Mark for Review** — flags the current question with a dot in the grid.
+- **Show Answer** — grades your current answer for just this question, on the spot, without affecting your score or locking the question. Click again to hide it.
+- **Submit Answers** — grades the whole test, shows your score, and unlocks **Download Answer File** (a graded `.txt` summary) and, if the test has `short` questions, **Download Short-Answer Review File** (those questions' answers only, meant to be handed to someone — or an AI — to check by hand).
+- **Retake This Test** — resets your answers for another attempt, keeping the same history entry.
+- Click a test's name in the sidebar to rename it; the **×** removes it from your history permanently.
 
 ## Writing your own test file
 
-Test files are plain text (`.txt` works fine). The format is simple enough to type by hand.
+Test files are plain text. The format is simple enough to type by hand.
 
 ### Basic structure
 
@@ -49,11 +58,11 @@ TYPE: <single | multiple | fill | truefalse | short | match>
 <options / answer, depending on type>
 ```
 
-Blank lines between questions are optional but make files easier to read. Everything is case-insensitive for the keywords (`TITLE:`, `QUESTION:`, `TYPE:`, `ANSWER:`, `EXPLAIN:`).
+Blank lines between questions are optional. Keywords (`TITLE:`, `QUESTION:`, `TYPE:`, `ANSWER:`, `EXPLAIN:`, ...) are case-insensitive.
 
 ### Question types
 
-**Single choice** — one correct answer. Mark the correct option by putting a `*` right before it.
+**Single choice** — one correct answer, marked with a `*` right before it.
 ```
 QUESTION: What is the capital of France?
 TYPE: single
@@ -63,7 +72,7 @@ B) Berlin
 D) Madrid
 ```
 
-**Multiple choice** — one or more correct answers. Mark every correct option with `*`. You must select exactly the correct set to get credit.
+**Multiple choice** — one or more correct answers, each marked with `*`. You must select exactly the correct set to get credit.
 ```
 QUESTION: Which of these are mammals?
 TYPE: multiple
@@ -73,12 +82,7 @@ B) Shark
 D) Lizard
 ```
 
-**Fill in the blank** — free text, graded against an `ANSWER:` line. You can give more than one acceptable answer separated by `|`.
-```
-QUESTION: The chemical symbol for water is ___.
-TYPE: fill
-ANSWER: H2O
-```
+**Fill in the blank** — free text graded against an `ANSWER:` line. Separate multiple acceptable answers with `|`.
 ```
 QUESTION: The chemical symbol for gold is ___.
 TYPE: fill
@@ -92,16 +96,13 @@ TYPE: truefalse
 ANSWER: FALSE
 ```
 
-**Short answer** — no auto-grading (useful for open-ended questions you want to self-check afterwards). Just recorded in the results file.
+**Short answer** — no auto-grading, just recorded for manual review.
 ```
 QUESTION: Briefly explain photosynthesis.
 TYPE: short
 ```
 
-**Put in order / match** — a set of labeled slots (`FIELD:`) and a pool of draggable cards (`CARD:`). You drag (or tap, then tap a slot) each card into the slot it belongs in. There must be at least as many cards as fields — any extra cards are distractors that don't belong anywhere. Mark which field a card belongs in with `*N` (1-based) right before its text; cards with no `*N` are distractors.
-
-This is the type to use for "put these steps in order" questions — the fields are the ordered positions (Step 1, Step 2, ...) and the cards get shuffled every time the question loads, so it's never trivially already in order.
-
+**Put in order / match** — labeled slots (`FIELD:`) and a pool of draggable cards (`CARD:`). Mark which field a card belongs to with `*N` (1-based) right before its text; cards without `*N` are distractors. Cards shuffle every time the question loads.
 ```
 QUESTION: Put the steps of a PC getting an IP address from a DHCP server in the correct order.
 TYPE: match
@@ -117,11 +118,9 @@ CARD: Client manually configures itself with a static IP address
 CARD: Server sends a DHCPNAK rejecting the request
 ```
 
-It doesn't have to be about ordering — `FIELD:` labels can be anything (e.g. categories), and cards get matched to whichever field their `*N` points to.
-
 ### Extras
 
-- `CODE:` / `ENDCODE` — an optional code block shown under the question text, rendered in a monospace, syntax-highlighted box (like a little IDE) instead of being folded into the question paragraph. Whitespace and line breaks inside it are preserved exactly. Currently highlighted as Java, but it renders fine for any language — you just won't get colored keywords.
+- `CODE:` / `ENDCODE` — an optional syntax-highlighted code block shown under the question text (highlighted as Java, but renders fine for any language).
   ```
   QUESTION: What does this print?
   CODE:
@@ -132,28 +131,14 @@ It doesn't have to be about ordering — `FIELD:` labels can be anything (e.g. c
   TYPE: fill
   ANSWER: 12
   ```
-- `EXPLAIN:` — optional line under any question, shown after grading (e.g. a short note on why the answer is correct):
-  ```
-  QUESTION: The largest planet is ___.
-  TYPE: fill
-  ANSWER: Jupiter
-  EXPLAIN: Jupiter is more than twice as massive as all other planets combined.
-  ```
-- Question text can span multiple lines — just keep typing before the `TYPE:` line; the lines get joined together.
-- Option labels (`A)`, `1.`, etc.) are optional — the app just strips them if present. A bare `*Paris` also works.
+- `EXPLAIN:` — optional note shown after grading.
+- Question text can span multiple lines — keep typing before the `TYPE:` line.
+- Option labels (`A)`, `1.`, etc.) are optional; a bare `*Paris` also works.
 
-### Notes on grading
+### Grading rules
 
 - Single/true-false: correct if you picked the marked option.
-- Multiple choice: you must select exactly the marked options (no more, no fewer) to be marked correct.
+- Multiple choice: you must select exactly the marked options.
 - Fill-in-the-blank: matched against the answer(s), ignoring case and leading/trailing spaces.
-- Short answer: never auto-graded — always shown as "not auto-graded" so you can judge it yourself.
-- Put in order / match: correct only if every field ends up with its correct card. Wrong fields show which card should have gone there once graded.
-
-## The answer file
-
-After you submit, **Download Answer File** saves a `<your-file-name>-results.txt` containing your score, time taken, and for every question: your answer, the correct answer, and whether you got it right — plus any `EXPLAIN:` notes.
-
-## Getting short-answer questions checked
-
-`short` questions aren't auto-graded, so if your test has any, a **Download Short-Answer Review File** button also appears after you submit. It saves a `<your-file-name>-short-answers-for-review.txt` containing just those questions and your answers (plus any `EXPLAIN:` reference notes), with a short instruction header. Drag that file into a chat with Claude (or hand it to whoever's checking your work) to get them graded/reviewed.
+- Short answer: never auto-graded.
+- Match: correct only if every field ends up with its correct card.
