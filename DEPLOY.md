@@ -70,16 +70,28 @@ curl -I http://127.0.0.1:8081/
 
 The SQLite database lives at `~/studytest/data/app.sqlite` on the host (bind-mounted into the backend container), so it survives image updates and container restarts. Back it up by copying that file.
 
-## Point your host nginx at it
+## Point your domain at it
 
-Add a new server block for the app's domain/subdomain (adjust `server_name`, the port if you changed `APP_PORT`, and your TLS setup — this assumes you already terminate HTTPS on the host, e.g. via certbot):
+The app is served at **`utest.umanage.rs`**.
+
+### 1. DNS
+
+At wherever `umanage.rs`'s DNS is managed, add an A record:
+
+| Type | Name    | Value                  |
+|------|---------|------------------------|
+| A    | `utest` | `<your server's IPv4>` |
+
+(Add an AAAA record too if your server has a public IPv6 address.) Find the server's public IP by running `curl -4 ifconfig.me` on it. DNS changes can take anywhere from a couple of minutes to a while to propagate — check with `dig +short utest.umanage.rs` until it returns that IP.
+
+### 2. nginx + TLS
+
+Add an HTTP-only server block first (`/etc/nginx/sites-available/utest.umanage.rs`, symlinked into `sites-enabled` if that's how your setup is organized):
 
 ```nginx
 server {
-    listen 443 ssl http2;
-    server_name study.example.com;
-
-    # ... your existing ssl_certificate / ssl_certificate_key directives ...
+    listen 80;
+    server_name utest.umanage.rs;
 
     location / {
         proxy_pass http://127.0.0.1:8081;
@@ -90,18 +102,19 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
-
-server {
-    listen 80;
-    server_name study.example.com;
-    return 301 https://$host$request_uri;
-}
 ```
 
-Reload nginx:
 ```
 sudo nginx -t && sudo systemctl reload nginx
 ```
+
+At this point `http://utest.umanage.rs` should already load the app (over plain HTTP). Then get a certificate and let certbot rewrite the block to HTTPS + add the HTTP→HTTPS redirect automatically:
+
+```
+sudo certbot --nginx -d utest.umanage.rs
+```
+
+If you don't use certbot and manage certificates another way, add a second `listen 443 ssl http2;` server block yourself with your existing `ssl_certificate`/`ssl_certificate_key` directives and the same `location /` proxy block, then redirect the port-80 block to it.
 
 ## Notes
 
