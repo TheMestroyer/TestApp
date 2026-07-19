@@ -17,6 +17,9 @@ const insertFromGlobalStmt = db.prepare(
   'INSERT INTO tests (id, user_id, name, file_name, raw_text, state, global_test_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
 );
 const updateStmt = db.prepare('UPDATE tests SET name = ?, state = ?, updated_at = ? WHERE id = ? AND user_id = ?');
+const updateContentStmt = db.prepare(
+  'UPDATE tests SET name = ?, raw_text = ?, file_name = ?, state = ?, updated_at = ? WHERE id = ? AND user_id = ?'
+);
 const deleteStmt = db.prepare('DELETE FROM tests WHERE id = ? AND user_id = ?');
 const findByGlobalStmt = db.prepare('SELECT * FROM tests WHERE user_id = ? AND global_test_id = ?');
 const getGlobalStmt = db.prepare('SELECT * FROM global_tests WHERE id = ?');
@@ -96,11 +99,17 @@ router.patch('/:id', (req, res) => {
   const row = getStmt.get(req.params.id, req.user.id);
   if (!row) return res.status(404).json({ error: 'Test not found.' });
 
-  const { name, state } = req.body || {};
+  const { name, state, rawText, fileName } = req.body || {};
   const nextName = typeof name === 'string' && name.trim() ? name.trim().slice(0, 120) : row.name;
   const nextState = state && typeof state === 'object' ? JSON.stringify(state) : row.state;
 
-  updateStmt.run(nextName, nextState, Date.now(), row.id, req.user.id);
+  if (typeof rawText === 'string' && rawText.trim()) {
+    const nextFileName = typeof fileName === 'string' && fileName.trim() ? fileName.trim() : row.file_name;
+    updateContentStmt.run(nextName, rawText, nextFileName, nextState, Date.now(), row.id, req.user.id);
+  } else {
+    updateStmt.run(nextName, nextState, Date.now(), row.id, req.user.id);
+  }
+
   res.json({ test: serializeRow(getStmt.get(row.id, req.user.id), true) });
 });
 

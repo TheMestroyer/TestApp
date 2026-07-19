@@ -17,7 +17,18 @@ function summaryText(test) {
   return `${answered} / ${total} answered`;
 }
 
-export default function Sidebar({ user, tests, globalTests, activeId, onSelect, onSelectGlobal, onRename, onDelete, onLogout }) {
+export default function Sidebar({
+  user,
+  tests,
+  globalTests,
+  activeId,
+  onSelect,
+  onSelectGlobal,
+  onRename,
+  onDelete,
+  onLogout,
+  onShowTutorial,
+}) {
   const [renamingId, setRenamingId] = useState(null);
   const [renameValue, setRenameValue] = useState('');
 
@@ -39,9 +50,14 @@ export default function Sidebar({ user, tests, globalTests, activeId, onSelect, 
           <div className="sidebarUserLabel">Signed in as</div>
           <div className="sidebarUserEmail">{user.displayName || user.email}</div>
         </div>
-        <button type="button" className="btn btn-secondary" onClick={onLogout}>
-          Log out
-        </button>
+        <div className="sidebarUserActions">
+          <button type="button" className="btn btn-secondary helpBtn" title="Show tutorial" onClick={onShowTutorial}>
+            ?
+          </button>
+          <button type="button" className="btn btn-secondary" onClick={onLogout}>
+            Log out
+          </button>
+        </div>
       </div>
 
       {user.isAdmin && (

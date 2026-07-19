@@ -9,6 +9,10 @@ import Sidebar from '../components/Sidebar.jsx';
 import Dropzone from '../components/Dropzone.jsx';
 import QuestionCard from '../components/QuestionCard.jsx';
 import Navigator from '../components/Navigator.jsx';
+import TestEditor from '../components/TestEditor.jsx';
+import TutorialModal from '../components/TutorialModal.jsx';
+
+const TUTORIAL_SEEN_KEY = 'studytest.tutorialSeen';
 
 export default function AppPage() {
   const { user, logout } = useAuth();
@@ -18,6 +22,9 @@ export default function AppPage() {
   const [globalTests, setGlobalTests] = useState([]);
   const [activeId, setActiveId] = useState(null);
   const [fileName, setFileName] = useState('');
+  const [rawText, setRawText] = useState('');
+  const [editing, setEditing] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(false);
   const [quiz, setQuiz] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [marked, setMarked] = useState([]);
@@ -41,7 +48,15 @@ export default function AppPage() {
       .listGlobalTests()
       .then((res) => setGlobalTests(res.globalTests))
       .catch(() => {});
+    if (typeof window !== 'undefined' && window.localStorage.getItem(TUTORIAL_SEEN_KEY) !== 'true') {
+      setShowTutorial(true);
+    }
   }, []);
+
+  function handleCloseTutorial() {
+    setShowTutorial(false);
+    window.localStorage.setItem(TUTORIAL_SEEN_KEY, 'true');
+  }
 
   useEffect(() => {
     if (!activeId || !quiz) return undefined;
@@ -91,6 +106,20 @@ export default function AppPage() {
           togglePeek();
           e.target.blur?.();
         }
+      } else if (/^[1-9]$/.test(e.key)) {
+        if (isTextCaret || isRadioOrCheckbox || submitted) return;
+        const q = quiz.questions[currentIndex];
+        const n = parseInt(e.key, 10);
+        if (q.type === 'single' && n <= q.options.length) {
+          e.preventDefault();
+          handleAnswerChange(currentIndex, String(n - 1));
+        } else if (q.type === 'multiple' && n <= q.options.length) {
+          e.preventDefault();
+          toggleMultipleOption(currentIndex, String(n - 1));
+        } else if (q.type === 'truefalse' && (n === 1 || n === 2)) {
+          e.preventDefault();
+          handleAnswerChange(currentIndex, n === 1 ? 'true' : 'false');
+        }
       }
     }
 
@@ -114,6 +143,8 @@ export default function AppPage() {
     skipSaveRef.current = true;
     setActiveId(test.id);
     setFileName(test.fileName);
+    setRawText(test.rawText);
+    setEditing(false);
     setQuiz(parsed);
     setAnswers(test.state.answers || []);
     setMarked(test.state.marked || []);
@@ -181,10 +212,44 @@ export default function AppPage() {
     navigate('/login', { replace: true });
   }
 
+  async function handleSaveEdit({ name, rawText: newRawText, parsed }) {
+    const contentChanged = newRawText !== rawText;
+    if (contentChanged) {
+      const hasProgress = submitted || answers.some((a, i) => hasAnyAnswer(quiz.questions[i], a));
+      if (
+        hasProgress &&
+        !window.confirm(
+          'Saving these changes will reset your progress on this test (answers, marks, and score) since the questions changed. Continue?',
+        )
+      ) {
+        return;
+      }
+    }
+
+    const payload = { name };
+    if (contentChanged) {
+      payload.rawText = newRawText;
+      payload.state = blankState(parsed.questions.length);
+    }
+
+    const res = await api.updateTest(activeId, payload);
+    updateTestInList(res.test);
+    activateTest(res.test);
+  }
+
   function handleAnswerChange(idx, value) {
     setAnswers((prev) => {
       const next = prev.slice();
       next[idx] = value;
+      return next;
+    });
+  }
+
+  function toggleMultipleOption(idx, optionValue) {
+    setAnswers((prev) => {
+      const arr = Array.isArray(prev[idx]) ? prev[idx] : [];
+      const next = prev.slice();
+      next[idx] = arr.includes(optionValue) ? arr.filter((v) => v !== optionValue) : [...arr, optionValue];
       return next;
     });
   }
@@ -248,9 +313,11 @@ export default function AppPage() {
   const answeredFlags = quiz ? quiz.questions.map((q, i) => hasAnyAnswer(q, answers[i])) : [];
   const verdicts = submitted && quiz ? quiz.questions.map((q, i) => computeVerdict(q, answers[i]).verdict) : null;
   const ungradedCount = lastResults ? lastResults.results.length - lastResults.gradable : 0;
+  const activeTest = tests.find((t) => t.id === activeId);
 
   return (
     <div className="appShell">
+      {showTutorial && <TutorialModal isAdmin={!!user.isAdmin} onClose={handleCloseTutorial} />}
       <Sidebar
         user={user}
         tests={tests}
@@ -261,6 +328,7 @@ export default function AppPage() {
         onRename={handleRename}
         onDelete={handleDelete}
         onLogout={handleLogout}
+        onShowTutorial={() => setShowTutorial(true)}
       />
       <div className="mainWrap">
         <header className="appHeader">
@@ -275,15 +343,33 @@ export default function AppPage() {
             <span className="fname">
               Loaded: <strong>{fileName}</strong>
             </span>
-            <button type="button" className="btn btn-secondary" onClick={() => setShowDropzone(true)}>
-              Load a different file
-            </button>
+            <div className="loadedBarActions">
+              <button type="button" className="btn btn-secondary" onClick={() => setEditing(true)}>
+                Edit test
+              </button>
+              <button type="button" className="btn btn-secondary" onClick={() => downloadTextFile(rawText, fileName)}>
+                Download test file
+              </button>
+              <button type="button" className="btn btn-secondary" onClick={() => setShowDropzone(true)}>
+                Load a different file
+              </button>
+            </div>
           </div>
         )}
 
         {loadError && <div className="errorBox">{`This file could not be fully loaded:\n\n${loadError}`}</div>}
 
-        {quiz && (
+        {quiz && editing && (
+          <TestEditor
+            name={activeTest?.name || fileName}
+            rawText={rawText}
+            onSave={handleSaveEdit}
+            onCancel={() => setEditing(false)}
+            onDownload={(text) => downloadTextFile(text, fileName)}
+          />
+        )}
+
+        {quiz && !editing && (
           <div className="quizArea">
             <h2 className="quizTitle">{quiz.title || fileName}</h2>
 

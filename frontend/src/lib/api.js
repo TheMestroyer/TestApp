@@ -43,6 +43,7 @@ export const api = {
   startGlobalTest: (id) => request(`/tests/from-global/${id}`, { method: 'POST' }),
 
   listGlobalTests: () => request('/global-tests'),
+  getGlobalTest: (id) => request(`/global-tests/${id}`),
   createGlobalTest: (payload) => request('/global-tests', { method: 'POST', body: JSON.stringify(payload) }),
   updateGlobalTest: (id, payload) => request(`/global-tests/${id}`, { method: 'PATCH', body: JSON.stringify(payload) }),
   deleteGlobalTest: (id) => request(`/global-tests/${id}`, { method: 'DELETE' }),

@@ -17,18 +17,26 @@ const replaceStmt = db.prepare('UPDATE global_tests SET name = ?, file_name = ?,
 const deleteStmt = db.prepare('DELETE FROM global_tests WHERE id = ?');
 const clearRefsStmt = db.prepare('UPDATE tests SET global_test_id = NULL WHERE global_test_id = ?');
 
-function serialize(row) {
-  return {
+function serialize(row, includeRawText) {
+  const out = {
     id: row.id,
     name: row.name,
     fileName: row.file_name,
     createdAt: row.created_at,
     updatedAt: row.updated_at
   };
+  if (includeRawText) out.rawText = row.raw_text;
+  return out;
 }
 
 router.get('/', (req, res) => {
-  res.json({ globalTests: listStmt.all().map(serialize) });
+  res.json({ globalTests: listStmt.all().map((row) => serialize(row, false)) });
+});
+
+router.get('/:id', requireAdmin, (req, res) => {
+  const row = getStmt.get(req.params.id);
+  if (!row) return res.status(404).json({ error: 'Shared test not found.' });
+  res.json({ globalTest: serialize(row, true) });
 });
 
 router.post('/', requireAdmin, (req, res) => {
