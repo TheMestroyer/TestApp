@@ -8,6 +8,14 @@ import globalTestsRouter from './routes/globalTests.js';
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+// Always reached through exactly two proxies (host nginx, then the frontend
+// container's nginx) and never directly (no published port). Trusting that
+// exact hop count — rather than `true`, which trusts the whole chain — means
+// express-rate-limit reads the real client IP instead of crashing on it,
+// without letting a client spoof its apparent IP by prepending its own
+// X-Forwarded-For entry.
+app.set('trust proxy', 2);
+
 app.disable('x-powered-by');
 app.use(express.json({ limit: '2mb' }));
 app.use(cookieParser());
