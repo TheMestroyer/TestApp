@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 
 export default function LoginPage() {
   const { login } = useAuth();
-  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -18,7 +17,9 @@ export default function LoginPage() {
     try {
       await login(email, password);
       setStatus('success');
-      setTimeout(() => navigate('/', { replace: true }), 350);
+      // GuestRoute redirects to / as soon as the user is set — no manual navigate needed
+      // (and a delayed one here would be a stale timer waiting to fire on whatever page
+      // the user has since moved to).
     } catch (err) {
       setStatus('error');
       setError(err.message || 'Could not log in.');

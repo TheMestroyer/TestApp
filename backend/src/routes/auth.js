@@ -19,7 +19,7 @@ const authLimiter = rateLimit({
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const insertUserStmt = db.prepare(
-  'INSERT INTO users (id, email, password_hash, display_name, created_at) VALUES (?, ?, ?, ?, ?)'
+  'INSERT INTO users (id, email, password_hash, display_name, is_admin, created_at) VALUES (?, ?, ?, ?, ?, ?)'
 );
 const findByEmailStmt = db.prepare('SELECT * FROM users WHERE email = ?');
 
@@ -35,7 +35,7 @@ function setAuthCookie(res, userId) {
 }
 
 function publicUser(row) {
-  return { id: row.id, email: row.email, displayName: row.display_name };
+  return { id: row.id, email: row.email, displayName: row.display_name, isAdmin: !!row.is_admin };
 }
 
 router.post('/register', authLimiter, (req, res) => {
@@ -56,10 +56,12 @@ router.post('/register', authLimiter, (req, res) => {
   const id = crypto.randomUUID();
   const passwordHash = hashPassword(password);
   const name = typeof displayName === 'string' && displayName.trim() ? displayName.trim().slice(0, 60) : null;
+  const adminEmail = (process.env.ADMIN_EMAIL || '').trim().toLowerCase();
+  const isAdmin = adminEmail && normalizedEmail === adminEmail ? 1 : 0;
 
-  insertUserStmt.run(id, normalizedEmail, passwordHash, name, Date.now());
+  insertUserStmt.run(id, normalizedEmail, passwordHash, name, isAdmin, Date.now());
   setAuthCookie(res, id);
-  res.status(201).json({ user: { id, email: normalizedEmail, displayName: name } });
+  res.status(201).json({ user: { id, email: normalizedEmail, displayName: name, isAdmin: !!isAdmin } });
 });
 
 router.post('/login', authLimiter, (req, res) => {

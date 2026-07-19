@@ -44,6 +44,15 @@ Register or log in, then drag a test file onto the drop zone (or click it to bro
 - **Retake This Test** — resets your answers for another attempt, keeping the same history entry.
 - Click a test's name in the sidebar to rename it; the **×** removes it from your history permanently.
 
+### Shared tests
+
+The sidebar also has a **Shared tests** section, visible to every account — these are added by
+the admin (whichever account's email matches `ADMIN_EMAIL`, see `.env.example`) from the **Admin
+panel** link that only shows up for that account. Clicking a shared test gives you your own
+private copy to answer and track progress on, same as any other test in your history (just
+tagged "Shared") — everyone's answers and scores stay independent. Only the admin can add,
+rename, replace, or remove the shared test itself from the Admin panel.
+
 ## Writing your own test file
 
 Test files are plain text. The format is simple enough to type by hand.

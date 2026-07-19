@@ -40,6 +40,12 @@ export const api = {
   getTest: (id) => request(`/tests/${id}`),
   updateTest: (id, payload) => request(`/tests/${id}`, { method: 'PATCH', body: JSON.stringify(payload) }),
   deleteTest: (id) => request(`/tests/${id}`, { method: 'DELETE' }),
+  startGlobalTest: (id) => request(`/tests/from-global/${id}`, { method: 'POST' }),
+
+  listGlobalTests: () => request('/global-tests'),
+  createGlobalTest: (payload) => request('/global-tests', { method: 'POST', body: JSON.stringify(payload) }),
+  updateGlobalTest: (id, payload) => request(`/global-tests/${id}`, { method: 'PATCH', body: JSON.stringify(payload) }),
+  deleteGlobalTest: (id) => request(`/global-tests/${id}`, { method: 'DELETE' }),
 };
 
 export { ApiError };

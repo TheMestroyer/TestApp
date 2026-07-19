@@ -7,14 +7,19 @@ const router = Router();
 router.use(requireAuth);
 
 const listStmt = db.prepare(
-  'SELECT id, name, file_name, state, created_at, updated_at FROM tests WHERE user_id = ? ORDER BY updated_at DESC'
+  'SELECT id, name, file_name, state, global_test_id, created_at, updated_at FROM tests WHERE user_id = ? ORDER BY updated_at DESC'
 );
 const getStmt = db.prepare('SELECT * FROM tests WHERE id = ? AND user_id = ?');
 const insertStmt = db.prepare(
   'INSERT INTO tests (id, user_id, name, file_name, raw_text, state, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
 );
+const insertFromGlobalStmt = db.prepare(
+  'INSERT INTO tests (id, user_id, name, file_name, raw_text, state, global_test_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+);
 const updateStmt = db.prepare('UPDATE tests SET name = ?, state = ?, updated_at = ? WHERE id = ? AND user_id = ?');
 const deleteStmt = db.prepare('DELETE FROM tests WHERE id = ? AND user_id = ?');
+const findByGlobalStmt = db.prepare('SELECT * FROM tests WHERE user_id = ? AND global_test_id = ?');
+const getGlobalStmt = db.prepare('SELECT * FROM global_tests WHERE id = ?');
 
 function blankState(questionCount) {
   const n = Number.isInteger(questionCount) && questionCount > 0 ? questionCount : 0;
@@ -35,6 +40,7 @@ function serializeRow(row, includeRawText) {
     name: row.name,
     fileName: row.file_name,
     state: JSON.parse(row.state),
+    globalTestId: row.global_test_id || null,
     createdAt: row.created_at,
     updatedAt: row.updated_at
   };
@@ -62,6 +68,21 @@ router.post('/', (req, res) => {
   const state = blankState(questionCount);
 
   insertStmt.run(id, req.user.id, displayName, fileName.trim(), rawText, JSON.stringify(state), now, now);
+  res.status(201).json({ test: serializeRow(getStmt.get(id, req.user.id), true) });
+});
+
+router.post('/from-global/:globalTestId', (req, res) => {
+  const globalRow = getGlobalStmt.get(req.params.globalTestId);
+  if (!globalRow) return res.status(404).json({ error: 'Shared test not found.' });
+
+  const existing = findByGlobalStmt.get(req.user.id, globalRow.id);
+  if (existing) return res.json({ test: serializeRow(existing, true) });
+
+  const id = crypto.randomUUID();
+  const now = Date.now();
+  const state = blankState(0);
+
+  insertFromGlobalStmt.run(id, req.user.id, globalRow.name, globalRow.file_name, globalRow.raw_text, JSON.stringify(state), globalRow.id, now, now);
   res.status(201).json({ test: serializeRow(getStmt.get(id, req.user.id), true) });
 });
 

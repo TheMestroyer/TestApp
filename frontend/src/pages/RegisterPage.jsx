@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 
 export default function RegisterPage() {
   const { register } = useAuth();
-  const navigate = useNavigate();
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,7 +33,9 @@ export default function RegisterPage() {
     try {
       await register(email, password, displayName);
       setStatus('success');
-      setTimeout(() => navigate('/', { replace: true }), 350);
+      // GuestRoute redirects to / as soon as the user is set — no manual navigate needed
+      // (and a delayed one here would be a stale timer waiting to fire on whatever page
+      // the user has since moved to).
     } catch (err) {
       setStatus('error');
       setError(err.message || 'Could not create your account.');

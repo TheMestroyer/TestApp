@@ -3,6 +3,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import authRouter from './routes/auth.js';
 import testsRouter from './routes/tests.js';
+import globalTestsRouter from './routes/globalTests.js';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -14,6 +15,7 @@ app.use(cookieParser());
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 app.use('/api/auth', authRouter);
 app.use('/api/tests', testsRouter);
+app.use('/api/global-tests', globalTestsRouter);
 
 app.use('/api', (req, res) => {
   res.status(404).json({ error: 'Not found.' });

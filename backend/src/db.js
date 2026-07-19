@@ -34,6 +34,32 @@ db.exec(`
   );
 
   CREATE INDEX IF NOT EXISTS idx_tests_user ON tests(user_id);
+
+  CREATE TABLE IF NOT EXISTS global_tests (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    file_name TEXT NOT NULL,
+    raw_text TEXT NOT NULL,
+    created_by TEXT REFERENCES users(id) ON DELETE SET NULL,
+    created_at INTEGER NOT NULL,
+    updated_at INTEGER NOT NULL
+  );
 `);
+
+function ensureColumn(table, column, definition) {
+  const columns = db.prepare(`PRAGMA table_info(${table})`).all();
+  if (!columns.some((c) => c.name === column)) {
+    db.exec(`ALTER TABLE ${table} ADD COLUMN ${column} ${definition}`);
+  }
+}
+
+// Migrations for databases created before these columns existed.
+ensureColumn('users', 'is_admin', 'INTEGER NOT NULL DEFAULT 0');
+ensureColumn('tests', 'global_test_id', 'TEXT');
+
+const adminEmail = (process.env.ADMIN_EMAIL || '').trim().toLowerCase();
+if (adminEmail) {
+  db.prepare('UPDATE users SET is_admin = 1 WHERE email = ?').run(adminEmail);
+}
 
 export default db;

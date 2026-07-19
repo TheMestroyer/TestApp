@@ -2,8 +2,10 @@ import { Routes, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import AppPage from './pages/AppPage.jsx';
+import AdminPage from './pages/AdminPage.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import GuestRoute from './components/GuestRoute.jsx';
+import AdminRoute from './components/AdminRoute.jsx';
 
 export default function App() {
   return (
@@ -30,6 +32,14 @@ export default function App() {
           <ProtectedRoute>
             <AppPage />
           </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin"
+        element={
+          <AdminRoute>
+            <AdminPage />
+          </AdminRoute>
         }
       />
     </Routes>

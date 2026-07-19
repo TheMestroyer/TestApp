@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function summaryText(test) {
   const answers = (test.state && test.state.answers) || [];
@@ -16,7 +17,7 @@ function summaryText(test) {
   return `${answered} / ${total} answered`;
 }
 
-export default function Sidebar({ user, tests, activeId, onSelect, onRename, onDelete, onLogout }) {
+export default function Sidebar({ user, tests, globalTests, activeId, onSelect, onSelectGlobal, onRename, onDelete, onLogout }) {
   const [renamingId, setRenamingId] = useState(null);
   const [renameValue, setRenameValue] = useState('');
 
@@ -42,6 +43,21 @@ export default function Sidebar({ user, tests, activeId, onSelect, onRename, onD
           Log out
         </button>
       </div>
+
+      {user.isAdmin && (
+        <Link to="/admin" className="btn btn-secondary adminLink">
+          Admin panel
+        </Link>
+      )}
+
+      <h2 className="sidebarHeading">Shared tests</h2>
+      {globalTests.length === 0 && <div className="sidebarEmpty">Nothing shared yet.</div>}
+      {globalTests.map((gt) => (
+        <div key={gt.id} className="sessionItem" onClick={() => onSelectGlobal(gt.id)}>
+          <div className="sessionName">{gt.name}</div>
+          <div className="sessionMeta">Shared by admin</div>
+        </div>
+      ))}
 
       <h2 className="sidebarHeading">Test history</h2>
       {tests.length === 0 && <div className="sidebarEmpty">No tests loaded yet. Drop a file in to get started.</div>}
@@ -82,6 +98,7 @@ export default function Sidebar({ user, tests, activeId, onSelect, onRename, onD
               }}
             >
               {test.name}
+              {test.globalTestId && <span className="sharedBadge">Shared</span>}
             </div>
           )}
           <div className="sessionMeta">{summaryText(test)}</div>

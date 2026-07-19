@@ -40,6 +40,7 @@ nano .env
 - `JWT_SECRET` — generate one with `openssl rand -hex 48` (or the node one-liner from `.env.example`) and paste it in. This must be a real secret; do not deploy with the placeholder value.
 - `COOKIE_SECURE` — leave as `true` (the app is served over HTTPS via your host nginx).
 - `APP_PORT` — the local port the frontend container publishes on `127.0.0.1` (default `8081`). Change it only if that port is already taken on your server.
+- `ADMIN_EMAIL` — whichever account registers with this email gets the admin panel (for shared tests everyone can see). Defaults to `umilos@umanage.rs`; leave blank for no admin.
 
 Since the images are public, no `docker login` is needed on the server to pull them.
 

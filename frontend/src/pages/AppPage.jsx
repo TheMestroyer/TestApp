@@ -15,6 +15,7 @@ export default function AppPage() {
   const navigate = useNavigate();
 
   const [tests, setTests] = useState([]);
+  const [globalTests, setGlobalTests] = useState([]);
   const [activeId, setActiveId] = useState(null);
   const [fileName, setFileName] = useState('');
   const [quiz, setQuiz] = useState(null);
@@ -35,6 +36,10 @@ export default function AppPage() {
     api
       .listTests()
       .then((res) => setTests(res.tests))
+      .catch(() => {});
+    api
+      .listGlobalTests()
+      .then((res) => setGlobalTests(res.globalTests))
       .catch(() => {});
   }, []);
 
@@ -149,6 +154,13 @@ export default function AppPage() {
     activateTest(res.test);
   }
 
+  async function handleSelectGlobalTest(globalTestId) {
+    setLoadError('');
+    const res = await api.startGlobalTest(globalTestId);
+    setTests((prev) => (prev.some((t) => t.id === res.test.id) ? prev : [res.test, ...prev]));
+    activateTest(res.test);
+  }
+
   async function handleRename(id, name) {
     const res = await api.updateTest(id, { name });
     updateTestInList(res.test);
@@ -242,8 +254,10 @@ export default function AppPage() {
       <Sidebar
         user={user}
         tests={tests}
+        globalTests={globalTests}
         activeId={activeId}
         onSelect={handleSelectTest}
+        onSelectGlobal={handleSelectGlobalTest}
         onRename={handleRename}
         onDelete={handleDelete}
         onLogout={handleLogout}
