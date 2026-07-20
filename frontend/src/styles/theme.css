@@ -768,3 +768,55 @@ kbd {
   flex-shrink: 0;
   font-weight: 700;
 }
+
+/* ---------- question reporting ---------- */
+
+.reportSection {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.reportToggle {
+  font-size: 0.82rem;
+  padding: 4px 2px;
+}
+.reportDone {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.reportForm { display: flex; flex-direction: column; gap: 8px; max-width: 480px; }
+.reportFormActions { display: flex; gap: 8px; justify-content: flex-end; }
+
+.reportList { display: flex; flex-direction: column; gap: 12px; }
+.reportItem {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+.reportItemMeta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+}
+.reportItemQuestion { font-weight: 600; margin-bottom: 6px; }
+.reportItemReason { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 10px; }
+.reportItemActions { display: flex; gap: 8px; }
+
+.reportBadge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background: var(--incorrect-bg);
+  color: var(--incorrect);
+  vertical-align: middle;
+}

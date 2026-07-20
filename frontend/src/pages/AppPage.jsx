@@ -34,6 +34,7 @@ export default function AppPage() {
   const [lastResults, setLastResults] = useState(null);
   const [showDropzone, setShowDropzone] = useState(false);
   const [loadError, setLoadError] = useState('');
+  const [reportedIndexes, setReportedIndexes] = useState([]);
 
   const skipSaveRef = useRef(false);
   const saveTimerRef = useRef(null);
@@ -161,6 +162,15 @@ export default function AppPage() {
     setLoadError('');
     setShowDropzone(false);
     startTimeRef.current = Date.now();
+
+    if (test.globalTestId) {
+      api
+        .myReportedQuestions(test.globalTestId)
+        .then((res) => setReportedIndexes(res.reportedIndexes))
+        .catch(() => setReportedIndexes([]));
+    } else {
+      setReportedIndexes([]);
+    }
   }
 
   async function handleFileText(text, name) {
@@ -235,6 +245,18 @@ export default function AppPage() {
     const res = await api.updateTest(activeId, payload);
     updateTestInList(res.test);
     activateTest(res.test);
+  }
+
+  async function handleReportQuestion(reason) {
+    const globalTestId = activeTest?.globalTestId;
+    if (!globalTestId) return;
+    await api.reportQuestion({
+      globalTestId,
+      questionIndex: currentIndex,
+      questionText: quiz.questions[currentIndex].text,
+      reason,
+    });
+    setReportedIndexes((prev) => (prev.includes(currentIndex) ? prev : [...prev, currentIndex]));
   }
 
   function handleAnswerChange(idx, value) {
@@ -389,12 +411,16 @@ export default function AppPage() {
                   Question {currentIndex + 1} of {quiz.questions.length}
                 </div>
                 <QuestionCard
+                  key={currentIndex}
                   idx={currentIndex}
                   q={quiz.questions[currentIndex]}
                   answer={answers[currentIndex]}
                   onAnswerChange={(value) => handleAnswerChange(currentIndex, value)}
                   submitted={submitted}
                   peeked={!!peeked[currentIndex]}
+                  reportable={!!activeTest?.globalTestId}
+                  alreadyReported={reportedIndexes.includes(currentIndex)}
+                  onReport={handleReportQuestion}
                 />
                 <div className="stageNav">
                   <button

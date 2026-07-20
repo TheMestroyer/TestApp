@@ -14,6 +14,7 @@ function formatDate(ms) {
 export default function AdminPage() {
   const { user, logout } = useAuth();
   const [globalTests, setGlobalTests] = useState([]);
+  const [reports, setReports] = useState([]);
   const [error, setError] = useState('');
   const [renamingId, setRenamingId] = useState(null);
   const [renameValue, setRenameValue] = useState('');
@@ -29,8 +30,16 @@ export default function AdminPage() {
       .catch(() => {});
   }
 
+  function refreshReports() {
+    api
+      .listReports()
+      .then((res) => setReports(res.reports))
+      .catch(() => {});
+  }
+
   useEffect(() => {
     refresh();
+    refreshReports();
   }, []);
 
   async function handleAddFile(text, fileName) {
@@ -111,6 +120,15 @@ export default function AdminPage() {
     downloadTextFile(res.globalTest.rawText, test.fileName);
   }
 
+  async function handleDismissReport(report) {
+    await api.dismissReport(report.id);
+    setReports((prev) => prev.filter((r) => r.id !== report.id));
+  }
+
+  function reportCountFor(testId) {
+    return reports.filter((r) => r.globalTestId === testId).length;
+  }
+
   return (
     <div className="mainWrap adminWrap">
       <header className="appHeader adminHeader">
@@ -174,6 +192,11 @@ export default function AdminPage() {
               ) : (
                 <div className="adminItemName" title="Click to rename" onClick={() => startRename(test)}>
                   {test.name}
+                  {reportCountFor(test.id) > 0 && (
+                    <span className="reportBadge">
+                      {reportCountFor(test.id)} report{reportCountFor(test.id) === 1 ? '' : 's'}
+                    </span>
+                  )}
                 </div>
               )}
               <div className="adminItemMeta">
@@ -196,6 +219,37 @@ export default function AdminPage() {
             </div>
           ),
         )}
+      </div>
+
+      <h2 className="sidebarHeading adminListHeading">Question reports ({reports.length})</h2>
+
+      {reports.length === 0 && <div className="sidebarEmpty">No reports right now.</div>}
+
+      <div className="reportList">
+        {reports.map((report) => (
+          <div key={report.id} className="reportItem glow-panel">
+            <div className="reportItemMeta">
+              <span>{report.testName || 'Unknown test'}</span>
+              <span>
+                {report.reporterEmail} · {formatDate(report.createdAt)}
+              </span>
+            </div>
+            <div className="reportItemQuestion">{report.questionText}</div>
+            {report.reason && <div className="reportItemReason">"{report.reason}"</div>}
+            <div className="reportItemActions">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={() => handleStartEdit({ id: report.globalTestId, name: report.testName })}
+              >
+                Fix this test
+              </button>
+              <button type="button" className="btn-danger-ghost adminDelete" onClick={() => handleDismissReport(report)}>
+                Dismiss
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -1,12 +1,13 @@
 import { highlightCodeHtml, typeLabel } from '../lib/quizParser.js';
 import { computeVerdict } from '../lib/grading.js';
 import MatchQuestion from './MatchQuestion.jsx';
+import ReportQuestionButton from './ReportQuestionButton.jsx';
 
 function optClass(wasCorrect, wasWrongPick) {
   return `opt${wasCorrect ? ' wasCorrect' : ''}${wasWrongPick ? ' wasWrongPick' : ''}`;
 }
 
-export default function QuestionCard({ idx, q, answer, onAnswerChange, submitted, peeked }) {
+export default function QuestionCard({ idx, q, answer, onAnswerChange, submitted, peeked, reportable, alreadyReported, onReport }) {
   const v = computeVerdict(q, answer);
   const showFeedback = submitted || peeked;
   const glowClass = showFeedback
@@ -171,6 +172,12 @@ export default function QuestionCard({ idx, q, answer, onAnswerChange, submitted
               <span className="label">Note:</span> {q.explain}
             </>
           )}
+        </div>
+      )}
+
+      {reportable && (
+        <div className="reportSection">
+          <ReportQuestionButton alreadyReported={alreadyReported} onReport={onReport} />
         </div>
       )}
     </div>

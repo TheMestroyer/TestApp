@@ -44,6 +44,19 @@ db.exec(`
     created_at INTEGER NOT NULL,
     updated_at INTEGER NOT NULL
   );
+
+  CREATE TABLE IF NOT EXISTS question_reports (
+    id TEXT PRIMARY KEY,
+    global_test_id TEXT NOT NULL REFERENCES global_tests(id) ON DELETE CASCADE,
+    question_index INTEGER NOT NULL,
+    question_text TEXT NOT NULL,
+    reported_by TEXT REFERENCES users(id) ON DELETE SET NULL,
+    reporter_email TEXT NOT NULL,
+    reason TEXT,
+    created_at INTEGER NOT NULL
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_reports_global_test ON question_reports(global_test_id);
 `);
 
 function ensureColumn(table, column, definition) {

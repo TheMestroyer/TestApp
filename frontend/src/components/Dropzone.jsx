@@ -42,7 +42,13 @@ export default function Dropzone({ onFileText }) {
         type="file"
         accept=".txt,.md,.quiz,text/plain"
         style={{ display: 'none' }}
-        onChange={(e) => readFile(e.target.files && e.target.files[0])}
+        onChange={(e) => {
+          readFile(e.target.files && e.target.files[0]);
+          // Without this, re-selecting the same file (e.g. after editing it externally
+          // and re-picking it, or the admin adding several tests via repeated browse
+          // clicks) fires no "change" event at all, since the input's value didn't change.
+          e.target.value = '';
+        }}
       />
     </div>
   );
