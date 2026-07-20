@@ -68,6 +68,8 @@ function ensureColumn(table, column, definition) {
 
 // Migrations for databases created before these columns existed.
 ensureColumn('users', 'is_admin', 'INTEGER NOT NULL DEFAULT 0');
+ensureColumn('users', 'theme_mode', 'TEXT');
+ensureColumn('users', 'theme_color', 'TEXT');
 ensureColumn('tests', 'global_test_id', 'TEXT');
 
 const adminEmail = (process.env.ADMIN_EMAIL || '').trim().toLowerCase();

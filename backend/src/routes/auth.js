@@ -22,6 +22,10 @@ const insertUserStmt = db.prepare(
   'INSERT INTO users (id, email, password_hash, display_name, is_admin, created_at) VALUES (?, ?, ?, ?, ?, ?)'
 );
 const findByEmailStmt = db.prepare('SELECT * FROM users WHERE email = ?');
+const updateThemeStmt = db.prepare('UPDATE users SET theme_mode = ?, theme_color = ? WHERE id = ?');
+
+const THEME_MODES = ['light', 'dark'];
+const THEME_COLORS = ['violet', 'blue', 'teal', 'purple', 'rose'];
 
 function setAuthCookie(res, userId) {
   const token = signToken({ sub: userId });
@@ -35,7 +39,14 @@ function setAuthCookie(res, userId) {
 }
 
 function publicUser(row) {
-  return { id: row.id, email: row.email, displayName: row.display_name, isAdmin: !!row.is_admin };
+  return {
+    id: row.id,
+    email: row.email,
+    displayName: row.display_name,
+    isAdmin: !!row.is_admin,
+    themeMode: row.theme_mode || null,
+    themeColor: row.theme_color || null,
+  };
 }
 
 router.post('/register', authLimiter, (req, res) => {
@@ -61,7 +72,9 @@ router.post('/register', authLimiter, (req, res) => {
 
   insertUserStmt.run(id, normalizedEmail, passwordHash, name, isAdmin, Date.now());
   setAuthCookie(res, id);
-  res.status(201).json({ user: { id, email: normalizedEmail, displayName: name, isAdmin: !!isAdmin } });
+  res.status(201).json({
+    user: { id, email: normalizedEmail, displayName: name, isAdmin: !!isAdmin, themeMode: null, themeColor: null },
+  });
 });
 
 router.post('/login', authLimiter, (req, res) => {
@@ -86,6 +99,15 @@ router.post('/logout', (req, res) => {
 
 router.get('/me', requireAuth, (req, res) => {
   res.json({ user: req.user });
+});
+
+router.patch('/theme', requireAuth, (req, res) => {
+  const { mode, color } = req.body || {};
+  if (!THEME_MODES.includes(mode) || !THEME_COLORS.includes(color)) {
+    return res.status(400).json({ error: 'mode must be light/dark and color must be a valid theme.' });
+  }
+  updateThemeStmt.run(mode, color, req.user.id);
+  res.status(204).end();
 });
 
 export default router;

@@ -1,4 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useAuth } from './AuthContext.jsx';
+import { api } from '../lib/api.js';
 
 const ThemeContext = createContext(null);
 
@@ -29,8 +31,20 @@ function resolveInitialColor() {
 }
 
 export function ThemeProvider({ children }) {
+  const { user } = useAuth();
   const [mode, setModeState] = useState(resolveInitialMode);
   const [color, setColorState] = useState(resolveInitialColor);
+
+  // Once logged in, an account-level preference (set from any device) wins over
+  // whatever this browser had locally. Keyed on user id so it only re-applies on an
+  // actual login/account-switch, not on every AuthContext refresh of the same user.
+  useEffect(() => {
+    if (user && (user.themeMode || user.themeColor)) {
+      if (user.themeMode) setModeState(user.themeMode);
+      if (user.themeColor) setColorState(user.themeColor);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.id]);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-mode', mode);
@@ -42,16 +56,30 @@ export function ThemeProvider({ children }) {
     window.localStorage.setItem(COLOR_KEY, color);
   }, [color]);
 
+  function persistToAccount(nextMode, nextColor) {
+    if (user) {
+      api.updateTheme({ mode: nextMode, color: nextColor }).catch(() => {});
+    }
+  }
+
   function setMode(next) {
-    if (next === 'light' || next === 'dark') setModeState(next);
+    if (next !== 'light' && next !== 'dark') return;
+    setModeState(next);
+    persistToAccount(next, color);
   }
 
   function toggleMode() {
-    setModeState((prev) => (prev === 'dark' ? 'light' : 'dark'));
+    setModeState((prev) => {
+      const next = prev === 'dark' ? 'light' : 'dark';
+      persistToAccount(next, color);
+      return next;
+    });
   }
 
   function setColor(next) {
-    if (COLOR_IDS.includes(next)) setColorState(next);
+    if (!COLOR_IDS.includes(next)) return;
+    setColorState(next);
+    persistToAccount(mode, next);
   }
 
   const value = { mode, color, colors: THEME_COLORS, setMode, toggleMode, setColor };

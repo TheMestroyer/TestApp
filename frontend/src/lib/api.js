@@ -34,6 +34,7 @@ export const api = {
     request('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) }),
   logout: () => request('/auth/logout', { method: 'POST' }),
   me: () => request('/auth/me'),
+  updateTheme: (payload) => request('/auth/theme', { method: 'PATCH', body: JSON.stringify(payload) }),
 
   listTests: () => request('/tests'),
   createTest: (payload) => request('/tests', { method: 'POST', body: JSON.stringify(payload) }),
