@@ -1,0 +1,929 @@
+TITLE: Računarske mreže 1 — Uvod do PPP (fizički i sloj veze podataka)
+
+QUESTION: Čemu služe adrese u zaglavljima poruka?
+TYPE: single
+Za ostvarivanje komunikacije sa susednim višim slojem na udaljenom uređaju.
+Da se poruke prenesu na odgovarajuću mrežnu karticu, ako uređaj ima više mrežnih kartica.
+Za ostvarivanje komunikacije sa susednim višem slojem na istom uređaju.
+Za ostvarivanje komunikacije sa susednim nižim slojem na udaljenom uređaju.
+*Za ostvarivanje komunikacije sa istim slojem na udaljenom uređaju.
+Za ostvarivanje komunikacije sa susednim nižim slojem na istom uređaju.
+
+QUESTION: Kada se sprovodi enkapsulacija podataka?
+TYPE: single
+Kada se poruke razmenjuju između stih slojeva referentnog modela na različitim računarima.
+Kada se poruke prenose preko bridža (sviča).
+*Kada se podaci prenose sa višeg na niži sloj referentnog modela.
+Kada se podaci prenose sa nižeg na viši sloj referentnog modela.
+Kada se poruke prenose sa jednog kolizionog domena na drugi.
+Kada se poruke prenose preko ripitera (haba).
+
+QUESTION: Šta je od sledećeg tačno pri prenosu podataka sa nižeg na viši sloj OSI ili TCP/IP referentnog modela na jednom uređaju?
+TYPE: single
+Sva zaglavlja se zadržavaju radi provere da li je došlo do greške.
+*Odbacuje se zaglavlje nižeg sloja.
+Dodaje se zaglavlje višeg sloja.
+Dodaje se zaglavlje nižeg sloja.
+Odbacuje se zaglavlje višeg sloja.
+
+QUESTION: Šta je tačno od sledećih iskaza vezano za slojeve referentnog modela kakav je OSI ili TCP/IP?
+TYPE: multiple
+*Slojevi komuniciraju sa istim slojem na udaljenom uređaju.
+*Slojevi komuniciraju sa susednim nižim i susednim višim slojem na istom uređaju.
+Slojevi komuniciraju sa susednim nižim i susednim višim slojem na udaljenom uređaju.
+Svi slojevi se koriste za sve vrste komunikacija između uređaja.
+Ništa od ponuđenog.
+
+QUESTION: Šta od ponuđenog rade slojevi ISO OSI i TCP/IP referentnog modela kada prime poruku od nižeg sloja?
+TYPE: multiple
+Ništa od ponuđenog.
+*Gledaju zaglavlja poruke na svom nivou.
+Odbacuju zaglavlje na nižem nivou, a prosleđuju poruku višem nivou.
+Odbacuju zaglavlje na višem nivou.
+*Odbacuju zaglavlje poruke na svom nivou i prosleđuju poruke višem nivou
+Gledaju zaglavlje na višem nivou i tom nivou prosleđuju poruku.
+Gledaju zaglavlje na nižem nivou.
+
+QUESTION: Šta po pravilu rade slojevi ISO OSI ili TCP/IP referentnog modela kada primaju poruke od višeg sloja?
+TYPE: multiple
+Na poruku dodaju svoje zaglavlje u zavisnosti od podataka iz zaglavlja višeg nivoa.
+*Ne gledaju ni zaglavlje ni podatke dobijene poruke od višeg sloja.
+Gledaju zaglavlje na nižem nivou.
+Gledaju zaglavlje dobijene poruke od višeg sloja kako bi znali da postave polje koje označava tip protokola višeg nivoa.
+Gledaju zaglavlje višeg sloja i na osnovu toga odlučuju kojem nižem sloju predaju poruku.
+*Na dobijenu poruku dodaju svoje zaglavlje.
+
+QUESTION: Šta se dešava pri prenosu podataka sa nižeg na viši sloj?
+TYPE: single
+Niži sloj ne mora da zna kom protokolu višeg sloja da prosledi podatke, jer je to zadatak višeg sloja.
+Niži sloj menja pojedina polja u svom zaglavlju, pre nego što podatke prosledi višem sloju.
+Niži sloj zna kom protokolu višeg sloja da prosledi podatke na osnovu konfiguracije sistema.
+Niži sloj menja pojedina polja u zaglavlju višeg sloja, pre nego što podatke prosledi višem sloju.
+*Niži sloj zna kom protokolu višeg sloja da prosledi podatke na osnovu informacija iz zaglavlja poruke.
+Ništa od ponuđenog.
+
+QUESTION: Šta se sprovodi pri prenosu podataka sa višeg na niži sloj?
+TYPE: multiple
+Demultipleksiranje pristiglih poruka na više protokola nižeg nivoa.
+Ništa od ponuđenog.
+*Enkapsulacija podataka višeg sloja u poruku nižeg sloja
+Gleda se polje Protocol type na osnovu koga se odlučuje kom protokolu nižeg sloja da se predaju podaci.
+*Multipleksiranje većeg broja protokola višeg sloja u poruke nižeg sloja
+Provera greške u poruci dobijenoj od višeg sloja.
+
+QUESTION: Upariti sledeće pojmove vezane za ISO OSI referentni model:
+TYPE: match
+FIELD: Prvi sloj (najniži)
+FIELD: Drugi sloj
+FIELD: Treći sloj
+FIELD: Četvrti sloj
+FIELD: Peti sloj
+FIELD: Šesti sloj
+FIELD: Sedmi sloj
+CARD: *1 Fizički sloj (Physical Layer)
+CARD: *2 Sloj veze podataka (Data Link Layer)
+CARD: *3 Mrežni sloj (Network Layer)
+CARD: *4 Transportni sloj (Transport Layer)
+CARD: *5 Sloj sesije (Session Layer)
+CARD: *6 Prezentacioni sloj (Presentation Layer)
+CARD: *7 Aplikacioni sloj (Application Layer)
+
+QUESTION: Šta je od sledećeg tačno pri prenosu podataka sa višeg na niži sloj OSI ili TCP/IP referentnog modela na jednom uređaju?
+TYPE: single
+*Ukupna količina podataka se povećava.
+Ukupna količina se ne menja.
+Ukupna količina podataka se smanjuje.
+
+QUESTION: Kome su namenjeni podaci u zaglavlju poruke na nekom ISO OSI sloju?
+TYPE: single
+*Sloju istog nivoa na udaljenom uređaju.
+Sloju višeg nivoa na istom uređaju.
+Sloju višeg nivoa na udaljenom uređaju.
+Sloju nižeg nivoa na udaljenom uređaju.
+Sloju nižeg nivoa na istom uređaju.
+
+QUESTION: Koja je osnovna jedinica kojom se izražava protok saobraćaja u računarskih mrežama?
+TYPE: multiple
+*bps - bit per second
+ništa od ponuđenog
+*pps - packet per second
+Ips - information per second
+Bps - byte pre second
+
+QUESTION: Usled čega se javlja kašnjenje u računarskim mrežama?
+TYPE: multiple
+*Vremena obrade u uređajima.
+Kašnjenje se ne javlja.
+*Ograničene brzine prenosa signala.
+Kašnjenje se javlja, ali se ne može detektovati niti primetiti.
+Sporog unosa podataka od strane korisnika.
+
+QUESTION: Kako se naziva deo sloja veze podataka (Data Link Layer) koji služi za komunikaciju sa višim slojem?
+TYPE: single
+Carrier Sense Multiple Access with Collision Avoidance (CSMA/CA).
+Data Link Sublayer (DLS).
+Media Access Control (MAC).
+Link Control Protocol (LCP).
+Network Control Protoco (NCP).
+*Logical Link Control (LLC).
+Carrier Sense Multiple Access with Collision Detection (CSMA/CD).
+
+QUESTION: Šta je tačno za brodkast MAC adresu?
+TYPE: multiple
+Brodkast adresa je fizički upisana u mrežne kartice uređaja (burned-in)
+*Svi biti brodkast adrese su jedinice
+*Okvire sa odredišnom brodkast adresom svičevi prosleđuju na sve izlazne portove
+Brodkast adresa se ne koristi u Ethernet okviru
+Okvire sa izvorišnom brodkast adresom svičevi prosleđuju na sve izlazne portove
+Osnovna namena brodkast adrese je oglašavanje greške
+Okviri sa brodkast adresama se ne mogu koristi u mreži sa habovima zbog kolizije
+Okvire sa odredišnom brodkast adresom svičevi prosleđuju na sve izlazne portove i tom prilikom je menjaju u pojedinačne unikast adrese
+
+QUESTION: Kako se naziva deo sloja veze podataka (Data Link Layer) koji služi za komunikaciju sa nižim slojem?
+TYPE: single
+Carrier Sense Multiple Access with Collision Avoidance (CSMA/CA).
+Data Link Sublayer (DLS).
+*Media Access Control (MAC).
+Link Control Protocol (LCP).
+Network Control Protoco (NCP).
+Logical Link Control (LLC).
+Carrier Sense Multiple Access with Collision Detection (CSMA/CD).
+
+QUESTION: Čemu služi backoff algoritam?
+TYPE: single
+Da generiše JAM signal prilikom nastanka kolizije.
+*Da smanji verovatnoću ponovnog nastanka kolizije.
+Da izbegne koliziju.
+Da detektuje koliziju.
+Da obavesti viši sloj da je nastala kolizija.
+
+QUESTION: Čemu služi FCS polje u Ethernet okviru?
+TYPE: single
+*Za proveru greške.
+Za označavanje da li je došlo do kolizije.
+Za označavanje protokola višeg nivou.
+Da označi da li slede prateći okviri u komunikaciji.
+Za ispravljanje greške.
+Za komunikaciju sa susednim nivoima.
+
+QUESTION: Da li Ethernet okvir može da se prenosi između segmenata realizovanih koaksijalnim kablom i UTP kablom?
+TYPE: single
+Da, ali se zaglavlje okvira mora promeniti.
+Ne, jer rade na različitim brzinama.
+*Da, ako su domeni povezani odgovarajućim uređajem.
+Mogu samo na half-duplex point-to-point vezama.
+Ne, jer se radi o različitim fizičkim prenosnim medijima.
+
+QUESTION: Da li kod koaksijalnog 10BASE5 Etherneta u full-duplex modu može doći do kolizije?
+TYPE: single
+Da, zato što se radi o prenosu po koaksijalnom kablu.
+*Ne postoji 10BASE5 Ethernet u full-duplex modu.
+Kolizija u ovom slučaju će da zavisi od najveće ukupne dužine u mreži.
+Ne, zato što se radi o full-dupleks modu.
+
+QUESTION: Da li na full-duplex point-to-point vezama može doći do kolizije?
+TYPE: single
+Full-duplex nije moguć na point-to-point.
+*Ne, zato što su paketi razdvojeni po različitim paricama.
+Da, zato što ove veze predstavljaju jedan kolizioni domen.
+Samo ako se ne koristi Colision Avoidance mehanizam.
+
+QUESTION: Koje se od navedenih veza realizuju neukrštenim Ethernet kablovima?
+TYPE: multiple
+*Svič-ruter
+Svič-hab
+*Hab-računar
+*Svič-štampač
+Računar-računar
+Svič-svič
+
+QUESTION: Koje se od navedenih veza realizuju ukrštenim Ethernet kablovima?
+TYPE: multiple
+Hab-računar
+Svič-štampač
+*Svič-svič
+*Računar-računar
+Svič-ruter
+*Svič-hab
+
+QUESTION: Koji se uslov mora obezbediti da bi se u mreži uvek mogla detektovati kolizija?
+TYPE: single
+Da slot time odgovara vremenu prenosa okvira između dve najudaljenije tačke u mreži.
+Ništa od ponuđenog.
+Da bit time odgovara dvostrukom vremenu prenosa okvira između dve najudaljenije tačke u mreži.
+Da bit time odgovara vremenu prenosa okvira između dve najudaljenije tačke u mreži.
+Da slot time odgovara veličini Jam signala.
+*Da slot time odgovara dvostrukom vremenu prenosa okvira između dve najudaljenije tačke u mreži.
+Da bit time odgovara veličini Jam signala.
+
+QUESTION: Šta je tačno od sledećeg?
+TYPE: single
+Jam signal emituju samo habovi kada prepozna koliziju.
+Jam signal se šalje nakon sprovođenja back-off algoritma.
+Jam signal je rezultujući signal koji predstavlja interferenciju dva ili više okvira kada dođe do kolizije.
+Jam signal emituje samo uređaj koji je prvi detektovao koliziju.
+*Jam signal emituje svaki uređaj koji detektuje koliziju tokom slanja okvira.
+Jam se prenosi samo do uređaja čiji su paketi učestvovali u koliziji.
+
+QUESTION: Šta je tačno od sledećih tvrdnji vezano za koliziju?
+TYPE: multiple
+*Tokom slanja okvira, Ethernet kartica prati da li su na mreži trenutno prisutni i drugi okviri na mreži ili Jam signal.
+Kolizija može da nastane samo prilikom izlaska zaglavlja okvira na mrežu.
+*Kolizija ne sme da se javi kada je okvir napustio Ethernet karticu.
+Ethernet kartica prati da li su trenutno prisutni samo Jam signali na mreži.
+Kolizija može da se detektuje i kada je okvir napustio Ethernet karticu.
+Ethernet kartica sprovodi back-off algoritam pre slanja svakog okvira.
+
+QUESTION: Šta je tačno za međusobno povezivanje segmenata u Ethernet mreži?
+TYPE: multiple
+Tom prilikom nije moguć broadcast saobraćaj.
+Habovima se ne mogu povezivati segmenti različitih fizičkih medijuma.
+Broj povezanih segmenata je ograničen ako se povezuje preko svičeva.
+Broj povezanih segmenata je neograničen ako se povezuje preko habova.
+*Broj povezanih segmenata je ograničen ako se povezuje preko habova.
+*Broj povezanih segmenata je neograničen ako se povezuje preko svičeva.
+
+QUESTION: Šta se dešava u slučaju da se greška u Ethernet paketu javi u polju za detekciju greške?
+TYPE: single
+Greška se ne može prepoznati, a paket se prosleđuje višim slojevima koji će podatke odbaciti.
+*Greška se prepoznaje, a paket se ceo odbacuje.
+Greška se prepoznaje, ali se paket ipak prosleđuje višim slojevima, jer podaci viših slojeva nisu oštećeni.
+Greška se ne može prepoznati, a paket se prosleđuje višim slojevima koji će podatke prihvatiti jer u njima nema greške.
+Greška se ne može sa sigurnošću detektovati, ali se paket ipak preventivno odbacuje.
+
+QUESTION: Šta se radi kada se na osnovu FCS polja prepozna greška u Ethernet okviru?
+TYPE: single
+Oštećeni paket se odbacuje, a na osnovu izvorišne adrese iz okvira prepoznaje se ko je poslao okvir i od njega se zahteva slanje novog paketa.
+Izvorišnom uređaju se ne šalje potvrda prijema, što je znak da okvir treba da se ponovo pošalje.
+Paket se prosleđuje višim slojevima koji će pokušati prepoznaju i iskoriste što više informacija.
+Generiše se Jam signal.
+*Ništa od ponuđenog.
+Izvorišnom uređaju se šalje poruka o grešci, što je znak da okvir treba da se ponovo pošalje.
+Ako je greška samo na jednom bitu, paket se rekonstruiše na osnovu FCS polja iz okvira.
+
+QUESTION: Šta u sledećim slučajevima predstavlja jedan kolizioni domen?
+TYPE: multiple
+*Jedan ili više koaksijalnih Ethernet segmenata međusobno povezanih ripiterima.
+Jedan ili više međusobno povezanih Ethernet svičeva, sa svim povezanim uređajima.
+*Jedan ili više međusobno povezanih Ethernet habova, sa svim povezanim uređajima.
+Ništa od ponuđenog.
+*Half-duplex veza između računara i sviča.
+Jedan ili više koaksijalnih Ethernet segmenata međusobno povezanih bridževima.
+
+QUESTION: U kojim će slučajevima Ethernet mrežna kartica da prihvati okvir i prosledi ga višem sloju?
+TYPE: multiple
+Kada se prepozna Ethernet identifikator u polju protocol type u zaglavlju okvira.
+Kada je mrežna kartica povezana direktno na svič.
+*Kada pristigne okvir u čijem zaglavlju odredišna adresa (destination address) odgovara MAC adresi mrežne kartice.
+*Kada pristigne okvir u čijem zaglavlju odredišna adresa (destination address) ima sve jedinice.
+Kada je mrežna kartica povezana direktno na hab.
+Kada pristigne okvir u čijem zaglavlju odredišna adresa (destination address) ima sve nule.
+
+QUESTION: Zašto se uvodi minimalna veličina Ethernet okvira?
+TYPE: single
+*Da se obezbedi dovoljno vremena da se uvek detektuje kolizija.
+Da bi se uvek izbegla kolizija.
+Da bi imali dovoljno podataka za generisanje FCS polja i sprovođenje kontrole greške.
+Zbog smanjenja mogućnosti nastanka kolizije.
+Da bi podržali brodcast prenos okvira.
+Zbog veličine zaglavlja paketa na višim nivoima.
+
+QUESTION: Zbog čega se ograničava maksimalno rastojanje između dva krajnja uređaja (ukupan broj segmenata u nizu), u jednom Ethernet kolizionom domenu?
+TYPE: single
+Ništa od ponuđenog.
+Zbog slabljenja signala.
+Zbog podrške brodkast saobraćaja.
+*Zbog detekcije kolizije.
+Zbog izbegavanja kolizije.
+Zbog smanjenja opterećenja mreže usled kolizije.
+
+QUESTION: (Septembar 2021.) Čemu služi preambula u Ethernet okvira?[sic]
+TYPE: single
+Da se ostavi mogućnost za nastanak kolizije u delu okvira koji ne prenosi korisne podatke.
+Ništa od ponuđenog.
+Da se omogući dovoljni[sic] informacija za računanje CRC funkcije.
+Da se popuni okvir do minimalne veličine.
+*Da mrežna kartica sinhronizuje vreme odabiranja ostalih bita iz okvira.
+
+QUESTION: Šta je backoff algoritam?
+TYPE: single
+*Algoritam koji se koristi pri reemitovanju okvira koji su bili u koliziji.
+Algoritam kontrole greške na nivou bita, čiji se rezultat stavlja na kraj okvira.
+Algoritam generisanja JAM signala.
+Algoritam obaveštavanja višeg sloja da je došlo do kolizije, čime se signalizira da se smanji brzinu emitovanja paketa.
+Algoritam kojim se detektuje kolizija.
+
+QUESTION: Okvir koji je emitovan na Ethernet koaksijalni segment (10BASE2, 10BASE5), pomoću odgovarajućih uređaja može neizmenjen da se prosledi na optički FastEthernet segment (100BASE-FX).
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Čemu služi poslednje polje u Ethernet okviru?
+TYPE: single
+Za detekciju i ispravljanje greške.
+Za sinhronizaciju izmedu svih uređaja u jednom kolizionom domenu.
+Za označavanje protokola višeg nivou.
+*Za detekciju greške.
+
+QUESTION: Koja od sledećih vrsta adresa Ethernet uređaja može da se koristi za komunikaciju sa više od jednog uređaja istovremeno?
+TYPE: multiple
+Adresa na mrežnoj kartici (burned-in).
+Unikast.
+*Brodkast.
+*Multikast.
+Softverska adresa.
+
+QUESTION: Da li na half-duplex point-to-point vezi može da dođe do kolizije?
+TYPE: single
+Ne postoji point-to-point sa half-duplex.
+*Da, zato sto je isti kolizioni domen.
+Ne, zato sto ima Collision Avoidance.
+
+QUESTION: Koji uređaji ili protokoli podržavaju full-duplex režim prenosa podataka?
+TYPE: multiple
+*PPP.
+Habovi, ali samo po optičkim vlaknima.
+Habovi
+*Svičevi.
+WLAN.
+
+QUESTION: (April 2023.) Šta se desi kada backoff algoritam prođe 16. iteraciju?
+TYPE: single
+Šalje se JAM signal.
+*Javlja se greška višem sloju.
+...
+Ništa od navedenog.
+
+QUESTION: (April 2023.) Šta će svič uraditi ako primi Ethernet paket koji na početku ima 48b jedinica:
+TYPE: single
+Paket će da odbaci, jer je došlo do greške.
+Paket će da prosledi višem sloju, u slučaju da nije došlo do greške.
+Ništa od ponuđenog.
+*Nije moguće da se to desi.
+Paket će da odbaci, bez čitanja njegovog daljeg sadržaja.
+
+QUESTION: (April 2023.) Kolika je veličina Ethernet okvira (u bajtovima) za podatak veličine 32 bajta, bez Preambule i FCS. Brzina prenosa je 100 Mbps.
+TYPE: fill
+ANSWER: 64
+EXPLAIN: Minimalna veličina podatka je 46B, pa će se 32 dopuniti do 46 (padding). To sabiramo sa 18B (zaglavlje i potpis bez Preambule i FCS) i dobijamo 64B.
+
+QUESTION: Šta bi se desilo kada bi se habovi u mreži povezali u petlju?
+TYPE: single
+Mreža bi ispravno funkcionisala, jer bi STP protokol ukinuo petlju.
+Samo broadcast okviri bi neograničeno dugo kružili u petlji.
+*Svi okviri bi neograničeno dugo kružili u petlji.
+Svi okviri bi kružili u petlji tačni određeni broj ciklusa (Time To Live) nakon čega bi se odbacili.
+
+QUESTION: Šta je odlika habova?
+TYPE: multiple
+Detektuju koliziju.
+Prepoznaju okvire koji su primljeni sa bar jednim pogrešnim bitom.
+Gledaju samo zaglavlje okvira.
+*Ne gledaju sadržaj okvira.
+*Pristigle okvire prosleđuju na sve ostale portove.
+
+QUESTION: Habovi dele mrežu na različite kolizione domene.
+TYPE: truefalse
+ANSWER: FALSE
+
+QUESTION: Habovi ne zahtevaju konfigurisanje MAC adresa.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Habovi omogućavaju full-duplex prenos okvira, samo ako su povezani kablovima kategorije 5e ili više kategorije.
+TYPE: truefalse
+ANSWER: FALSE
+
+QUESTION: Veza svakog računara na hab predstavlja poseban kolizioni domen.
+TYPE: truefalse
+ANSWER: FALSE
+
+QUESTION: Svi portovi haba moraju da budu iste brzine.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: (April 2023.) Ako povežemo dva haba dvema paralelnim vezama, šta će se desiti?
+TYPE: single
+Veza se neće uspostaviti.
+*Veza će se uspostaviti, ali će doći do kruženja paketa.
+Veza će se uspostaviti i mreža će raditi normalno.
+
+QUESTION: Kako se zove najbrža tehnika prosleđivanja okvira sa ulaznog na izlazni port sviča?
+TYPE: single
+Half-Duplex.
+Store and Forward.
+Full-Duplex.
+*Cut-Through.
+Fragment-Free.
+Express forwarding.
+
+QUESTION: Kako se zove najsporija tehnika prosleđivanja okvira sa ulaznog na izlazni port sviča?
+TYPE: single
+Fragment-Free.
+Half-Duplex.
+Full-Duplex.
+Express forwarding.
+*Store and Forward.
+Cut-Through.
+
+QUESTION: Koji karakterističan proces sprovodi svič kada primi okvir čiju odredišnu adresu nema u svojoj tabeli?
+TYPE: single
+Blocking
+Learning
+Filtering
+Forwarding
+Ništa od ponuđenog.
+Aging
+*Flooding
+
+QUESTION: Koji karakterističan proces sprovodi svič kada primi okvira čija se izvorišna i odredišna adresa nalaze u tabeli sviča, gde imaju istu oznaku porta?
+TYPE: single
+Aging
+Flooding
+*Filtering
+Forwarding
+Learning
+Blocking
+Ništa od ponuđenog.
+
+QUESTION: Koji karakterističan proces sprovodi svič kada primi okvira čija se izvorišna i odredišna adresa nalaze u tabeli sviča, gde imaju različitu oznaku porta?
+TYPE: single
+Aging
+Blocking
+*Forwarding
+Filtering
+Flooding
+Learning
+Ništa od ponuđenog.
+
+QUESTION: Koji karakterističan proces sprovodi svič kada primi okvira čiju izvorišnu adresu nema u svojoj tabeli?
+TYPE: single
+Forwarding
+*Learning
+Blocking
+Filtering
+Flooding
+Aging
+Ništa od ponuđenog.
+
+QUESTION: Kojom tehnikom se može povećati brzina prenosa na vezi između dva sviča koji imaju sve portove iste brzine?
+TYPE: single
+Rapid Spanning Tree.
+Multilink.
+VLAN.
+PortFast.
+*EtherChannel.
+Fast-Forward.
+
+QUESTION: Mogućnost prilagođavanja brzine prenosa (10/100/1000 Mbps) po point-to-point vezi na svičevima zove se:
+TYPE: single
+Back-off.
+Asymmetry Link Control
+Full-Duplex.
+To nije omogućeno, jer bi se time narušili uslovi detekcije kolizije.
+Half-Duplex.
+*Auto-Negotiation
+
+QUESTION: Šta je zajedničko i za habove i za svičeve?
+TYPE: single
+Podržavaju Spanning Tree protokol.
+Dele mrežu na različite kolizione domene.
+Rade najviše na 1. nivou.
+Rade na 2. nivou.
+*Ništa od ponuđenog.
+
+QUESTION: Šta rade svičevi prilikom prosleđivanja Ethernet okvira?
+TYPE: single
+Menjaju polje za kontrolu greške.
+Smanjuju polje TTL za jedan.
+U odredišnu adresu postavljaju MAC adresu porta sledećeg sviča ili krajnji uređaj na koji se okvir šalje.
+*Ne menjaju Ethernet okvir.
+U izvorišnu adresu postavljaju MAC adresu porta sviča na koji se okvir prosleđuje.
+U izvorišnu adresu postavljaju MAC adresu porta sviča na koji je okvir stigao.
+
+QUESTION: Šta radi svič kada primi okvir za koji nema podatak o odredišnoj adresi u svojoj tabeli?
+TYPE: single
+Pokreće proces kovergencije u Spanning Tree protokolu.
+*Prosleđuje isti okvir na ostale portove.
+Odbacuje okvir i izvorišnom uređaju vraća poruku o grešci.
+Šalje novi okvir sa broadkast adresom i čeka odgovor od uređaja čija se adresa zahteva.
+Odbacuje poruku bez obaveštavanja izvorišnog uređaja o nastaloj grešci.
+
+QUESTION: Šta se dešava ako dva okvira istovremeno pristignu na različite ulazne portove sviča i treba da se proslede na različite izlazne portove?
+TYPE: single
+Jedan okvir mora da sačeka da se drugi okvir prenese u celini.
+Okviri se nezavisno prosleđuju, samo ako se koristi Store-And-Forward tehnika.
+Oba okvira se odbacuju i dolazi do retransmisije.
+Okviri se nezavisno prosleđuju, ali ne sme da se koristi Cut-Through tehnika.
+*Okviri se nezavisno prosleđuju.
+
+QUESTION: Šta se dešava kada se na portu sviča uključi opcija PortFast?
+TYPE: single
+*Port ne učestvuje u STP konvergenciji.
+Na portu se uspostavlja Full-Duplex režim rada.
+Sprovodi se tehnika prosleđivanja paketa sa najmanjim kašnjenjem.
+Uspostavlja se najveća moguća brzina koju podržavaju obe strane.
+Na portu se uspostavlja Trunk veza.
+
+QUESTION: Zašto se kaže da svičevi rade u "transparentnom" modu?
+TYPE: single
+Zato što podržavaju Spanning Tree protokol koji je transparentan u odnosu na druge uređaje.
+*Zato što ostali uređaji ne znaju za postojanje svičeva.
+Zato što svičevi ne znaju za postojanje ostalih uređaja.
+Zato što se međusobno mogu povezati svičevi različitih proizvođača.
+Zato što rade na nivou.
+
+QUESTION: Kako se zove tehnika prosleđivanja okvira sa ulaznog na izlazni port sviča koja omogućava proveru greške?
+TYPE: single
+Fragment-Free.
+Half-Duplex.
+Full-Duplex.
+*Store and Forward.
+Cut-Through.
+
+QUESTION: Svaki port sviča, tj. segment koji on čini, je poseban kolizioni domen.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Šta radi svič kada primi brodkast okvir?
+TYPE: multiple
+*Forwarding.
+Flooding.
+Filtering.
+*Learning.
+Odbacuje okvir.
+
+QUESTION: Da bi se računar povezao na FastEthernet svič, mora se konfigurisati MAC adresa porta sviča na koji je uređaj povezan.
+TYPE: truefalse
+ANSWER: FALSE
+
+QUESTION: (April 2023.) Ako između dva sviča stavimo još jednu vezu, šta će se desiti?
+TYPE: single
+Oba porta (veze) će postati neaktivni.
+Svičevi će raditi, ali će paketi između njih kružiti večno.
+*Svičevi će raditi normalno.
+
+QUESTION: Kako se naziva port na sviču koji na nivou segmenta oglašava BPDU pakete sa najmanjom vrednosti Path Cost?
+TYPE: single
+Blocked port.
+Learning port.
+Listening port.
+Fast port.
+Root port.
+*Designated port.
+
+QUESTION: (Septembar 2021.) Kako se naziva port koji od svih portova na sviču prima najmanju vrednost Path Cost atributa u BPDU porukama?
+TYPE: single
+*Root port.
+Designated port.
+Fast port.
+Listening port.
+Blocked port.
+
+QUESTION: Koja je osnovna uloga Spanning Tree protokola?
+TYPE: single
+Povezivanje više habova.
+Omogućavanje VLAN-ova.
+Povezivanje više kolizionih domena.
+Sprečavanje gubitka paketa.
+Povezivanje više svičeva.
+*Onemogućavanje nastanka petlji.
+Sprečavanje kolizije.
+
+QUESTION: Šta je tačno za STP blokirane portove (BP)?
+TYPE: multiple
+BP portovi blokiraju celokupni dolazni i odlazni saobraćaj.
+Šalju se samo BPDU poruke.
+*BP portovi blokiraju sav dolazni saobraćaj, osim BPDU poruka.
+*BP portovi blokiraju sav odlazni saobraćaj.
+BP portovi blokiraju sav dolazni saobraćaj.
+Kroz BP portove normalno se prihvata sav dolazni saobraćaj, ali se ništa ne šalju.
+
+QUESTION: Šta je tačno za STP designated portove (DP)?
+TYPE: multiple
+Svič može da ima samo jedan DB port.
+Linkovi sa DP uvek pripadaju STP stablu.
+*Paketi koji iz sviča izlaze na DP portove se udaljavaju od root sviča.
+*Svi portovi root sviča su DP.
+Paketi koji iz sviča izlaze na DP se približavaju root sviču.
+Predstavljaju portove koji primaju samo BPDU pakete.
+Predstavljaju portove koji šalju samo BPDU pakete.
+
+QUESTION: Šta je tačno za STP root portove (RP)?
+TYPE: multiple
+RP portovi primaju samo BPDU pakete.
+*Root svič nema RP portove.
+Jedan svič može da ima više RP portova u jednom STP stablu.
+Paketi koji iz sviča izlaze na RP udaljavaju se od root sviča.
+RP portovi šalju samo BPDU pakete.
+RP su portovi na root sviču.
+*Paketi koji iz sviča izlaze na RP približavaju se root sviču.
+*Linkovi sa RP uvek pripadaju STP stablu.
+
+QUESTION: Koji je osnovni nedostatak Spanning Tree protokola?
+TYPE: single
+Nema podrške za VLAN-ove.
+Mogucnost pojave petlji.
+*Spora konvergencija.
+Mogućnost pojave kolizije.
+
+QUESTION: Habovi podržavaju (sprovode) Spanning Tree protokol.
+TYPE: truefalse
+ANSWER: FALSE
+
+QUESTION: Port na sviču koji je na nivou segmenta bliži root sviču je:
+TYPE: single
+Root port.
+*Designated port.
+Blocked port.
+
+QUESTION: (April 2023.) Ako prikačimo svič na port na kome je aktiviran BPDU guard, šta će se desiti sa portom?
+TYPE: single
+Ne znamo jer zavisi od ostatka mreže.
+Port će postati RP.
+*Port će postati neaktivan.
+Port će postati DP.
+
+QUESTION: (April 2023.) Kad na nekom portu sviča aktiviramo PortFast, koje od navedenih situacija mogu da se dogode?
+TYPE: multiple
+*Prelazak iz Forwarding u Blocking
+Prelazak iz Blocking u Learning
+Prelazak iz Forwarding u Learning
+Prelazak iz Blocking u Listening
+Prelazak iz Forwarding u Listening
+*Prelazak iz Blocking u Forwarding
+
+QUESTION: (April 2023.) Posmatra se veza izmedju 2 sviča. Šta postaje port koji prima manju vrednost Path Cost-a u BPDU poruci?
+TYPE: single
+Designated port
+Multilink port
+Blocking port
+*Root port
+
+QUESTION: (April 2023.) Ako unosimo svič u mrežu ali ne želimo da on postane root svič, potrebno je da:
+TYPE: single
+Našem sviču smanjimo STP prioritet.
+Nekom drugom sviču povećamo STP prioritet.
+*Nekom drugom sviču smanjimo STP prioritet.
+Nije moguće uraditi.
+
+QUESTION: Na nekom svicu A je aktiviran root guard a on je povezan za svic B koji odasilja najveci identifikator. Tada je port od A ka B sta?
+TYPE: single
+Blocked port
+Root port
+*Designated port
+Nije moguce odrediti jer zavisi od ostatka mreze
+
+QUESTION: Kada se informacija o VLAN-u prenosi u L2 okviru?
+TYPE: single
+Prenosi se i po Access linku i po Trunk linku.
+Kada se okvir prenosi po Access linku.
+Kada se okvir prenosi do rutera.
+*Kada se okvir prenosi po Trunk linku.
+Ne prenosi se u okviru ved se konfiguriše na sviču.
+
+QUESTION: Šta je Trunk Link?
+TYPE: single
+Više paralelnih fizičkih veza između svičeva koje se tretiraju kao jedna logička veza.
+Veza između svičeva koja pripada jednom VLAN-u.
+*Veza između svičeva po kojoj se prenose okviri iz različitih VLAN-ova.
+Veza između svičeva po kojoj se prenose okviri iz istog VLAN-na.
+Veza koja je uspostavljena preko Auto-Negotiation opcije.
+Veza između svičeva po kojoj se prenose okviri na brzini većoj od ostalih veza.
+
+QUESTION: Šta je od sledećeg tačno za VLAN-ove?
+TYPE: multiple
+Uređaji iz različitih VLAN-ova mogu da komuniciraju na L2 nivou, ako su povezani preko više svičeva.
+Uređaji iz različitih VLAN-ova mogu da komuniciraju na L2 nivou samo ako su povezani preko istog sviča.
+Za komunikaciju između dva uređaja na istom VLAN-u, mora se koristiti ruter.
+*Uređaji iz različitih VLAN-ova mogu da komuniciraju samo preko rutera.
+*Uređaji iz istog VLAN-a mogu da komuniciraju na L2 nivou, čak iako su povezani preko više svičeva.
+Jedan VLAN se može postaviti samo na jednom sviču.
+
+QUESTION: (Septembar 2021.) Šta važi za Ethernet okvire koji se sa Access Linka prosleđuje na Trunk Link?
+TYPE: single
+Ništa od ponuđenog.
+Okvir se enkapsuliraju[sic] u novi okvir (tunneling).
+Okvir se ne menja.
+*Veličina okvira se povećava.
+Iz okvira se uklanjaju pojedina polja.
+U okviru se menjaju pojedina polja.
+
+QUESTION: Šta važi za okvire koji se sa Trunk Linka prosleđuje na Access Link?
+TYPE: single
+U okviru se menjaju pojedina polja.
+U okvir se dodaju nova polja.
+*Veličina okvira se smanjuje.
+Ništa od ponuđenog.
+Okvir se ne menja.
+Enkapsuliraju se u nove okvire (tunneling)
+
+QUESTION: Šta se dešava sa MAC adresama iz zaglavlju L2 okvira prilikom rutiranja iz jednog VLAN-a u drugi VLAN na istom fizičkom (trank) interfejsu rutera?
+TYPE: single
+Ne menja se ni izvorišna i ni odredišna MAC adresa.
+Menja se samo odredišna MAC adresa, dok izvorišna MAC adresa ostaje ista.
+*Odredišna MAC adresa postaje izvorišna adresa u novom okviru.
+Izvorišna MAC adresa postaje odredišna adresa u novom okviru.
+Menja se samo izvorišna MAC adresa, dok odredišna MAC adresa ostaje ista.
+
+QUESTION: Šta važi za izvorišnu i odredišnu IP adresu u zaglavlju IP paketa prilikom njegovog rutiranja iz jednog VLAN-a u drugi VLAN na istom fizičkom (trank) interfejsu rutera?
+TYPE: single
+Ništa od ponuđenog.
+Menja se samo izvorišna IP adresa.
+Izvorišna i odredišna IP adresa pripadaju istoj IP mreži.
+Izvorišna i odredišna IP adresa menjaju mesta.
+Navedeni slučaj nije moguć.
+Menja se samo odredišna IP adresa.
+*Izvorišna i odredišna IP adresa ostaju iste.
+
+QUESTION: (April 2023.) Kada se paket prenese sa jednog trunk linka na drugi, šta će se desiti:
+TYPE: single
+Paket će se povećati.
+*Ništa se neće promeniti.
+Paket će se smanjiti.
+
+QUESTION: (April 2023.) Svi paketi koji prolaze kroz LAN moraju da prođu kroz root switch:
+TYPE: truefalse
+ANSWER: FALSE
+
+QUESTION: (April 2023.) Ako preko LAN 1 uređaja A pošaljemo paket veličine 1234B, a šaljemo ga uređaju B na istom LAN preko trunk veze, kolika će biti veličina okvira na trunk linku?
+TYPE: single
+1230
+1234
+*1238
+Ne znamo.
+
+QUESTION: Kako se obavlja komunikacija između uređaja A i B u WLAN mreži u infrastrukturnom modu rada?
+TYPE: single
+Svi paketi između A i B se prenose preko Access Point uređaja osim JAM paketa koji se prenosi direktno do svih uređaja ako nastane kolizija.
+Samo broadkast paketi između A i B se prenose poreko Access Point uređaja.
+*Svi paketi između A i B se prenose poreko Access Point uređaja.
+Uređaji A i B se najpre registruju na mrežu preko Access Point uređaja, a zatim direktno razmenjuju pakete.
+
+QUESTION: Koji uslovi moraju biti ispunjeni da bi se obezbedio roming između više Access Point (AP) uređaja?
+TYPE: multiple
+*AP čije se delovi preklapaju moraju da imaju različite frekvencije.
+Svi AP uređaji moraju da imaju različite frekvencije.
+Svi AP uređaji moraju da podržavaju VLAN-ove.
+Svaki mobilni uređaj mora da ima svoju nezavisnu fekvenciju.
+Svi AP moraju da imaju iste frekvencijske kanale.
+*SSID mora da bude isti na svim AP.
+
+QUESTION: Šta je "Service Set Identifier" u WLAN mreži?
+TYPE: single
+Password koji se dodeljuje svakom uređaju u WLAN mreži.
+Tekstualni naziv Access Point uređaja.
+Identifikacija protokola koji se koristi u mreži i služi zbog provere kompatibilnosti.
+Tekstualni ključ za pristup WLAN mreži.
+Binarni ključ za pristup WLAN mreži.
+*Tekstualni naziv WLAN mreže.
+
+QUESTION: Šta je tačno od sledećeg vezano za bežične LAN mreže (WLAN)?
+TYPE: multiple
+*U WLAN mreži može doći do kolizije.
+U WLAN mreži ne može doći do kolizije.
+Format WLAN okvira je isti kao format Ethernet okvira.
+Format WLAN okvira je isti kao format Ethernet okvira, ali se menja samo izvorišna MAC adresa kada okvire prelazi sa jedne mreže na drugu.
+*Format WLAN okvira je različit od formata Ethernet okvira.
+WLAN mreže se ne mogu povezati na Ethernet mreže.
+
+QUESTION: (Septembar 2021.) Šta je tačno za koliziju u WLAN mreži?
+TYPE: single
+U WLAN mreži se detektuje kolizija stalnim praćenjem stanja na medijumu
+Uređaj koji je detektovao koliziju šalje poseban okvir koji označava koliziju.
+Access Point uređaj šalje poseban okvir koji označava koliziju.
+U WLAN mreži ne može da nastane kolizija, jer se koristi metod izbegavanja kolizije (CSMA/CA)
+*Kolizija se podrazumeva da se desila ako ne stigne potvrda za poslati okvir.
+
+QUESTION: Šta je tačno za uređaje u WLAN mrežama?
+TYPE: single
+Ako je deljeni medijum trenutno zauzet, uređaji ne mogu da znaju kada će on da se oslobodi.
+Ako je deljeni medijum trenutno zauzet, uređaji znaju kada će da se oslobodi, jer svaki uređaj dobija fiksni vremenski interval za prenos podataka.
+Ako je deljeni medijum trenutno zauzet, uređaji znaju kada će da se oslobodi, jer Access Point obaveštava sve uređaje o tome.
+*Ako je deljeni medijum trenutno zauzet, uređaji znaju kada će da se oslobodi na osnovu informacija iz okvira koji se trenutno prenosi.
+
+QUESTION: Šta je tačno za WLAN i koliziju?
+TYPE: single
+Kolizija se detektuje tokom slanja okvira.
+Kolizija se rešava na isti način kao kod Ethernet mreža.
+Ne postoji kolizija kod WLAN mreža.
+*Kolizija se ne može detektovati tokom slanja okvira.
+
+QUESTION: Šta je tačno za WLAN mreže?
+TYPE: single
+U WLAN mreži ne može da dođe do kolizije, jer se koristi algoritam izbegavanja kolizije (Colission Avoidance).
+U WLAN mreži ne može da dođe do kolizije, jer se koriste različite frekvencije za svaki uređaj.
+U WLAN mreži može da dođe do kolizije, samo ako se ne koristi full-duplex režim rada.
+*U WLAN mreži može da dođe do kolizije.
+U WLAN mreži može da dođe do kolizije, ali se primljeni paketi mogu uspešno rekonstruisati korišćenjem CSMA/CA algoritma.
+
+QUESTION: Šta predstavlja pojam SSID?
+TYPE: single
+Signalizacioni protokol za komunikaciju Access Point uređaja i ostalih učesnika u mreži.
+Ključ za pristup WLAN mreži.
+*Naziv WLAN mreže.
+Sigurnosni protokol za prijavljivanje na WLAN mrežu.
+Identifikaciju servisa koji se nude korisnicima.
+
+QUESTION: Jedna WLAN mreža može da se podeli na više udaljenih Access Point uređaja.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Na jednom Access Point uređaju može da se postavi više mreža sa različitim vrednostima SSID polja.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: (Septembar 2021.) Na šta se odnosi pojam Network Allocation Vector?
+TYPE: single
+Vektor prostiranja radio talasa koji prenose okvire u WLAN mrežama.
+Mehanizam anuliranja šuma na Access Point uređaju pri prijemu jednog istog signala koji pristižu iz različitih pravaca usled refleksije.
+Rezervacija frekvencijskog kanala za korišćenje od strane uređaja u WLAN mrežama.
+*Mehanizam procena[sic] i oglašavanja vremena zauzeća medijuma u bežičnim LAN mrežama.
+Mehanizam koji obezbeđuje preuzimanje korisnika sa jednog Access Point uređaja na drugi bez gubitka WLAN veze.
+Skup informacija koje se prenose prilikom učlanjivanja u WLAN mrežu.
+Mehanizam procene i oglašavanja vremena zauzeća medijuma kod Ethernet kolizionih domena.
+
+QUESTION: Koja je uloga Access Point uređaja u WLAN mreži?
+TYPE: single
+Access Point uređaj služi samo za prenos potvrda prijema u WLAN mreži.
+Access Point uređaj služi samo za kontrolne funkcije u mreži, kao što je učlanjivanje i raskidanje veze.
+*Access Point uređaj prenosi sve okvire u WLAN mreži.
+Access Point uređaj prenosi samo okvire koje izlaze iz WLAN mreže.
+
+QUESTION: Šta je tačno od sledećih tvrdnji vezanih za CSMA/CD algoritam?
+TYPE: multiple
+Algoritam radi samo za dva direktno povezana uređaja.
+Algoritam sprečava da dođe do kolizije.
+Algoritam prepoznaje koliziju i uspeva da rekonstruiše okvire koji učestvuju u koliziji.
+*Uređaji čiji su okviri prouzrokovali koliziju čekaju slučajno izabrani vremenski interval i reemituju okvire.
+Uređaji će neograničeno pokušavati da šalju isti okvir ukoliko dolazi do učestale kolizije.
+*Algoritam dozvoljava koliziju, ali definiše kako se ona prepoznaje i razrešava.
+
+QUESTION: Šta je tačno za WLAN mreže?
+TYPE: single
+*Uređaji povezani na Access Point u jednoj WLAN mreži koriste istu frekvenciju.
+Uređaji u jednoj WLAN mreži koriste jednu frekvenciju za slanje, a drugu za prijem podataka.
+Uređaji u jednoj WLAN mreži koriste različite frekvencije da bi mogli međusobno da komuniciraju.
+
+QUESTION: Kako se detektuje kolizija, ako se ona javi u WLAN mrežama?
+TYPE: single
+*Izostankom poruke koja potvrđuje prijem okvira.
+Emituje se posebna poruka po drugom (kontrolnom) kanalu.
+Kolizija se ne može detektovati, ved se izbegava.
+Kolizija ne može da se javi u WLAN mrežama.
+JAM signal se emituje od strane Access Point uređaja.
+
+QUESTION: Koji uređaj je potrebno obezbediti na strani korisnika kada se koristi digitalna serijska veza?
+TYPE: single
+*CSU/DSU uređaj
+Voice-band modem
+DSL modem
+Digitalni modem
+Kablovski modem
+
+QUESTION: Šta je tačno za NCP (Network Control Protocol) podsloj PPP protokola?
+TYPE: single
+Ništa od ponuđenog.
+Služi za ostvarivanje opcionih funkcija PPP protokola
+*Za svaki protokol višeg nivoa postoji posebna NCP instanca
+Služi za uspostavljanje PPP veze
+Služi za logičku realizaciju PPP protokola
+
+QUESTION: Multilink opcija podrazumeva povezivanje dva uređaja sa dve nezavisne PPP veze, po jedna u svakom smeru.
+TYPE: truefalse
+ANSWER: FALSE
+
+QUESTION: (Septembar 2021.) Multilink opcija PPP protokola omogućava povezivanje jednog uređaja sa više udaljenih uređaja.
+TYPE: truefalse
+ANSWER: FALSE
+
+QUESTION: Na jednom habu se može definisanti više VLAN-a koji će nezavisno da rade.
+TYPE: truefalse
+ANSWER: FALSE
+
+QUESTION: PPP protokol prenosi podatke IP nivoa.
+TYPE: truefalse
+ANSWER: FALSE
+
+QUESTION: PPP protokol sadrži mehanizam za detekciju greške na nivou svakog okvira.
+TYPE: truefalse
+ANSWER: FALSE
+
+QUESTION: PPP veza se u potpunosti raskida kada se zatvori IPCP sesija na nivou NCP podsloja.
+TYPE: truefalse
+ANSWER: FALSE
+
+QUESTION: Multilink opcija se odnosi na povezivanje dva uređaja preko više među-uređaja i linkova u nizu.
+TYPE: truefalse
+ANSWER: FALSE
+
+QUESTION: (April 2023.) Svaki paket PPP protokola sadrži informacije trećeg sloja.
+TYPE: truefalse
+ANSWER: FALSE
+
+QUESTION: Šta se sadrži u Data delu PPP paketa?
+TYPE: single
+WLAN zaglavlje
+IP zaglavlje
+*Zaglavlje 3. sloja
+Zaglavlje 2. sloja
+Data ne postoji

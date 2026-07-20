@@ -1,0 +1,814 @@
+TITLE: Računarske mreže 1 — IP sloj do Link State (mrežni sloj)
+
+QUESTION: Fragmentirani IP paket se rekonstruiše (spaja)?
+TYPE: single
+Na L2 sloju prvog rutera na putu koji može da propusti originalnu veličinu paketa.
+Na aplikativnom sloju odredišnog uređaja.
+Na IP sloju prvog sledećeg rutera.
+Na IP sloju prvog rutera na putu koji može da propusti originalnu veličinu paketa.
+*Na IP sloju odredišnog uređaja.
+Na L2 sloju odredišnog uređaja.
+
+QUESTION: Fragmentirani IP paket se?
+TYPE: single
+Može ponovo fragmentirati, samo ako je resetovan more-fragment flag.
+*Može ponovo fragmentirati.
+Može ponovo fragmentirati, samo ako je setovan more-fragment flag.
+Ne može ponovo fragmentirati.
+
+QUESTION: Kada nastaju uslovi za fragmentaciju IP paketa?
+TYPE: single
+Prilikom load-balancinga.
+Kada paket treba da prođe kroz interfejs rutera malog kapaciteta (bitske brzine).
+Kod slanja broadkast paketa.
+*Kada je IP paket veći od MTU vrednosti.
+
+QUESTION: Kako se prepoznaje IP paket koji je nastao fragmentacijom?
+TYPE: single
+Ako polje 'fragment offset' ima vrednost nula.
+Ako su i 'more fragment flag' i 'fragment offset' polja različita od nule.
+*Ako je barem jedno od polja 'more fragment flag' i 'fragment offset' različito od nule.
+Ako je polje 'fragment offset' različito od nule.
+Ako je polje 'more fragment flag' različito od nule.
+Ako barem jedno od polja 'more fragment flag' i 'fragment offset' ima vrednost nula.
+Ako polje 'more fragment flag' ima vrednost nula.
+
+QUESTION: Kako se realizuje komanda ping?
+TYPE: single
+Prenošenjem ICMP poruke u Layer 2 okviru.
+Prenošenjem ICMP poruke kroz route update poruke.
+Prenošenjem ICMP poruke u na brodkast adresu.
+Prenošenjem ICMP poruke na multikast adresu.
+*Prenošenjem ICMP poruke u Layer 3 paketu.
+
+QUESTION: Koja polja IP zaglavlja kod fragmentiranih paketa imaju iste vrednosti kao i kod originalnog IP paketa?
+TYPE: multiple
+*Identifikacija paketa.
+*Don't fragment flag.
+Fragment offset.
+MAC adresa izvorišta.
+More fragment flag.
+MAC adresa odredišta.
+*IP adresa izvorišta.
+
+QUESTION: Koje su karakteristike IP protokola?
+TYPE: multiple
+IP paketi se prenose do odredišta u istom redosledu.
+Svaki primeljeni paket se potvrđuje ICMP paketom.
+*Redosled pristiglih IP paketa ne mora da bude isti kao i redosled po kome su poslati.
+*Format IP paketa ne zavisi od protokola drugog nivoa.
+Svaki primeljeni paket se potvrđuje novim IP paketom.
+*Prosleđivanje IP paketa do odredišta nije garantovano.
+
+QUESTION: Šta je tačno za fragmentaciju IP paketa?
+TYPE: single
+Fragmentirani paketi se nezavisno prenose do različitih odredišta.
+Fragmentirani paketi se prenose po istom putu do istog odredišta.
+Predstavlja deljenje jednog IP paketa kod load-balancing-a.
+Fragmentirani paketi nisu IP paketi.
+*Fragmentirani paketi se nezavisno prenose do istog odredišta.
+
+QUESTION: Šta od ponuđenog važi za brodkast domen?
+TYPE: multiple
+*Brodkast domen se ne završava na svičevima.
+*Brodkast domen se završava na ruterima.
+Brodkast domen se završava na svičevima.
+Brodkast domen se ne završava na ruterima.
+
+QUESTION: Šta označava vrednost 120 u polju 'fragment offset'?
+TYPE: single
+*Data polje sadrži podatke koji počinju od 960. bajta podataka originalnog IP paketa.
+Data polje sadrži 120 bajtova podataka originalnog IP paketa.
+Data polje sadrži 960 bajtova podataka originalnog IP paketa.
+IP paket predstavlja 120. paket u niz.
+Data polje sadrži podatke koji počinju od 120. bajta podataka originalnog IP paketa.
+
+QUESTION: Šta predstavlja rezultat komande traceroute u slučaju kada nisu iste putanje odlaznog i dolaznog saobraćaja?
+TYPE: single
+Greška, jer se ne dobija konzistentan rezultat.
+Spisak rutera na putu od posmatranog uređaja do odredišta i nazad po drugoj putanji ('round trip path').
+Spisak rutera na putu od odredišta do posmatranog uređaja.
+*Spisak rutera na putu od posmatranog uređaja do odredišta.
+
+QUESTION: Šte radi uređaj kada treba da pošalje IP paket drugom uređaju na istoj LAN mreži, a nema njegovu MAC adresu?
+TYPE: single
+IP paket se šalje default gateway uređaju koji će da prosledi IP paket do odredišta.
+IP paket se odbacuje.
+IP paket se enkapsulira u ARP paket.
+*Šalje ARP upit (ARP request).
+
+QUESTION: Koja je poslednja IP adresa koja se može dodeliti računaru u mreži gde default gateway ima adresu 122.42.145.73 i masku 255.255.252.0 (uneti u obliku "a.b.c.d/n")?
+TYPE: fill
+ANSWER: 122.42.147.254/22
+
+QUESTION: Koja je poslednja IP adresa koja se može dodeliti računaru u mreži gde default gateway ima adresu 122.42.145.73 i masku 255.255.255.192 (uneti u obliku "a.b.c.d/n")?
+TYPE: fill
+ANSWER: 122.42.145.126/26
+
+QUESTION: Koja je poslednja IP adresa koja se može dodeliti računaru u mreži gde default gateway ima adresu 122.42.145.73 i masku 255.255.255.224 (uneti u obliku "a.b.c.d/n")?
+TYPE: fill
+ANSWER: 122.42.145.94/27
+
+QUESTION: Koja je poslednja IP adresa koja se može dodeliti računaru u mreži gde default gateway ima adresu 122.42.145.73 i masku 255.255.255.240 (uneti u obliku "a.b.c.d/n")?
+TYPE: fill
+ANSWER: 122.42.145.78/28
+
+QUESTION: Koja je poslednja IP adresa koja se može dodeliti računaru u mreži gde default gateway ima adresu 136.92.18.169 i masku 255.255.252.0 (uneti u obliku "a.b.c.d/n")?
+TYPE: fill
+ANSWER: 136.92.19.254/22
+
+QUESTION: Koja je poslednja IP adresa koja se može dodeliti računaru u mreži gde default gateway ima adresu 136.92.18.169 i masku 255.255.255.192 (uneti u obliku "a.b.c.d/n")?
+TYPE: fill
+ANSWER: 136.92.18.190/26
+
+QUESTION: Koja je poslednja IP adresa koja se može dodeliti računaru u mreži gde default gateway ima adresu 136.92.18.169 i masku 255.255.255.224 (uneti u obliku "a.b.c.d/n")?
+TYPE: fill
+ANSWER: 136.92.18.190/27
+
+QUESTION: Koja je poslednja IP adresa koja se može dodeliti računaru u mreži gde default gateway ima adresu 136.92.18.169 i masku 255.255.255.240 (uneti u obliku "a.b.c.d/n")?
+TYPE: fill
+ANSWER: 136.92.18.174/28
+
+QUESTION: Koja je najmanja raspoloživa host adresa u mreži gde postoji adresa 10.20.30.40/21?
+TYPE: fill
+ANSWER: 10.20.24.1
+
+QUESTION: Koja je najmanja raspoloživa host adresa u mreži gde postoji adresa 110.120.130.140/26?
+TYPE: fill
+ANSWER: 110.120.130.129
+
+QUESTION: Koja je najmanja raspoloživa host adresa u mreži gde postoji adresa 140.150.160.170/27?
+TYPE: fill
+ANSWER: 140.150.160.161
+
+QUESTION: Koja je najmanja raspoloživa host adresa u mreži gde postoji adresa 40.50.60.70/28?
+TYPE: fill
+ANSWER: 40.50.60.65
+
+QUESTION: Koja je najveća raspoloživa host adresa u mreži gde postoji adresa 10.20.30.40/21?
+TYPE: fill
+ANSWER: 10.20.31.254
+
+QUESTION: Koja je najveća raspoloživa host adresa u mreži gde postoji adresa 110.120.130.140/26?
+TYPE: fill
+ANSWER: 110.120.130.190
+
+QUESTION: Koja je najveća raspoloživa host adresa u mreži gde postoji adresa 140.150.160.170/27?
+TYPE: fill
+ANSWER: 140.150.160.190
+
+QUESTION: Koja je najveća raspoloživa host adresa u mreži gde postoji adresa 40.50.60.70/28?
+TYPE: fill
+ANSWER: 40.50.60.78
+
+QUESTION: Koja je poslednja host IP adresa raspoloživa u mreži 10.20.30.0/24 (uneti u oznaci a.b.c.d./n)?
+TYPE: fill
+ANSWER: 10.20.30.254/24
+
+QUESTION: (Jun 2018.) Da li u nekoj LAN mreži adresa default gateway i nekog računara mogu da pripadaju različitim mrežnim adresama?
+TYPE: single
+Da
+*Ne
+
+QUESTION: IP protokol obaveštava pošiljaoca za svaki isporučeni IP paket.
+TYPE: truefalse
+ANSWER: FALSE
+
+QUESTION: IP protokol ne zavisi od fizičkog medijuma.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Vreme isporuke svakog IP paketa je garantovano.
+TYPE: truefalse
+ANSWER: FALSE
+
+QUESTION: Na osnovu čega ruter zna kojem originalnom IP paketu pripada fragmentirani IP paket?
+TYPE: single
+More Fragment flega.
+Fragment Offset polja.
+More Fragment flega i Fragment Offset polja.
+*Ništa od ponuđenog.
+
+QUESTION: Vodeći bitovi IP adrese klase B su 10.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Koliko host IP adresa je raspoloživo u mreži 10.20.30.0/24?
+TYPE: fill
+ANSWER: 254
+
+QUESTION: Šta nam kazuje rezultat komande traceroute?
+TYPE: single
+Spisak rutera na putu od odredišta do našeg uređaja.
+*Spisak rutera na putu do odredišta.
+Spisak ruta na posmatranom uređaju.
+Ruting tabelu na ruterima.
+
+QUESTION: (Septembar 2021.) Čemu služe ruting protokoli?
+TYPE: single
+Da se podrže višestruke putanje.
+*Da ruteri nauče gde se nalazi koja IP mreža.
+Da rutiraju pakete.
+Za nalaženje default gateway uređaja.
+
+QUESTION: Kako ruting protokoli tretiraju više puteva do neke mreže?
+TYPE: single
+Koriste samo najoptimalnije puteve po određenoj metrici, a ostale označavaju kao unreachable u ruting tabeli.
+Sprovode load balancing po svim putanjama srazmerno vrednosti metrike.
+Koriste samo najoptimalnije puteve po određenoj metrici, a sve upisuju u ruting tabelu.
+*Koriste samo najoptimalnije puteve po određenoj metrici, a ostale odbacuju.
+
+QUESTION: Koje osnovne podatke sadrži svaki red u ruting tabeli?
+TYPE: multiple
+*Mrežna IP adresa sa maskom.
+Vreme upisa u ruting tabelu.
+*IP adresa susednog rutera na zajedničkom linku.
+Mrežna IP adresa bez maske.
+Default gateway za pripadajuću mrežnu adresu.
+MAC adresa susednog rutera na zajedničkom linku.
+Default ruta.
+
+QUESTION: Šta je od ponuđenog tačno za classless ruting protokole?
+TYPE: single
+Ne koriste metriku.
+Ne podržavaju default rute.
+Ne prenose mreže koje pripadaju A, B i C klasama.
+Ne podržavaju load balancing.
+Ne podržavaju mrežne adrese.
+*U svojim porukama prenose IP adresu mreže i masku.
+
+QUESTION: Šta je posledica 'load balancing' osobine ruting protokola?
+TYPE: single
+Da ruting tabela može da ima više mrežnih adresa za jedan next-hop.
+Da se brzine interfejsa prilagođavaju prema intenzitetu saobraćaja.
+*Da ruting tabela može da ima više next-hop podataka za jednu mrežnu adresu.
+Da se paketi rutiraju po različitim putevima u odlaznom u odnosu na dolazni smer.
+Da ruting tabela ima više next-hop podataka za sve mrežne adrese.
+
+QUESTION: Šta je tačno od sledećeg vezano za protokole rutiranja?
+TYPE: single
+Protokoli rutiranja služe za rutiranje poruka u ruterima.
+*Protokoli rutiranja služe da na ruterima kreiraju ruting tabele.
+
+QUESTION: Šta je tačno za 'Default gateway'?
+TYPE: single
+Ima adresu sa svim bitskim jedinicama u host delu.
+Nema IP adresu.
+Ima adresu 0.0.0.0.
+*Ima regularnu IP adresu.
+Ima adresu sa svim bitskim nulama u host delu.
+
+QUESTION: Šta je tačno za Next-hop podatak u ruting tabeli?
+TYPE: single
+Predstavlja redni broj posmatranog rutera na putu prema datoj mreži.
+*Predstavlja IP adresu interfejsa narednog rutera na putu prema datoj mreži.
+Predstavlja IP adresu izlaznog interfejsa na posmatranom ruteru na putu prema datoj mreži.
+Postoji samo kod ruting protokola koji za metriku imaju 'hop-count'.
+Predstavlja redni broj narednog rutera na putu prema datoj mreži.
+
+QUESTION: (Avgust 2021.) Šta je tačno za proces rutiranja na osnou[sic] ruting tabele posmatrano sa aspekta jednog rutera?
+TYPE: multiple
+Paketi se uvek prenose do odredišta u istom poretku.
+Gleda se izvorišna IP adresa u zaglavlju paketa.
+*Ne utiče na saobraćaj koji dolazi u posmatrani ruter.
+*Gleda se odredišna IP adresa u zaglavlju paketa.
+Saobraćaj se uvek prenosi po istom putu u oba smera.
+Ne utiče na saobraćaj koji odlazi iz rutera.
+
+QUESTION: Šta je tačno za ruting tabelu?
+TYPE: single
+Utiče i na pakete koji se primaju na ulazne interfejse i na pakete koji se prosleđuju na izlazne interfejse.
+Utiče na pakete koji se primaju na ulazne interfejse.
+Ne utiču na prosleđivanje paketa, ved na rad ruting protokola.
+*Utiče na pakete koji se prosleđuju na izlazne interfejse.
+
+QUESTION: Šta od ponuđenog ruter radi sa next-hop adresom iz ruting tabele?
+TYPE: single
+Sve pakete prosleđuje na tu adresu, nezavisno od mrežne adrese.
+Postavlja je na mesto odredišne IP adrese u IP paketu.
+*Za nju traži podatak u ARP tabeli.
+Postavlja je na mesto odredišne MAC adrese u Ethernet okviru.
+Postavlja je u ruting update koji oglašava susednim ruterima.
+
+QUESTION: Šta radi ruter kada do neke mreže odredi dve rute koje imaju istu administrativnu distancu, a različitu vrednosti metrike?
+TYPE: single
+*U ruting tabelu se samo upisuje ruta sa boljom metrikom, dok se druga ruta odbacuje.
+U ruting tabelu se upisuju obe rute, i obe se koriste za oglašavanje drugim ruterima.
+U ruting tabelu se upisuju obe rute, ali se drugim ruterima oglašava samo bolja ruta.
+U ruting tabelu ne se upisuju ni jedna ruta.
+U ruting tabelu se upisuje ruta sa boljom metrikom, a obe se koriste za oglašavanje drugim ruterima.
+
+QUESTION: Šta radi ruter kada do neke mreže odredi dve rute koje imaju različite administrativne distance?
+TYPE: multiple
+U ruting tabelu se upisuju obe rute, ali se drugim ruterima oglašava samo ruta sa manjom administrativnom distancom.
+Šalje se ICMP poruka 'route mismatch'
+U ruting tabelu se upisuju obe rute, i obe se koriste za oglašavanje drugim ruterima.
+U ruting tabelu se upisuje samo ruta sa vedom administrativnom distancom, a druga ruta se odbacuje.
+*U ruting tabelu se upisuje samo ruta sa manjom administrativnom distancom, a druga ruta se odbacuje.
+
+QUESTION: Šta radi ruter kada do određene mreže detektuje dve putanje (rute) naučene preko dva različita ruting protokola?
+TYPE: single
+U ruting tabelu upisuje obe rute, ali koristi samo bolju rutu.
+U ruting tabelu upisuje samo rutu sa boljom metrikom.
+U ruting tabelu upisuje obe rute i obe ih koristi.
+U ruting tabelu upisuje samo rutu naučenu od ruting protokola sa većom administrativnom distancom.
+*U ruting tabelu upisuje samo rutu naučenu od ruting protokola sa manjom administrativnom distancom.
+
+QUESTION: Šta radi ruter kada ima rutu ka nekoj mreži naučenu i preko RIP i preko OSPF protokola?
+TYPE: single
+*U ruting tabelu upisuje samo OSPF rutu.
+U ruting tabelu upisuje rutu sa boljom metrikom.
+U RIP domenu koristi RIP rutu, a u OSPF domenu koristi OSPF rutu.
+U ruting tabelu upisuje samo RIP rutu
+U ruting tabelu upisu obe rute.
+
+QUESTION: Šta se dešava kada ruter ne zna na koji izlazni interfejs da prosledi IP poruku?
+TYPE: single
+IP poruka se šalje susednom ruteru koji ima najbolju metriku.
+*Šalje se 'Network unreachable' ICMP poruka.
+IP poruka se šalje na sve izlazne interfejse.
+Šalje se 'Host unreachable' ICMP poruka.
+IP poruka se vraća pošiljaocu.
+IP poruka se šalje na proizvoljni izlazni interfejs.
+
+QUESTION: Šta se radi sa IP paketom kada odredišna adresa može da se upari sa više ruta u ruting tabeli?
+TYPE: single
+Bira se ruta sa mrežom koja ima najmanje bitskih jedinica u masci.
+Ova situacija ne može da se desi.
+Koriste se sve rute.
+Paket se odbacuje.
+Bira se ruta sa najboljom metrikom.
+Bira se ruta sa najboljom administrativnom distancom.
+*Bira se ruta sa mrežom koja ima najviše bitskih jedinica u masci.
+
+QUESTION: Šta važi za 'distance-vector' (DV) i 'Link-state' (LS) ruting protokole kada do određene mreže postoji više putanja sa različitim vrednostima metrike?
+TYPE: single
+I DV i LS u ruting tabelu upisuju najboju rutu, a drugim ruterima oglašavanju sve rute.
+I DV i LS u ruting tabelu upisuju sve rute, a koriste samo najbolju.
+I DV i LS u ruting tabelu upisuju sve rute i koriste ih za load-balancing.
+LS u ruting tabelu upisuje samo najbolju rutu, a DV sve rute.
+*I DV i LS u ruting tabelu upisuju samo najbolju rutu.
+DV u ruting tabelu upisuje samo najbolju rutu, a LS sve rute.
+
+QUESTION: Šta važi za classless ruting protokole?
+TYPE: multiple
+Ne podržavaju se IP adrese koje pripadaju klasama A, B i C.
+Ne podržava se load-balancing
+Maska se ne prenosi kao podatak u routing-update porukama.
+*Može se koristiti različita dužina maski za različite podmreže.
+*Maska se prenosi kao podatak u routing-update porukama.
+Koriste se samo IP mreže koje pripadaju 'more-specific' klasama.
+
+QUESTION: Šta važi za statičke rute?
+TYPE: single
+*Statičke rute imaju vedi prioritet od dinamičkih ruta.
+Statičke rute predstavljaju default rute.
+Statičke rute nemaju next-hop podatke.
+Statičke rute se koriste samo na default gateway-u.
+Statičke rute imaju manji prioritet od dinamičkih ruta.
+
+QUESTION: (Avgust 2021.) Šta je od ponuđenog tačno za classful ruting protokole?
+TYPE: multiple
+Podržavaju samo maske dužine 8, 16 ili 24 bita.
+*U svojim porukama prenose IP adresu mreže, ali ne masku.
+U svojim porukama prenose IP adresu mreže i masku.
+Koriste klase A, B ili C umesto metrike.
+Ne koriste metriku.
+Ne podržavaju default rute.
+
+QUESTION: (Avgust 2021.) Na koji next-hop će da se šalje paket pri komunikaciji od 192.168.10.20 do 172.16.0.10, za sledeći sadržaj ruting tabele:
+CODE:
+172.16.0.0/16, next-hop 4.4.4.4, RIP ruta
+172.16.0.0/20, next-hop 5.5.5.5, OSPF ruta
+172.16.0.0/24, next-hop 6.6.6.6, RIP ruta
+0.0.0.0/0, next-hop 7.7.7.7, statička ruta
+ENDCODE
+TYPE: single
+7.7.7.7
+*6.6.6.6
+172.16.0.0
+172.16.0.1
+4.4.4.4
+5.5.5.5
+
+QUESTION: Agregacija IP mreža ne utiče na veličinu ruting tabela.
+TYPE: truefalse
+ANSWER: FALSE
+
+QUESTION: Interni protokoli rutiranja se baziraju na statičkim (internim) rutama.
+TYPE: truefalse
+ANSWER: FALSE
+
+QUESTION: Šta se radi kada ruter u ruting tabeli ima više mrežnih adresa sa različitim maskama, kojima pripada odredišna adresa iz IP paketa?
+TYPE: single
+*Bira se mreža sa najdužom maskom.
+Bira se mreža sa najkraćom maskom.
+Paket se odbacuje.
+Ova situacija ne može da se desi.
+Koriste se putanje ka svim mrežama (load balancing).
+
+QUESTION: Šta se po pravilu dešava sa izvorišnom i odredišnom IP adresom u zaglavlju IP paketa prilikom njegovog rutiranja kroz mrežu?
+TYPE: single
+*Ne menja se ni odredišna ni izvorišna IP adresa.
+Ne menja se samo odredišna IP adresa, dok se izvorišna IP adresa menja i u svakom koraku uzima vrednost poslednjeg rutera koji ju je poslao.
+Ne menja se samo izvorišna IP adresa, dok se odredišna IP adresa menja i u svakom koraku uzima vrednost sledećeg rutera kome se šalje (next-hop).
+
+QUESTION: IP paketi se nezavisno rutiraju kroz mrežu u oba smera.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Jedna LAN mreža može biti povezana na više rutera.
+TYPE: truefalse
+ANSWER: TRUE
+
+QUESTION: Ko odgovara na ARP request poruku?
+TYPE: single
+Samo uređaji čija se MAC adresa navodi u ARP paketu.
+Svi uređaji u broadcast domenu.
+*Samo uređaj čija se IP adresa navodi u ARP paketu.
+Samo default-gateway.
+
+QUESTION: Ko sprovodi ARP protokol?
+TYPE: single
+Samo hostovi u LAN mreži.
+*Svi IP uređaji u LAN mreži.
+Samo default gateway u LAN mreži.
+Samo wireless uređaji u LAN mreži.
+
+QUESTION: Na koju adresu se šalje ARP reply paket?
+TYPE: single
+Na broadkast IP adresu.
+Na MAC adresu default gateway-a.
+Na broadkast MAC adresu.
+*Na MAC adresu uređaja koji je poslao ARP request paket.
+Na IP adresu default gateway-a.
+Na IP adresu uređaja koji je poslao ARP request paket.
+
+QUESTION: Šta radi ruter sa podatkom koji dobije iz ARP keša?
+TYPE: single
+Koristi za next-hop prilikom rutiranja paketa.
+Postavlja na mesto izvorišne MAC adrese u Ethernet okviru.
+Postavlja na mesto odredišne IP adrese u IP zaglavlju.
+*Postavlja na mesto odredišne MAC adrese u Ethernet okviru.
+Postavlja na mesto izvorišne IP adrese u IP zaglavlju.
+
+QUESTION: U šta se enakapsuliraju ARP paketi?
+TYPE: single
+*U Ethernet okvire.
+U PPP okvire.
+U routing update pakete.
+Ne enkapsuliraju se, jer ARP protokol radi na nivou.
+U IP pakete.
+
+QUESTION: Uloga ARP protokola je?
+TYPE: single
+*Da na osnovu IP adrese pronađe MAC adresu odredišnog uređaja.
+Da na osnovu MAC adrese pronađe IP adresu odredišnog uređaja.
+Da pronađe MAC adresu default gateway-a.
+Da na uređaju postavi IP adresu na osnovu njegove MAC adrese.
+Da na uređaju postavi MAC adresu na osnovu njegove IP adrese.
+
+QUESTION: Ko šalje ICMP redirect poruku?
+TYPE: single
+Bilo koji uređaj na LAN mreži kada prepozna da paketi nisu namenjeni za njega.
+Ruter kada za određeni paket treba da koristi default rutu.
+*Ruter kada prepozna da next-hop pri rutiranju paketa pripada istoj mreži kao i interfejs na koji je taj paket pristigao.
+Ruter kada radi load-balancing.
+
+QUESTION: Koja ICMP poruka ne označava grešku u komunikaciji između izvorišta i odredišta?
+TYPE: single
+More fragment
+Host is found
+Route is symetric
+*Redirect
+Application is found
+Destination Unreachable
+Can’t fragment
+Default route is used
+Default gateway is used
+Load balancing
+
+QUESTION: Koja ICMP poruka se šalje kada ruter prepozna da next-hop pripada istoj mreži kao i interfejs na koji je paket došao?
+TYPE: single
+Network unreachable.
+*Redirect.
+Host unreachable.
+Time Exceeded.
+Protocol unreachable.
+Port unreachable.
+Echo Reply.
+
+QUESTION: Koja ICMP poruka se šalje kada uređaj ne dobije odgovor na ARP zahtev?
+TYPE: single
+Echo Reply.
+Protocol unreachable.
+Network unreachable.
+Port unreachable.
+Time Exceeded.
+*Host unreachable.
+Redirect.
+
+QUESTION: Koje ICMP poruke dobija uređaj koji je startovao traceroute komandu?
+TYPE: single
+Echo Request/Echo Reply
+Hop Exceeded
+*Time Exceeded
+Can’t fragment (ne može da se fragmentira)
+Destination unreachable
+
+QUESTION: Koji uređaji mogu da primaju ICMP poruke?
+TYPE: single
+Samo ruteri, računari i svičevi.
+Samo ruteri.
+*Svi IP uređaji na mreži.
+Samo ruteri i računari.
+
+QUESTION: Koji uređaji mogu da šalju ICMP poruke?
+TYPE: single
+Samo ruteri.
+Samo ruteri i računari.
+Samo ruteri, računari i svičevi.
+*Svi IP uređaji na mreži.
+
+QUESTION: Kome se šalje ICMP redirect poruka?
+TYPE: single
+Računaru kome je namenjen primljeni IP paket.
+Ruteru koji ima bolju rutu za primljeni IP paket.
+*Uređaju koji je poslao IP paket.
+Ruteru na istoj LAN mreži koji predstavlja bolji izlaz za primljeni IP paket.
+
+QUESTION: Šta je tačno za ICMP poruke?
+TYPE: single
+Prenose se enkapsuliranjem u okvire na nivou.
+Prenose se enkapsuliranjem u pakete ruting protokola.
+Prenose se kao aplikativni podaci enkapsuliranjem u paketa 4. nivoa.
+*Prenose se enkapsuliranjem u IP poruke.
+Prenose se nezavisno od IP protokola.
+
+QUESTION: Šta označava ICMP poruka 'Protocol unreachable'?
+TYPE: single
+*Odredišni uređaj nema podršku za protokol čiji je identifikator upisan u zaglavlje IP paketa.
+Na ruteru nije konfigurisan odgovarajući ruting protokol.
+Ruter na putu do odredišta nema podršku za protokol čiji je identifikator upisan u zaglavlje IP paketa.
+IP protokol na odredišnom uređaju nije dostupan.
+
+QUESTION: Šta označava ICMP poruka 'Time Exceeded'?
+TYPE: single
+Istekla je validnost rute u ruting tabeli.
+*IP paket nije isporučen na odredište.
+Vreme je za novi ruting update.
+Istekao je Hold down interval.
+
+QUESTION: Šta se može zaključiti kada uređaj primi ICMP poruku 'Echo request'?
+TYPE: single
+Postoji uspešna dvosmerna IP komunikacija između uređaja koji je poslao poruku i uređaja koji je primio poruku.
+Postoji greška u komunikaciji na IP nivou, pa se zahteva novi IP paket.
+*Postoji uspešna jednosmerna IP komunikacija u smeru od uređaja koji je poslao poruku do uređaja koji je primio poruku.
+Postoji uspešna jednosmerna IP komunikacija u smeru od uređaja koji je primio poruku do uređaja koji je poslao poruku.
+Došlo je do kruženja paketa u petlji na nekom delu puta do odredišta.
+
+QUESTION: (Septembar 2021.) Kome sve mogu da se šalju ICMP poruke?
+TYPE: single
+*Svim IP uređajima u mreži.
+Samo ruterima.
+Svim uređajima u mreži, nezavisno da li podržavaju IP protokol.
+Samo hostovima (krajnjim uređajima).
+
+QUESTION: Koji uređaji primaju ICMP Time Exceeded poruku?
+TYPE: multiple
+Odredišni uređaj.
+Prethodni ruter na putanju do odredišta.
+*Izvorišni host uređaj.
+Svi uređaji na mreži.
+
+QUESTION: Koji uređaji šalju ICMP Time Exceeded poruke?
+TYPE: multiple
+*Ruteri.
+Svičevi.
+Hostovi.
+Svi mrežni uređaji.
+
+QUESTION: Kada se šalje ICMP poruka 'Time Exceeded'?
+TYPE: single
+Kada itekne tajmer kod reasembliranja fragmentiranih paketa.
+*Kada vrednost polja TTL (Time to live) postane nula.
+Kada istekne time-out period.
+Kada istekne hold-down tajmer.
+Kada aplikacija na odredištu ne dobije očekivane podatke.
+Kada izostane 4 routing update paketa.
+
+QUESTION: Da li RIP u verziji 1 koristi metriku?
+TYPE: single
+Da, samo kada se koristi load-balancing.
+Ne, jer je to classless ruting protokol.
+*Da.
+
+QUESTION: Da li RIP u verziji 2 podržava load-balancing?
+TYPE: single
+*Da, samo kada je ista metrika za više ruta.
+Da, samo ako se koristi redistribucija ruta.
+Ne.
+Da, samo ako se koriste statičke rute.
+Da, za svaku mrežu koja ima više ruta.
+
+QUESTION: Kako se naziva mehanizam oglašavanja rute neposredno po detektovanju njene promene?
+TYPE: single
+Time to Live
+Holddown Timer
+Split horizon
+Route Poisoning
+*Triggered update
+
+QUESTION: Kako se naziva mehanizam zaštite od ruting petlji kojim se oglašava ruta sa maksimalnom metrikom?
+TYPE: single
+Triggered update
+Split horizon
+Time to Live
+*Route Poisoning
+Holddown Timer
+
+QUESTION: (Avgust 2021.) Koji od navedenih mehanizama sprečava oglašavanje ruta prema ruteru od kojeg je dobio te rute?
+TYPE: single
+Route Poisoning
+Holddown Timer
+*Split horizon
+Time to Live
+Triggered update
+
+QUESTION: Kako se naziva pojava koda se hop-count metrika povećava pri svakom ruting update-u?
+TYPE: single
+Split horizon
+Holddown Timer
+Time to Live
+*Count-to-Infinity
+Route Poisoning
+Triggered update
+
+QUESTION: Šta je od slededeg tačno za distance-vector ruting protokole?
+TYPE: multiple
+*Dozvoljavaju različite putanje u jednom smeru između uređaja A i B.
+Sprečavaju različite putanje u jednom smeru između uređaja A i B.
+*Dozvoljavaju različite putanje u odlaznom i dolaznom smeru između uređaja A i B.
+Sprečavaju različite putanje u odlaznom i dolaznom smeru između uređaja A i B (loop).
+
+QUESTION: Šta rade distance-vector ruting protokoli u stacionarnom stanju kada nema promena u mreži?
+TYPE: single
+*Periodično prenose sve routing update poruke.
+Oglašavaju samo triggered update poruke.
+Ne rade ništa, jer nema promena u mreži.
+Nakon time-out perioda uklanjaju rute iz ruting tabele.
+Periodično prenose samo najnovije routing update poruke koje ukazuju na promene u mreži.
+
+QUESTION: (Septembar 2021.) Kada će da se javi "flooding" kod OSPF protokola rutiranja?
+TYPE: single
+Kada ruter vidi svoj ID u hello poruci dobijenoj od drugog rutera.
+*Kada se na interfejs rutera poveže LAN mreža sa korisničkim računarima.
+Kada ruter ne može da uspostavi susedstvo sa drugim ruterom.
+Kada ruter za određeni paket nema rutu u ruting tabeli.
+
+QUESTION: (Septembar 2021.) Kada se balansira saobraćaj na ruteru koji koristi OSPF ruting protokol?
+TYPE: single
+Kada do neke mreže postoji isti broj rutera po različitim putevima.
+Kada rute ka nekoj mreži imaju istu administrativnu distancu.
+Kada je jedan link preopterećen, a postoji fizička veza i preko drugog puta.
+OSPF ne podržava load balancing.
+*Kada u ruting tabeli za jednu mrežu postoji više next-hop adresa.
+Kada se koristi difoltna ruta.
+
+QUESTION: (Avgust 2021.) Koje vrste LSA iz centralne oblasti mogu da UĐU u običnu perifernu OSPF oblasti[sic]?
+TYPE: multiple
+*External link
+Router link
+Network link
+Internal link
+*Summary link
+Point-to-Point link
+Ništa od ponuđenog.
+
+QUESTION: Koje vrste LSA iz centralne oblasti mogu da UĐU u OSPF oblasti tipa "stub area"?
+TYPE: multiple
+*Summary link
+Ništa od ponuđenog.
+Network link
+Internal link
+Router link
+External link
+Point-to-Point link
+
+QUESTION: Koje vrste LSA iz centralne oblasti mogu da UĐU u OSPF oblasti tipa "totally stubby area"?
+TYPE: multiple
+Summary link
+Network link
+Internal link
+*Ništa od ponuđenog.
+External link
+Point-to-Point link
+Router link
+
+QUESTION: (Septembar 2021.) Koliko ima ostvarenih direktnih OSPF suseda (veza) u multi-access LAN mreži sa 10 OSPF rutera?
+TYPE: single
+45
+9
+0
+18
+*17
+8
+
+QUESTION: Na šta se odnosi pojam "Link-State" u OSPF terminologiji?
+TYPE: single
+Na metriku linka između dva rutera.
+Na veze (linkove) na kojima radi OSPF .
+*Na podatke o intefejsima rutera.
+Na kvalitet veze (linka) između dva rutera.
+Na stanje linka (Up ili Down).
+
+QUESTION: Šta je tačno za rutere u istoj perifernoj OSPF oblasti?
+TYPE: single
+Imaju iste ruting tabele.
+Moraju da imaju default rutu.
+*Imaju iste link-state baze podataka.
+Imaju iste metrike prema svakoj mreži u oblasti.
+
+QUESTION: (Septembar 2021.) Šta je uslov da OSPF ruter uđe u "2-way" stanje?
+TYPE: single
+Da se sa drugim ruterom usaglasi koji je ruter 'master', a koji je 'slave'.
+Da drugom ruteru pošalje Hello paket sa svojom identifikacijom (RID) u listi suseda.
+Da dobije Hello paket sa identifikacijom susednog rutera (RID) u listi suseda koje oglasi drugi ruter.
+Da sinhronizuju svoje link-state baze podataka.
+*Da dobije Hello paket sa svojom identifikacijom (RID) u listi suseda koje oglasi drugi ruter.
+
+QUESTION: Šta označava "Full" stanje kod OSPF ruting protokola?
+TYPE: single
+Da su ruteri videli svoje identifikacije u hello poruci.
+Da je pojedini link preopterećen.
+*Da su dva rutera razmenili sve relevantne podatke.
+Da je procesor rutera preopterećen.
+Da su ruteri popunili svoju memoriju.
+
+QUESTION: Šta se dešava u mreži multi-access tipa kada se priključi OSPF ruter koji ima najveću identifikaciju (RID)?
+TYPE: multiple
+Novi ruter uspostavlja 2-way stanje kao konačno stanje sa designated ruterom.
+Novi ruter uspostavlja 2-way stanje kao konačno stanje sa backup designated ruterom.
+*Novi ruter uspostavlja Full stanje kao konačno stanje sa designated ruterom.
+*Novi ruter uspostavlja Full stanje kao konačno stanje sa backup designated ruterom.
+Novi ruter uspostavlja Full stanje kao konačno stanje sa svim ruterima.
+Novi ruter uspostavlja 2-way stanje kao konačno stanje sa svim ruterima.
+
+QUESTION: Šta se dešava u OSPF mreži multi-access tipa kada se priključi ruter koji ima veći RID od BDR rutera, a manji RID od DR rutera?
+TYPE: single
+Ništa od ponuđenog.
+Novi ruter postaje DR ruter.
+Novi ruter postaje BDR ruter.
+*Novi ruter postaje DROther ruter.
+
+QUESTION: Šta se dešava u slučaju pada linka u mreži sa OSPF ruting protokolom?
+TYPE: single
+Šalje se triggered update poruka.
+*Potrebne informacije se prenose u celoj oblasti.
+Potrebne informacije se prenose samo do susednih rutera.
+Generiše se unreachable ruta.
+
+QUESTION: Šta se sprovodi u "Exchange" stanju OSPF procesa?
+TYPE: single
+Ništa od ponuđenog.
+Ruteri razmenjuju sve nedostajude podatke u link-state bazama podataka.
+Ruteri razmenjuju sadržaje link-state baze podataka.
+*Ruteri obaveštavaju jedan drugoga koje podatke imaju (razmenjuju link state database deskriptore).
+
+QUESTION: U koje poruke se enkapsuliraju OSPF poruke koje se prenose između rutera?
+TYPE: single
+U TCP poruke četvrtog nivoa.
+U UDP poruke četvrtog nivoa.
+Prenose se na aplikativnom nivou.
+*U poruke trećeg nivoa (IP).
+U poruke drugog nivoa (Ethernet, PPP...)
+
+QUESTION: (Avgust 2021.) Šta je tačno za OSPF ruting protokol
+TYPE: multiple
+Jedna IP mreža može da pripada proizvoljnom od jednoj OSPF oblasti.
+Jedna IP mreža može fizički da pripada samo jednoj OSPF oblasti.
+Jedna IP mreža može fizički da pripada jednoj OSPF oblasti, samo ako je oblast tipa "stub area".
+*Jedna IP mreža može fizički da pripada proizvoljnom broju OSPF oblasti.
+Jedna IP mreža može da fizički da pripada u dve OSPF oblasti, samo ako se odnosi na point-to-point link koji povezuje dve oblasti.
+
+QUESTION: Koje vrste LSA mogu da se nađu u običnoj perifernoj OSPF oblasti?
+TYPE: multiple
+*Router link
+*Summary link
+Global link
+*External link
+*Network link
+Anycast link
+
+QUESTION: Da li link-state protokoli koriste metriku?
+TYPE: single
+Ne, jer već poznaju kompletnu topologiju mreže.
+Da, samo kada se koristi load-balancing.
+*Da.
+
+QUESTION: Šta je tačno za "flooding" kod OSPF protokola rutiranja?
+TYPE: single
+Javlja se kada ruter ne može da uspostavi susedstvo sa drugim ruterom.
+Javlja se kada ruter za određeni paket nama rutu u ruting tabeli.
+Javlja se kada ruter vidi svoj ID u hello poruci dobijenoj od drugog rutera.
+*Javlja se prilikom povezivanja LAN mreže na ruter preko sviča.
