@@ -17,7 +17,10 @@ function parseOption(line) {
     correct = true;
     s = s.slice(1).trim();
   }
-  const labelMatch = /^[A-Za-z0-9]+[).]\s*/.exec(s);
+  // Requires at least one space after the label delimiter so real content that
+  // happens to start with digits-then-dot (an IP address like "10.0.0.0", a
+  // decimal like "2.5") isn't mistaken for a stripped list label like "A) " or "10. ".
+  const labelMatch = /^[A-Za-z0-9]+[).]\s+/.exec(s);
   if (labelMatch) s = s.slice(labelMatch[0].length);
   return { text: s.trim(), correct };
 }
